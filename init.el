@@ -1,3 +1,9 @@
+(setq gc-cons-threshold 402653184
+      gc-cons-percentage 0.6)
+(setq package-enable-at-startup nil ; don't auto-initialize!
+      ;; don't add that `custom-set-variables' block to my initl!
+      package--init-file-ensured t)
+
 (setq
  ;; key mappings
  mac-option-key-is-meta nil
@@ -61,7 +67,7 @@
 
 (use-package evil-surround
   :ensure t
-  :defer t
+  :after evil
   :config
   (global-evil-surround-mode 1))
 
@@ -75,23 +81,22 @@
 
 (use-package evil-leader
   :ensure t
-  :defer t
+  :after evil
   :config
   (evil-leader/set-leader "<SPC>")
   (global-evil-leader-mode))
 
 (use-package evil-commentary
   :ensure t
+  :after evil
   :config
   (evil-commentary-mode))
 
-(evil-leader/set-key "c" 'evil-ex-nohighlight)
 (fset 'evil-visual-update-x-selection 'ignore)
 (setq scroll-conservatively 101)
 
 (use-package projectile
   :ensure t
-  :defer t
   :config
   (projectile-mode +1)
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
@@ -100,8 +105,7 @@
   )
 
 (use-package counsel-projectile
-  :ensure t
-  :defer t
+  :after projectile evil
   :config
   (define-key evil-normal-state-map (kbd "C-c p") 'counsel-projectile-switch-project)
   (define-key evil-normal-state-map (kbd "C-p") 'counsel-projectile-find-file))
@@ -138,49 +142,17 @@
 
 (use-package evil-escape
   :ensure t
-  :defer t
+  :after evil
   :config
   (evil-escape-mode 1))
 
 (use-package evil-multiedit
   :ensure t
-  :defer t
-  :config
-  ;; Highlights all matches of the selection in the buffer.
-  (define-key evil-visual-state-map "R" 'evil-multiedit-match-all)
-
-  ;; Match the word under cursor (i.e. make it an edit region). Consecutive presses will ;; incrementally add the next unmatched match.
-  (define-key evil-normal-state-map (kbd "C-n") 'evil-multiedit-match-and-next)
-  ;; Match selected region.
-  (define-key evil-visual-state-map (kbd "C-n") 'evil-multiedit-and-next)
-
-  ;; Same as M-d but in reverse.
-  (define-key evil-normal-state-map (kbd "C-S-n") 'evil-multiedit-match-and-prev)
-  (define-key evil-visual-state-map (kbd "C-S-n") 'evil-multiedit-and-prev)
-
-  ;; OPTIONAL: If you prefer to grab symbols rather than words, use
-  ;; `evil-multiedit-match-symbol-and-next` (or prev).
-
-  ;; Restore the last group of multiedit regions.
-  (define-key evil-visual-state-map (kbd "C-M-D") 'evil-multiedit-restore)
-
-  ;; RET will toggle the region under the cursor
-  (define-key evil-multiedit-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
-
-  ;; ...and in visual mode, RET will disable all fields outside the selected region
-  ;; (define-key evil-motion-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
-
-  ;; For moving between edit regions
-  (define-key evil-multiedit-state-map (kbd "C-j") 'evil-multiedit-next)
-  (define-key evil-multiedit-state-map (kbd "C-k") 'evil-multiedit-prev)
-
-  ;; Ex command that allows you to invoke evil-multiedit with a regular expression, e.g.
-  (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
+  :after evil
   )
 
 (use-package company
   :ensure t
-  :defer t
   :config
   (add-hook 'after-init-hook 'global-company-mode)
   )
@@ -265,12 +237,10 @@
 (use-package git-gutter
   :ensure t
   :defer t
+  :after magit
   :config
   (git-gutter-mode 1)
   )
-
-(set-face-attribute 'trailing-whitespace nil :background "red" :foreground "black")
-(set-face-attribute 'evil-ex-lazy-highlight nil :background "blue" :foreground "black")
 
 (modify-syntax-entry ?_ "w")
 
@@ -329,15 +299,16 @@
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
-       (treemacs-git-mode 'simple))))
-  :bind
-  (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+
+    (treemacs-git-mode 'simple))))
+      :bind
+      (:map global-map
+            ("M-0"       . treemacs-select-window)
+            ("C-x t 1"   . treemacs-delete-other-windows)
+            ("C-x t t"   . treemacs)
+            ("C-x t B"   . treemacs-bookmark)
+            ("C-x t C-t" . treemacs-find-file)
+            ("C-x t M-t" . treemacs-find-tag)))
 
 (use-package treemacs-evil
   :after treemacs evil
@@ -356,15 +327,36 @@
   :after treemacs magit
   :ensure t)
 
-(evil-leader/set-key "f" 'counsel-rg)
-(evil-leader/set-key "b" 'counsel-projectile-switch-to-buffer)
-(evil-leader/set-key "B" 'ivy-switch-buffer)
-(evil-leader/set-key "g" 'magit)
-(evil-leader/set-key "F" 'deer)
-(add-hook 'prog-mode-hook 'git-gutter-mode)
-(add-hook 'text-mode-hook 'git-gutter-mode)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(add-hook 'text-mode-hook 'display-line-numbers-mode)
+(evil-leader/set-key
+  "f" 'counsel-rg
+  "b" 'counsel-projectile-switch-to-buffer
+  "B" 'ivy-switch-buffer
+  "g" 'magit
+  "d" 'deer
+  "c" 'evil-ex-nohighlight)
+
+(defun my/common-modes ()
+  (git-gutter-mode)
+  (display-line-numbers-mode)
+  )
+
+(add-hook 'prog-mode-hook #'my/common-modes)
+(add-hook 'text-mode-hook #'my/common-modes)
+
+(define-key evil-visual-state-map "R" 'evil-multiedit-match-all)
+(define-key evil-normal-state-map (kbd "C-n") 'evil-multiedit-match-and-next)
+(define-key evil-visual-state-map (kbd "C-n") 'evil-multiedit-match-and-next)
+(define-key evil-normal-state-map (kbd "C-S-n") 'evil-multiedit-match-and-prev)
+(define-key evil-visual-state-map (kbd "C-S-n") 'evil-multiedit-match-and-prev)
+(define-key evil-visual-state-map (kbd "C-M-D") 'evil-multiedit-restore)
+(define-key evil-multiedit-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
+(define-key evil-multiedit-state-map (kbd "C-j") 'evil-multiedit-next)
+(define-key evil-multiedit-state-map (kbd "C-k") 'evil-multiedit-prev)
+
+;; Ex command that allows you to invoke evil-multiedit with a regular expression, e.g.
+(evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
+(set-face-attribute 'trailing-whitespace nil :background "red" :foreground "black")
+(set-face-attribute 'evil-ex-lazy-highlight nil :background "blue" :foreground "black")
 
 (defun kill-other-buffers ()
   "Kill all buffers but the current one.
@@ -373,4 +365,9 @@ Don't mess with special buffers."
   (dolist (buffer (buffer-list))
     (unless (or (eql buffer (current-buffer)) (not (buffer-file-name buffer)))
       (kill-buffer buffer))))
+
+(add-hook 'emacs-startup-hook (lambda ()
+                                (setq gc-cons-threshold 16777216
+                                      gc-cons-percentage 0.1))
+          )
 ;; ----------------------------------------------------------------------------------------------------
