@@ -4,42 +4,40 @@
       ;; don't add that `custom-set-variables' block to my initl!
       package--init-file-ensured t)
 
-(setq
- ;; key mappings
- mac-option-key-is-meta nil
- mac-command-key-is-meta t
- mac-command-modifier 'meta
- mac-option-modifier nil)
-
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'nord t)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(setq-default indent-tabs-mode nil
-              c-basic-offset 2
-              ;; web development
-              coffee-tab-width 2 ; coffeescript
-              javascript-indent-level 2 ; javascript-mode
-              js-indent-level 2 ; js-mode
-              js2-basic-offset 2 ; js2-mode, in latest js2-mode, it's alias of js-indent-level
-              web-mode-markup-indent-offset 2 ; web-mode, html tag in html file
-              web-mode-css-indent-offset 2 ; web-mode, css in html file
-              web-mode-code-indent-offset 2 ; web-mode, js code in html file
-              css-indent-offset 2 ; css-mode
-              whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
-              show-trailing-whitespace t
-              vc-follow-symlinks t
-              evil-search-module 'evil-search
-              evil-ex-search-case 'sensitive
-              create-lockfiles nil
-              tab-width 2
-              )
+(setq
+
+ mac-option-key-is-meta nil
+ mac-command-key-is-meta t
+ mac-command-modifier 'meta
+ mac-option-modifier nil
+ inhibit-startup-screen t
+ indent-tabs-mode nil
+ c-basic-offset 2
+ coffee-tab-width 2 ; coffeescript
+ javascript-indent-level 2 ; javascript-mode
+ js-indent-level 2 ; js-mode
+ js2-basic-offset 2 ; js2-mode, in latest js2-mode, it's alias of js-indent-level
+ web-mode-markup-indent-offset 2 ; web-mode, html tag in html file
+ web-mode-css-indent-offset 2 ; web-mode, css in html file
+ web-mode-code-indent-offset 2 ; web-mode, js code in html file
+ css-indent-offset 2 ; css-mode
+ whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
+ show-trailing-whitespace t
+ vc-follow-symlinks t
+ evil-search-module 'evil-search
+ evil-ex-search-case 'sensitive
+ create-lockfiles nil
+ tab-width 2
+ )
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 (require 'use-package)
-
 
 (menu-bar-mode -1)
 
