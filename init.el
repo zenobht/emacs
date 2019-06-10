@@ -36,7 +36,9 @@
 
 
 (menu-bar-mode -1)
+
 (use-package drag-stuff
+  :ensure t
   :defer t
   :config
   (drag-stuff-mode 1)
@@ -44,6 +46,7 @@
 
 (use-package evil
   :ensure t
+  :defer t
   :bind (
          :map evil-normal-state-map
          ( "H" . next-buffer )
@@ -58,11 +61,13 @@
 
 (use-package evil-surround
   :ensure t
+  :defer t
   :config
   (global-evil-surround-mode 1))
 
 
 (use-package evil-numbers
+  :ensure t
   :defer t
   :config
   (global-set-key (kbd "C-c +") 'evil-numbers/inc-at-pt)
@@ -70,6 +75,7 @@
 
 (use-package evil-leader
   :ensure t
+  :defer t
   :config
   (evil-leader/set-leader "<SPC>")
   (global-evil-leader-mode))
@@ -84,6 +90,7 @@
 (setq scroll-conservatively 101)
 
 (use-package projectile
+  :ensure t
   :defer t
   :config
   (projectile-mode +1)
@@ -94,11 +101,14 @@
 
 (use-package counsel-projectile
   :ensure t
+  :defer t
   :config
+  (define-key evil-normal-state-map (kbd "C-c p") 'counsel-projectile-switch-project)
   (define-key evil-normal-state-map (kbd "C-p") 'counsel-projectile-find-file))
 
 (use-package ivy
   :ensure t
+  :defer t
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
@@ -122,19 +132,19 @@
   ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
   (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
-  (evil-leader/set-key "f" 'counsel-rg)
-  (evil-leader/set-key "b" 'ivy-switch-buffer)
   (setq ivy-re-builders-alist
       '((t . ivy--regex-fuzzy)))
 )
 
 (use-package evil-escape
   :ensure t
+  :defer t
   :config
   (evil-escape-mode 1))
 
 (use-package evil-multiedit
   :ensure t
+  :defer t
   :config
   ;; Highlights all matches of the selection in the buffer.
   (define-key evil-visual-state-map "R" 'evil-multiedit-match-all)
@@ -168,28 +178,14 @@
   (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
   )
 
-(defun my/pre-popup-draw ()
-  "Turn off whitespace mode before showing company complete tooltip"
-  (if whitespace-mode
-      (progn
-        (setq my-prev-whitespace-mode t)
-        (whitespace-mode -1)
-        (setq my-prev-whitespace-mode t))))
-
-(defun my/post-popup-draw ()
-  "Restore previous whitespace mode after showing company tooltip"
-  (if my-prev-whitespace-mode
-      (progn
-        (whitespace-mode 1)
-        (setq my-prev-whitespace-mode nil))))
-
 (use-package company
   :ensure t
+  :defer t
   :config
   (add-hook 'after-init-hook 'global-company-mode)
   )
 
-(global-display-line-numbers-mode 1)
+;; (global-display-line-numbers-mode 1)
 (setq whitespace-display-mappings
       ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
       '(
@@ -268,9 +264,9 @@
 
 (use-package git-gutter
   :ensure t
+  :defer t
   :config
-    (add-hook 'prog-mode-hook 'git-gutter-mode)
-    (add-hook 'text-mode-hook 'git-gutter-mode)
+  (git-gutter-mode 1)
   )
 
 (set-face-attribute 'trailing-whitespace nil :background "red" :foreground "black")
@@ -280,13 +276,101 @@
 
 (use-package ranger
   :ensure t
-  :config
-  (evil-leader/set-key "F" 'ranger)
+  :defer t
   )
 
 (use-package evil-magit
   :ensure t
-  :config
-  (evil-leader/set-key "g" 'magit)
   )
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (setq treemacs-collapse-dirs                 (if (executable-find "python3") 3 0) treemacs-deferred-git-apply-delay      0.5 treemacs-display-in-side-window        t treemacs-eldoc-display                 t
+          treemacs-file-event-delay              5000
+          treemacs-file-follow-delay             0.2
+          treemacs-follow-after-init             t
+          treemacs-git-command-pipe              ""
+          treemacs-goto-tag-strategy             'refetch-index
+          treemacs-indentation                   2
+          treemacs-indentation-string            " "
+          treemacs-is-never-other-window         nil
+          treemacs-max-git-entries               5000
+          treemacs-missing-project-action        'ask
+          treemacs-no-png-images                 nil
+          treemacs-no-delete-other-windows       t
+          treemacs-project-follow-cleanup        nil
+          treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-recenter-distance             0.1
+          treemacs-recenter-after-file-follow    nil
+          treemacs-recenter-after-tag-follow     nil
+          treemacs-recenter-after-project-jump   'always
+          treemacs-recenter-after-project-expand 'on-distance
+          treemacs-show-cursor                   nil
+          treemacs-show-hidden-files             t
+          treemacs-silent-filewatch              nil
+          treemacs-silent-refresh                nil
+          treemacs-sorting                       'alphabetic-desc
+          treemacs-space-between-root-nodes      t
+          treemacs-tag-follow-cleanup            t
+          treemacs-tag-follow-delay              1.5
+          treemacs-width                         35)
+
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode t)
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null (executable-find "python3"))))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple))))
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-evil
+  :after treemacs evil
+  :ensure t)
+
+(use-package treemacs-projectile
+  :after treemacs projectile
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :ensure t
+  :config (treemacs-icons-dired-mode))
+
+(use-package treemacs-magit
+  :after treemacs magit
+  :ensure t)
+
+(evil-leader/set-key "f" 'counsel-rg)
+(evil-leader/set-key "b" 'counsel-projectile-switch-to-buffer)
+(evil-leader/set-key "B" 'ivy-switch-buffer)
+(evil-leader/set-key "g" 'magit)
+(evil-leader/set-key "F" 'deer)
+(add-hook 'prog-mode-hook 'git-gutter-mode)
+(add-hook 'text-mode-hook 'git-gutter-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'text-mode-hook 'display-line-numbers-mode)
+
+(defun kill-other-buffers ()
+  "Kill all buffers but the current one.
+Don't mess with special buffers."
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (unless (or (eql buffer (current-buffer)) (not (buffer-file-name buffer)))
+      (kill-buffer buffer))))
 ;; ----------------------------------------------------------------------------------------------------
