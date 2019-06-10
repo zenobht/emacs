@@ -5,6 +5,10 @@
  mac-command-modifier 'meta
  mac-option-modifier nil)
 
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'nord t)
+(fset 'yes-or-no-p 'y-or-n-p)
+
 (setq-default indent-tabs-mode nil
               c-basic-offset 2
               ;; web development
@@ -18,9 +22,12 @@
               css-indent-offset 2 ; css-mode
               whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
               show-trailing-whitespace t
-              evil-ex-search-case 'sensitive)
-
-(set-face-attribute 'trailing-whitespace nil :background "red" :foreground "brightblack")
+              vc-follow-symlinks t
+              evil-search-module 'evil-search
+              evil-ex-search-case 'sensitive
+              create-lockfiles nil
+              tab-width 2
+              )
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -41,20 +48,13 @@
          :map evil-normal-state-map
          ( "H" . next-buffer )
          ( "L" . previous-buffer )
-         ( "C-j" . drag-stuff-down )
-         ( "C-k" . drag-stuff-up )
-         :map evil-visual-state-map
-         ( "C-j" . drag-stuff-down )
+         ( "C-j" . drag-stuff-down ) ( "C-k" . drag-stuff-up ) :map evil-visual-state-map ( "C-j" . drag-stuff-down )
          ( "C-k" . drag-stuff-up )
          )
   :config
   (evil-mode 1)
   )
 
-(use-package nord-theme
-  :ensure t
-  :config
-  (load-theme 'nord t))
 
 (use-package evil-surround
   :ensure t
@@ -79,6 +79,7 @@
   :config
   (evil-commentary-mode))
 
+(evil-leader/set-key "c" 'evil-ex-nohighlight)
 (fset 'evil-visual-update-x-selection 'ignore)
 (setq scroll-conservatively 101)
 
@@ -208,21 +209,23 @@
     (setq highlight-indent-guides-method 'character)
     (setq highlight-indent-guides-character ?\|)
     (setq highlight-indent-guides-auto-enabled nil)
-    (set-face-foreground 'highlight-indent-guides-character-face "brightblack")
+    (set-face-foreground 'highlight-indent-guides-character-face "black")
   )
 
 (use-package telephone-line
   :ensure t
   :config
   (progn
-
-
     (telephone-line-evil-config)
     (set-face-attribute 'telephone-line-evil-insert nil :background "white" :foreground "black")
     (set-face-attribute 'telephone-line-evil-normal nil :background "cyan" :foreground "black")
-    (set-face-attribute 'telephone-line-evil-visual nil :background "brightcyan" :foreground "black")
+    (set-face-attribute 'telephone-line-evil-visual nil :background "turquoise" :foreground "black")
+    (set-face-attribute 'telephone-line-evil-operator nil :background "turquoise" :foreground "black")
+    (set-face-attribute 'telephone-line-evil-motion nil :background "light steel blue" :foreground "black")
     (set-face-attribute 'telephone-line-accent-active nil :background "blue" :foreground "black")
-    (set-face-attribute 'mode-line nil :background "brightblack" :foreground "white")
+    (set-face-attribute 'telephone-line-accent-inactive nil :background "black" :foreground "white")
+    (set-face-attribute 'mode-line nil :background "black" :foreground "white")
+    (set-face-attribute 'mode-line-inactive nil :background "black" :foreground "white")
     (telephone-line-defsegment telephone-line-projectile-segment ()
       "Displays the current project name, according to projectile."
       (if (fboundp 'projectile-project-name)
@@ -240,7 +243,7 @@
           '((evil . telephone-line-modal-face)
             (ryo . telephone-line-ryo-modal-face)
             (accent . (telephone-line-accent-active . telephone-line-accent-inactive))
-            (nil . (mode-line . model-line-inactive))
+            (nil . (mode-line . mode-line-inactive))
             )
           )
     (setq telephone-line-lhs
@@ -263,3 +266,27 @@
     )
   )
 
+(use-package git-gutter
+  :ensure t
+  :config
+    (add-hook 'prog-mode-hook 'git-gutter-mode)
+    (add-hook 'text-mode-hook 'git-gutter-mode)
+  )
+
+(set-face-attribute 'trailing-whitespace nil :background "red" :foreground "black")
+(set-face-attribute 'evil-ex-lazy-highlight nil :background "blue" :foreground "black")
+
+(modify-syntax-entry ?_ "w")
+
+(use-package ranger
+  :ensure t
+  :config
+  (evil-leader/set-key "F" 'ranger)
+  )
+
+(use-package evil-magit
+  :ensure t
+  :config
+  (evil-leader/set-key "g" 'magit)
+  )
+;; ----------------------------------------------------------------------------------------------------

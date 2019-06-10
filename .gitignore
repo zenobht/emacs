@@ -1,4 +1,7 @@
-*
-
-!.gitignore
-!init.el
+**/.DS_Store
+auto-save-list
+transient
+elpa
+projectile*
+recentf*
+.projectile
