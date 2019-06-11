@@ -325,17 +325,20 @@
   :after treemacs magit
   :ensure t)
 
+(defun my/common-modes ()
+  (interactive)
+  (git-gutter-mode 1)
+  (display-line-numbers-mode 1)
+  )
+
 (evil-leader/set-key
   "f" 'counsel-rg
   "b" 'counsel-projectile-switch-to-buffer
   "B" 'ivy-switch-buffer
   "g" 'magit
   "d" 'deer
-  "c" 'evil-ex-nohighlight)
-
-(defun my/common-modes ()
-  (git-gutter-mode)
-  (display-line-numbers-mode)
+  "c" 'evil-ex-nohighlight
+  "l" 'my/common-modes
   )
 
 (add-hook 'prog-mode-hook #'my/common-modes)
