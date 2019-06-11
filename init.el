@@ -1,14 +1,10 @@
-(setq gc-cons-threshold 402653184
-      gc-cons-percentage 0.6)
-(setq package-enable-at-startup nil ; don't auto-initialize!
-      ;; don't add that `custom-set-variables' block to my initl!
-      package--init-file-ensured t)
+(setq gc-cons-threshold (* 50 1000 1000))
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'nord t)
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq
+ package-quickstart t
+ package-enable-at-startup nil
  mac-option-key-is-meta nil
  mac-command-key-is-meta t
  mac-command-modifier 'meta
@@ -27,28 +23,47 @@
  whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
  show-trailing-whitespace t
  vc-follow-symlinks t
- evil-search-module 'evil-search
- evil-ex-search-case 'sensitive
  create-lockfiles nil
  tab-width 2
+ scroll-conservatively 101
  )
 
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
-	("melpa" . "https://melpa.org/packages/")
-	("melpa-stable" . "https://stable.melpa.org/packages/")
-	("org" . "http://orgmode.org/elpa/")))
+        ("melpa" . "https://melpa.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")))
 
 (require 'package)
-(setq package-enable-at-startup nil)
 (package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(menu-bar-mode -1)
-
 (use-package drag-stuff
   :defer t
+  :init
+  (drag-stuff-mode 1)
+  )
+
+(use-package whitespace
+  :defer t
+  :custom-face
+  (trailing-whitespace (( t ( :background "red" :foreground "black" ))))
+  :init
+  (progn
+    (setq whitespace-display-mappings
+	  ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+	  '(
+	    (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+	    (newline-mark 10 [172 10]) ; LINE FEED,
+	    (tab-mark 9 [9655 9] [92 9]) ; tab
+	    ))
+    )
+  (whitespace-mode)
   )
 
 (use-package evil
@@ -63,13 +78,24 @@
 	 ( "C-j" . drag-stuff-down )
 	 ( "C-k" . drag-stuff-up )
 	 )
+  ; :custom-face
+  ; (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
+  :init
+  (setq evil-search-module 'evil-search
+        evil-ex-search-case 'sensitive
+	evil-insert-state-message nil
+	)
+  (evil-mode)
+  :config
+  (fset 'evil-visual-update-x-selection 'ignore)
   )
 
-
 (use-package evil-surround
+  :defer t
   :after evil
   :config
-  (global-evil-surround-mode 1))
+  (global-evil-surround-mode 1)
+  )
 
 
 (use-package evil-numbers
@@ -82,16 +108,27 @@
 
 (use-package evil-leader
   :after evil
-  :defer
+  :defer t
+  :init
+  (global-evil-leader-mode)
+  :config
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+    "f" 'counsel-rg
+    "b" 'counsel-projectile-switch-to-buffer
+    "B" 'ivy-switch-buffer
+    "g" 'magit-status
+    "d" 'deer
+    "c" 'evil-ex-nohighlight
+    "l" 'my/common-modes
+    "n" 'treemacs
+    )
   )
 
 (use-package evil-commentary
   :after evil
-  :config
+  :init
   (evil-commentary-mode))
-
-(fset 'evil-visual-update-x-selection 'ignore)
-(setq scroll-conservatively 101)
 
 (use-package projectile
   :defer t
@@ -99,13 +136,18 @@
 	 :map projectile-mode-map
 	 ("s-p" . projectile-command-map)
 	 )
+  :init
+  (projectile-mode)
   )
 
 (use-package counsel-projectile
   :after projectile evil
-  :config
-  (define-key evil-normal-state-map (kbd "C-c p") 'counsel-projectile-switch-project)
-  (define-key evil-normal-state-map (kbd "C-p") 'counsel-projectile-find-file))
+  :bind (
+	 :map evil-normal-state-map
+	 ("C-c p" . counsel-projectile-switch-project)
+	 ("C-p" . counsel-projectile-find-file)
+	 )
+  )
 
 (use-package ivy
   :defer t
@@ -117,6 +159,8 @@
 	 :map ivy-minibuffer-map
 	 ([escape] . minibuffer-keyboard-quit)
 	 )
+  :init
+  (ivy-mode)
   :config
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
@@ -126,6 +170,8 @@
 
 (use-package evil-escape
   :after evil
+  :init
+  (evil-escape-mode)
   )
 
 (use-package evil-multiedit
@@ -150,26 +196,15 @@
   )
 
 (use-package company
-  :config
-  (add-hook 'after-init-hook 'global-company-mode)
+  :defer t
+  :init
+  (global-company-mode)
   )
 
-;; (global-display-line-numbers-mode 1)
-(setq whitespace-display-mappings
-      ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-      '(
-	(space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-	(newline-mark 10 [172 10]) ; LINE FEED,
-	(tab-mark 9 [9655 9] [92 9]) ; tab
-	))
-(global-whitespace-mode 1)
-(show-paren-mode 1)
-(electric-pair-mode 1)
-
 (use-package highlight-indent-guides
+  :defer t
+  :hook ((prog-mode text-mode) . highlight-indent-guides-mode)
   :config
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  (add-hook 'text-mode-hook 'highlight-indent-guides-mode)
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-character ?\|)
   (setq highlight-indent-guides-auto-enabled nil)
@@ -177,7 +212,9 @@
   )
 
 (use-package telephone-line
-  :config
+  :after evil
+  :defer t
+  :init
   (progn
     (telephone-line-evil-config)
     (set-face-attribute 'telephone-line-evil-insert nil :background "white" :foreground "black")
@@ -237,8 +274,7 @@
 (use-package git-gutter
   :defer t
   :after magit
-  :config
-  (git-gutter-mode 1)
+  :hook ((prog-mode text-mode) . git-gutter-mode)
   )
 
 (modify-syntax-entry ?_ "w")
@@ -248,6 +284,9 @@
   )
 
 (use-package evil-magit
+  :defer t
+  :init
+  (evil-magit-init)
   )
 
 (use-package treemacs
@@ -328,17 +367,18 @@
   :after treemacs magit
   )
 
+(use-package display-line-numbers
+  :defer t
+  :hook ((prog-mode text-mode) . display-line-numbers-mode)
+  )
+
 (defun my/common-modes ()
   (interactive)
   (git-gutter-mode 1)
   (display-line-numbers-mode 1)
+  (highlight-indent-guides-mode 1)
   )
 
-(add-hook 'prog-mode-hook #'my/common-modes)
-(add-hook 'text-mode-hook #'my/common-modes)
-
-(set-face-attribute 'trailing-whitespace nil :background "red" :foreground "black")
-(set-face-attribute 'evil-ex-lazy-highlight nil :background "blue" :foreground "black")
 
 (defun kill-other-buffers ()
   "Kill all buffers but the current one.
@@ -353,26 +393,11 @@ Don't mess with special buffers."
   )
 
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . prog-mode))
-(projectile-mode +1)
-(evil-mode 1)
-(ivy-mode 1)
-(drag-stuff-mode 1)
-(evil-escape-mode 1)
-(global-evil-leader-mode)
-(evil-leader/set-leader "<SPC>")
-(evil-leader/set-key
-  "f" 'counsel-rg
-  "b" 'counsel-projectile-switch-to-buffer
-  "B" 'ivy-switch-buffer
-  "g" 'magit
-  "d" 'deer
-  "c" 'evil-ex-nohighlight
-  "l" 'my/common-modes
-  "n" 'treemacs
-  )
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'nord t)
+(show-paren-mode 1)
+(electric-pair-mode 1)
+(menu-bar-mode -1)
 
-(add-hook 'emacs-startup-hook (lambda ()
-				(setq gc-cons-threshold 16777216
-				      gc-cons-percentage 0.1))
-	  )
-
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))
