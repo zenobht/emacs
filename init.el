@@ -371,4 +371,10 @@ Don't mess with special buffers."
                                 (setq gc-cons-threshold 16777216
                                       gc-cons-percentage 0.1))
           )
-;; ----------------------------------------------------------------------------------------------------
+
+(use-package kotlin-mode
+  :ensure t
+  :defer t
+  )
+
+(add-to-list 'auto-mode-alist '("\\.clj\\'" . prog-mode))
