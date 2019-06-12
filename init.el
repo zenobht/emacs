@@ -26,6 +26,14 @@
  create-lockfiles nil
  tab-width 2
  scroll-conservatively 101
+ backup-directory-alist `(("." . "~/.emacs-saves"))
+ backup-by-copying t
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t
+ auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
+ auto-save-interval 20
  )
 
 (setq package-archives
