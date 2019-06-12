@@ -278,6 +278,7 @@ Don't mess with special buffers."
       (kill-buffer buffer))))
 
 (use-package kotlin-mode
+  :mode "\\.kt\\'"
   :defer t
   )
 
@@ -298,7 +299,7 @@ Don't mess with special buffers."
 (defun my-shorten-vc-mode-line (string)
   (cond
    ((string-prefix-p "Git" string)
-    (concat " " (substring string 4)))
+    (concat "[" (projectile-project-name) "]   " (magit-get-current-branch)))
    (t
     string)))
 
