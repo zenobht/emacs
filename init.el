@@ -1,4 +1,4 @@
-(setq gc-cons-threshold (* 50 1000 1000))
+(setq gc-cons-threshold (* 100 1000 1000))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -78,8 +78,8 @@
 	 ( "C-j" . drag-stuff-down )
 	 ( "C-k" . drag-stuff-up )
 	 )
-  ; :custom-face
-  ; (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
+  :custom-face
+  (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
   :init
   (setq evil-search-module 'evil-search
         evil-ex-search-case 'sensitive
@@ -203,72 +203,13 @@
 
 (use-package highlight-indent-guides
   :defer t
+  :after evil
   :hook ((prog-mode text-mode) . highlight-indent-guides-mode)
   :config
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-character ?\|)
   (setq highlight-indent-guides-auto-enabled nil)
   (set-face-foreground 'highlight-indent-guides-character-face "black")
-  )
-
-(use-package telephone-line
-  :after evil
-  :defer t
-  :init
-  (progn
-    (telephone-line-evil-config)
-    (set-face-attribute 'telephone-line-evil-insert nil :background "white" :foreground "black")
-    (set-face-attribute 'telephone-line-evil-normal nil :background "cyan" :foreground "black")
-    (set-face-attribute 'telephone-line-evil-visual nil :background "turquoise" :foreground "black")
-    (set-face-attribute 'telephone-line-evil-operator nil :background "turquoise" :foreground "black")
-    (set-face-attribute 'telephone-line-evil-motion nil :background "light steel blue" :foreground "black")
-    (set-face-attribute 'telephone-line-accent-active nil :background "blue" :foreground "black")
-    (set-face-attribute 'telephone-line-accent-inactive nil :background "black" :foreground "white")
-    (set-face-attribute 'mode-line nil :background "black" :foreground "white")
-    (set-face-attribute 'mode-line-inactive nil :background "black" :foreground "white")
-
-    (defface telephone-line-evil-multiedit '((t ( :foreground "white" :backend "black" )))
-      "Multiedit face"
-      :group 'mode-line)
-
-    (telephone-line-defsegment telephone-line-projectile-segment ()
-      "Displays the current project name, according to projectile."
-      (if (fboundp 'projectile-project-name)
-	  (propertize (projectile-project-name)
-		      'face 'mode-line
-		      'display '(raise 0.0)
-		      'help-echo "Switch project"
-		      'mouse-face '(:box 1)
-		      'local-map (make-mode-line-mouse-map
-				  'mouse-1 (lambda ()
-					     (interactive)
-					     (projectile-switch-project))))))
-
-    (setq telephone-line-faces
-	  '((evil . telephone-line-modal-face)
-	    (ryo . telephone-line-ryo-modal-face)
-	    (accent . (telephone-line-accent-active . telephone-line-accent-inactive))
-	    (nil . (mode-line . mode-line-inactive))
-	    )
-	  )
-    (setq telephone-line-lhs
-	  '((evil   . (telephone-line-evil-tag-segment))
-	    (accent . (telephone-line-vc-segment
-		       telephone-line-erc-modified-channels-segment
-		       ))
-	    (nil    . (
-		       telephone-line-projectile-buffer-segment
-		       ))
-	    ))
-    (setq telephone-line-rhs
-	  '(
-	    (nil . (telephone-line-misc-info-segment
-		    telephone-line-major-mode-segment
-		    ))
-	    (accent . (telephone-line-atom-encoding-segment))
-	    (evil   . (telephone-line-airline-position-segment))))
-    (telephone-line-mode 1)
-    )
   )
 
 (use-package git-gutter
@@ -369,6 +310,7 @@
 
 (use-package display-line-numbers
   :defer t
+  :after evil
   :hook ((prog-mode text-mode) . display-line-numbers-mode)
   )
 
@@ -394,10 +336,32 @@ Don't mess with special buffers."
 
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . prog-mode))
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'nord t)
+(add-hook 'after-init-hook (lambda () (load-theme 'nord t)))
 (show-paren-mode 1)
 (electric-pair-mode 1)
 (menu-bar-mode -1)
+
+(defun simple-mode-line-render (left right)
+  "Return a string of `window-width' length containing LEFT, and RIGHT aligned respectively."
+  (let* ((available-width (- (window-total-width) (+ (length (format-mode-line left)) (length (format-mode-line right))))))
+    (append left (list (format (format "%%%ds" available-width) "")) right)
+    )
+  )
+
+(setq-default
+  mode-line-format
+  '
+  (
+    (:eval
+      (simple-mode-line-render
+        ;; left
+        (quote ("%e " evil-mode-line-tag mode-line-buffer-identification " %l : %c " "[%*]"))
+        ;; right
+        (quote (""(vc-mode vc-mode)  " <"mode-name "> %p"))
+        )
+      )
+    )
+  )
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
