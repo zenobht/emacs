@@ -352,6 +352,18 @@ Don't mess with special buffers."
     )
   )
 
+(defun my-shorten-vc-mode-line (string)
+  (cond
+   ((string-prefix-p "Git" string)
+    (concat " " (substring string 4)))
+   (t
+    string)))
+
+(advice-add 'vc-git-mode-line-string :filter-return 'my-shorten-vc-mode-line)
+
+(set-face-attribute 'mode-line-inactive nil :background "brightblack")
+(set-face-attribute 'mode-line nil :background "black")
+
 (setq-default
   mode-line-format
   '
@@ -361,7 +373,7 @@ Don't mess with special buffers."
         ;; left
         (quote (""evil-mode-line-tag mode-line-buffer-identification " %l : %c " "[%*]"))
         ;; right
-        (quote (""(vc-mode vc-mode)  " <"mode-name "> %p"))
+        (quote ((vc-mode vc-mode)  " {"mode-name "} %p "))
         )
       )
     )
