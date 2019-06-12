@@ -59,19 +59,17 @@
 
 (use-package whitespace
   :defer t
+  :hook ((prog-mode text-mode) . whitespace-mode)
   :custom-face
   (trailing-whitespace (( t ( :background "red" :foreground "black" ))))
   :init
-  (progn
-    (setq whitespace-display-mappings
-	  ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-	  '(
-	    (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-	    (newline-mark 10 [172 10]) ; LINE FEED,
-	    (tab-mark 9 [9655 9] [92 9]) ; tab
-	    ))
-    )
-  (whitespace-mode)
+  (setq whitespace-display-mappings
+	;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+	'(
+	  (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+	  (newline-mark 10 [172 10]) ; LINE FEED,
+	  (tab-mark 9 [9655 9] [92 9]) ; tab
+	  ))
   )
 
 (use-package hl-line
