@@ -66,15 +66,26 @@
   (whitespace-mode)
   )
 
+(use-package hl-line
+  :defer t
+  :init
+  (global-hl-line-mode)
+  )
+
 (use-package evil
   :defer t
   :bind (
-	 ( "C-x o" . ace-window)
+	 ( "C-H" . windmove-left)
+	 ( "C-J" . windmove-down)
+	 ( "C-K" . windmove-up)
+	 ( "C-L" . windmove-right)
 	 :map evil-normal-state-map
-	 ( "H" . next-buffer )
-	 ( "L" . previous-buffer )
+	 ( "gj" . next-buffer )
+	 ( "gk" . previous-buffer )
+	 ( "gd" . evil-delete-buffer )
 	 ( "C-j" . drag-stuff-down )
 	 ( "C-k" . drag-stuff-up )
+	 ( "C-u" . evil-scroll-up )
 	 :map evil-visual-state-map
 	 ( "C-j" . drag-stuff-down )
 	 ( "C-k" . drag-stuff-up )
@@ -94,7 +105,7 @@
 (use-package evil-surround
   :defer t
   :after evil
-  :config
+  :init
   (global-evil-surround-mode 1)
   )
 
@@ -113,7 +124,7 @@
   :init
   (global-evil-leader-mode)
   :config
-    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-leader ";")
     (evil-leader/set-key
     "f" 'counsel-rg
     "b" 'counsel-projectile-switch-to-buffer
