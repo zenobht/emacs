@@ -72,22 +72,12 @@
 	  ))
   )
 
-(use-package hl-line
-  :defer t
-  :init
-  (global-hl-line-mode)
-  )
-
 (use-package evil
   :defer t
   :bind (
-	 ( "C-H" . windmove-left)
-	 ( "C-J" . windmove-down)
-	 ( "C-K" . windmove-up)
-	 ( "C-L" . windmove-right)
 	 :map evil-normal-state-map
-	 ( "gj" . next-buffer )
-	 ( "gk" . previous-buffer )
+	 ( "TAB" . next-buffer )
+	 ( "<backtab>" . previous-buffer )
 	 ( "gd" . evil-delete-buffer )
 	 ( "C-j" . drag-stuff-down )
 	 ( "C-k" . drag-stuff-up )
@@ -106,6 +96,12 @@
   (evil-mode)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
+  )
+
+(use-package windmove
+  :defer t
+  :config
+  (windmove-default-keybindings)
   )
 
 (use-package evil-surround
@@ -130,8 +126,8 @@
   :init
   (global-evil-leader-mode)
   :config
-    (evil-leader/set-leader ";")
-    (evil-leader/set-key
+  (evil-leader/set-leader ";")
+  (evil-leader/set-key
     "f" 'counsel-rg
     "b" 'counsel-projectile-switch-to-buffer
     "B" 'ivy-switch-buffer
@@ -243,6 +239,11 @@
 
 (use-package ranger
   :defer t
+  :bind (:map ranger-normal-mode-map
+	      ( "+" . dired-create-directory)
+	      )
+  :init
+  (ranger-override-dired-mode t)
   )
 
 (use-package evil-magit
