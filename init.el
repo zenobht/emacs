@@ -69,6 +69,7 @@
 (use-package evil
   :defer t
   :bind (
+	 ( "C-x o" . ace-window)
 	 :map evil-normal-state-map
 	 ( "H" . next-buffer )
 	 ( "L" . previous-buffer )
@@ -165,7 +166,10 @@
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
   (setq ivy-re-builders-alist
-	'((t . ivy--regex-fuzzy)))
+	'((t . ivy--regex-plus)))
+  )
+(use-package ivy-hydra
+  :defer t
   )
 
 (use-package evil-escape
@@ -355,7 +359,7 @@ Don't mess with special buffers."
     (:eval
       (simple-mode-line-render
         ;; left
-        (quote ("%e " evil-mode-line-tag mode-line-buffer-identification " %l : %c " "[%*]"))
+        (quote (""evil-mode-line-tag mode-line-buffer-identification " %l : %c " "[%*]"))
         ;; right
         (quote (""(vc-mode vc-mode)  " <"mode-name "> %p"))
         )
