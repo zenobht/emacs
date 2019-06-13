@@ -247,6 +247,7 @@
 	      )
   :init
   (ranger-override-dired-mode t)
+  (setq ranger-listing-dir-first nil)
   )
 
 (use-package evil-magit
