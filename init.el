@@ -434,5 +434,14 @@ Don't mess with special buffers."
      (with-selected-frame frame
        (persp-kill (frame-parameter frame 'my/persp-current-main))))))
 
+(use-package expand-region
+  :defer t
+  :after evil
+  :bind (
+	 :map evil-visual-state-map
+	 ( "v" . er/expand-region)
+	 )
+  )
+
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
