@@ -53,6 +53,15 @@
 
 (use-package drag-stuff
   :defer t
+  :after evil
+  :bind (
+	 :map evil-normal-state-map
+	 ( "C-j" . drag-stuff-down )
+	 ( "C-k" . drag-stuff-up )
+	 :map evil-visual-state-map
+	 ( "C-j" . drag-stuff-down )
+	 ( "C-k" . drag-stuff-up )
+	 )
   :init
   (drag-stuff-mode 1)
   )
@@ -79,12 +88,7 @@
 	 ( "TAB" . next-buffer )
 	 ( "<backtab>" . previous-buffer )
 	 ( "gd" . evil-delete-buffer )
-	 ( "C-j" . drag-stuff-down )
-	 ( "C-k" . drag-stuff-up )
 	 ( "C-u" . evil-scroll-up )
-	 :map evil-visual-state-map
-	 ( "C-j" . drag-stuff-down )
-	 ( "C-k" . drag-stuff-up )
 	 )
   :custom-face
   (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
