@@ -34,6 +34,7 @@
  kept-old-versions 2
  version-control t
  auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
+ set-language-environment "UTF-8"
  auto-save-interval 20
  )
 
@@ -332,7 +333,7 @@ Don't mess with special buffers."
 (defun my-shorten-vc-mode-line (string)
   (cond
    ((string-prefix-p "Git" string)
-    (concat "[" (projectile-project-name) "]   " (magit-get-current-branch)))
+    (concat "[" (projectile-project-name) "]  \ue0a0 " (magit-get-current-branch)))
    (t
     string)))
 
@@ -437,7 +438,6 @@ Don't mess with special buffers."
        (persp-kill (frame-parameter frame 'my/persp-current-main))))))
 
 (use-package expand-region
-  :defer t
   :after evil
   :bind (
 	 :map evil-visual-state-map
