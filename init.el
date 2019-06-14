@@ -343,19 +343,40 @@ Don't mess with special buffers."
 (set-face-attribute 'mode-line nil :background "black")
 
 (setq-default
-  mode-line-format
-  '
-  (
-    (:eval
-      (simple-mode-line-render
-        ;; left
-        (quote (""evil-mode-line-tag mode-line-buffer-identification " %l : %c " "[%*]"))
-        ;; right
-        (quote ((vc-mode vc-mode)  " {"mode-name "} %p "))
-        )
-      )
+ mode-line-format
+ '
+ (
+  (:eval
+   (simple-mode-line-render
+    ;; left
+    (quote (""
+            evil-mode-line-tag
+            mode-line-buffer-identification
+            " %03l:%02c "
+            ;; "[%*]"
+            (:eval (propertize (if (buffer-modified-p)
+                                   "[M]"
+                                 "[-]")
+                               'face 'font-lock-warning-face
+                               'help-echo "Buffer modified"))
+
+            (:eval (when buffer-read-only
+                     (propertize "RO"
+                                 'face 'font-lock-type-face
+                                 'help-echo "Buffer is read-only")))
+            ))
+    ;; right
+    (quote
+     ((vc-mode vc-mode)
+      " "
+      mode-name
+      " %p "
+      "%I"
+      ))
     )
+   )
   )
+ )
 
 (use-package persp-mode
   :hook (after-init . (lambda () (persp-mode 1)))
