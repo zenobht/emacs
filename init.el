@@ -2,6 +2,8 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(setq-default indent-tabs-mode nil)
+
 (setq
  package-quickstart t
  package-enable-at-startup nil
@@ -10,7 +12,6 @@
  mac-command-modifier 'meta
  mac-option-modifier nil
  inhibit-startup-screen t
- indent-tabs-mode nil
  c-basic-offset 2
  coffee-tab-width 2 ; coffeescript
  javascript-indent-level 2 ; javascript-mode
