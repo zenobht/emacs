@@ -1,4 +1,4 @@
-(setq gc-cons-threshold (* 100 1000 1000))
+(setq gc-cons-threshold (* 10 1000 1000))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -36,6 +36,7 @@
  auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
  set-language-environment "UTF-8"
  auto-save-interval 20
+ large-file-warning-threshold nil
  )
 
 (setq package-archives
