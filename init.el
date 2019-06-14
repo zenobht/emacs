@@ -12,6 +12,8 @@
  mac-command-modifier 'meta
  mac-option-modifier nil
  inhibit-startup-screen t
+ inhibit-startup-message t
+ initial-scratch-message ""
  c-basic-offset 2
  coffee-tab-width 2 ; coffeescript
  javascript-indent-level 2 ; javascript-mode
@@ -26,7 +28,10 @@
  vc-follow-symlinks t
  create-lockfiles nil
  tab-width 2
- scroll-conservatively 101
+ scroll-margin 3
+ scroll-step 1
+ scroll-conservatively 10000
+ scroll-preserve-screen-position 1
  backup-directory-alist `(("." . "~/.emacs-saves"))
  backup-by-copying t
  delete-old-versions t
@@ -34,10 +39,18 @@
  kept-old-versions 2
  version-control t
  auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
- set-language-environment "UTF-8"
+ ;; set-language-environment "UTF-8"
  auto-save-interval 20
  large-file-warning-threshold nil
  )
+
+(set-terminal-coding-system  'utf-8)
+(set-keyboard-coding-system  'utf-8)
+(set-language-environment    'utf-8)
+(set-selection-coding-system 'utf-8)
+(setq locale-coding-system   'utf-8)
+(prefer-coding-system        'utf-8)
+(set-input-method nil)
 
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -150,6 +163,10 @@
   :init
   (evil-commentary-mode))
 
+(use-package evil-visualstar
+  :config
+  (global-evil-visualstar-mode))
+
 (use-package projectile
   :defer t
   :bind (
@@ -158,6 +175,14 @@
 	 )
   :init
   (projectile-mode)
+  :config
+  (setq projectile-enable-caching t)
+  (setq projectile-indexing-method 'alien)
+  (setq projectile-globally-ignored-file-suffixes
+        '("#" "~" ".swp" ".o" ".so" ".exe" ".dll" ".elc" ".pyc" ".jar" "*.class"))
+  (setq projectile-globally-ignored-directories
+        '(".git" "node_modules" "__pycache__" ".vs"))
+  (setq projectile-globally-ignored-files '("TAGS" "tags" ".DS_Store"))
   )
 
 (use-package counsel-projectile
@@ -196,6 +221,21 @@
   :init
   (evil-escape-mode)
   )
+
+(use-package dumb-jump
+  :bind
+  (:map evil-normal-state-map
+        ("g D" . dumb-jump-go)
+        ("g b" . dumb-jump-go-back)
+        )
+  :config
+  (setq dumb-jump-selector 'ivy))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :init
+  (progn
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
 
 (use-package evil-multiedit
   :defer t
@@ -250,7 +290,8 @@
 	      )
   :init
   (ranger-override-dired-mode t)
-  (setq ranger-listing-dir-first nil)
+  (setq ranger-cleanup-on-disable t
+       ranger-listing-dir-first nil)
   )
 
 (use-package evil-magit
@@ -323,6 +364,8 @@ Don't mess with special buffers."
 (show-paren-mode 1)
 (electric-pair-mode 1)
 (menu-bar-mode -1)
+(scroll-bar-mode -1)
+(global-visual-line-mode t)
 
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length containing LEFT, and RIGHT aligned respectively."
