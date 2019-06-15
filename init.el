@@ -74,6 +74,20 @@
   (exec-path-from-shell-initialize)
   )
 
+(defun my/next-buffer ()
+  "next-buffer, only skip *Messages*"
+  (interactive)
+  (next-buffer)
+  (when (string= "*Messages*" (buffer-name))
+      (next-buffer)))
+
+(defun my/previous-buffer ()
+  "previous-buffer, only skip *Messages*"
+  (interactive)
+  (previous-buffer)
+  (when (string= "*Messages*" (buffer-name))
+      (previous-buffer)))
+
 (use-package drag-stuff
   :defer t
   :after evil
@@ -107,9 +121,9 @@
 (use-package evil
   :defer t
   :bind (
+         ( "M-{" . my/next-buffer)
+         ( "M-}" . my/previous-buffer)
 	 :map evil-normal-state-map
-	 ( "TAB" . next-buffer )
-	 ( "<backtab>" . previous-buffer )
 	 ( "gd" . evil-delete-buffer )
 	 ( "C-u" . evil-scroll-up )
 	 )
@@ -148,7 +162,7 @@
   )
 
 (use-package evil-leader
-  :after evil
+  :after evil ivy
   :defer t
   :init
   (global-evil-leader-mode)
@@ -159,7 +173,8 @@
     "B" 'ivy-switch-buffer
     "c" 'evil-ex-nohighlight
     "d" 'deer
-    "f" 'counsel-rg
+    "f" 'swiper
+    "F" 'counsel-rg
     "g" 'magit-status
     "l" 'my/common-modes
     "s" 'eshell
@@ -205,7 +220,6 @@
 (use-package ivy
   :defer t
   :bind (
-	 ("\C-s" . swiper)
 	 ("M-x" . counsel-M-x)
 	 :map minibuffer-local-map
 	 ("C-r" . counsel-minibuffer-history)
