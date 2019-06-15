@@ -23,6 +23,8 @@
  web-mode-css-indent-offset 2 ; web-mode, css in html file
  web-mode-code-indent-offset 2 ; web-mode, js code in html file
  css-indent-offset 2 ; css-mode
+ sh-basic-offset 2
+ sh-indentation 2
  whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
  show-trailing-whitespace t
  vc-follow-symlinks t
@@ -39,7 +41,6 @@
  kept-old-versions 2
  version-control t
  auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
- ;; set-language-environment "UTF-8"
  auto-save-interval 20
  large-file-warning-threshold nil
  )
@@ -66,6 +67,12 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+(use-package exec-path-from-shell
+  :init
+  (setq exec-path-from-shell-arguments '("-l"))
+  (exec-path-from-shell-initialize)
+  )
 
 (use-package drag-stuff
   :defer t
@@ -148,13 +155,14 @@
   :config
   (evil-leader/set-leader ";")
   (evil-leader/set-key
-    "f" 'counsel-rg
     "b" 'counsel-projectile-switch-to-buffer
     "B" 'ivy-switch-buffer
-    "g" 'magit-status
-    "d" 'deer
     "c" 'evil-ex-nohighlight
+    "d" 'deer
+    "f" 'counsel-rg
+    "g" 'magit-status
     "l" 'my/common-modes
+    "s" 'eshell
     )
   )
 
@@ -394,7 +402,10 @@ Don't mess with special buffers."
    (simple-mode-line-render
     ;; left
     (quote (""
-            evil-mode-line-tag
+            (:eval (propertize evil-mode-line-tag
+                               'face 'font-lock-preprocessor-face
+                               'help-echo
+                               "Evil mode"))
             mode-line-buffer-identification
             " %03l:%02c "
             ;; "[%*]"
@@ -508,6 +519,10 @@ Don't mess with special buffers."
 	 :map evil-visual-state-map
 	 ( "v" . er/expand-region)
 	 )
+  )
+
+(use-package ein
+  :defer t
   )
 
 ;; Make gc pauses faster by decreasing the threshold.
