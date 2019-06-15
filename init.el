@@ -172,7 +172,7 @@
     "b" 'counsel-projectile-switch-to-buffer
     "B" 'ivy-switch-buffer
     "c" 'evil-ex-nohighlight
-    "d" 'deer
+    "d" 'ranger
     "f" 'swiper
     "F" 'counsel-rg
     "g" 'magit-status
@@ -232,7 +232,12 @@
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
   (setq ivy-re-builders-alist
-	'((t . ivy--regex-plus)))
+          '(
+            (counsel-M-x . ivy--regex-plus)
+            (swiper . ivy--regex-plus)
+            (t . ivy--regex-fuzzy)))
+    (add-to-list 'ivy-highlight-functions-alist
+                 '(swiper--re-builder . ivy--highlight-ignore-order))
   )
 (use-package ivy-hydra
   :defer t
