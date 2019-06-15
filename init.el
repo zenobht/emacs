@@ -43,6 +43,7 @@
  auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
  auto-save-interval 20
  large-file-warning-threshold nil
+ auto-revert-check-vc-info t
  )
 
 (set-terminal-coding-system  'utf-8)
@@ -404,7 +405,7 @@ Don't mess with special buffers."
 (defun my-shorten-vc-mode-line (string)
   (cond
    ((string-prefix-p "Git" string)
-    (concat "[" (projectile-project-name) "]  \ue0a0 " (magit-get-current-branch)))
+    (concat "\ue0a0 " (magit-get-current-branch)))
    (t
     string)))
 
@@ -425,28 +426,40 @@ Don't mess with special buffers."
                                'face 'font-lock-preprocessor-face
                                'help-echo
                                "Evil mode"))
+
+            (:eval (when (projectile-project-p)
+                     (propertize (concat "[" (projectile-project-name) "]")
+                                 'face 'font-lock-type-face
+                                 'help-echo "Project Name")
+                     ))
+
+            " "
             mode-line-buffer-identification
             " %03l:%02c "
-            ;; "[%*]"
+
             (:eval (propertize (if (buffer-modified-p)
                                    "[M]"
                                  "[-]")
                                'face 'font-lock-warning-face
                                'help-echo "Buffer modified"))
-
+            " "
             (:eval (when buffer-read-only
                      (propertize "RO"
                                  'face 'font-lock-type-face
                                  'help-echo "Buffer is read-only")))
             ))
     ;; right
-    (quote
-     ((vc-mode vc-mode)
-      " "
-      mode-name
-      " %p "
-      "%I"
-      ))
+    (quote (
+            (vc-mode (:eval
+                      (propertize vc-mode
+                                  'face 'font-lock-warning-face
+                                  'help-echo "Buffer modified"
+                                  )))
+            " "
+            mode-name
+            " %p "
+            "%I "
+            ))
     )
    )
   )
