@@ -435,8 +435,7 @@ Don't mess with special buffers."
 
             " "
             mode-line-buffer-identification
-            " %03l:%02c "
-
+            " "
             (:eval (propertize (if (buffer-modified-p)
                                    "[M]"
                                  "[-]")
@@ -447,6 +446,7 @@ Don't mess with special buffers."
                      (propertize "RO"
                                  'face 'font-lock-type-face
                                  'help-echo "Buffer is read-only")))
+            "%3l:%c"
             ))
     ;; right
     (quote (
