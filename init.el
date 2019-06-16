@@ -170,14 +170,13 @@
   :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-    "b" 'counsel-projectile-switch-to-buffer
     "B" 'ivy-switch-buffer
     "c" 'evil-ex-nohighlight
     "d" 'ranger
     "f" 'swiper
-    "F" 'counsel-rg
     "g" 'magit-status
     "l" 'my/common-modes
+    "r" 'counsel-rg
     "s" 'eshell
     )
   )
@@ -193,10 +192,6 @@
 
 (use-package projectile
   :defer t
-  :bind (
-	 :map projectile-mode-map
-	 ("s-p" . projectile-command-map)
-	 )
   :init
   (projectile-mode)
   :config
@@ -210,12 +205,13 @@
   )
 
 (use-package counsel-projectile
-  :after projectile evil
-  :bind (
-	 :map evil-normal-state-map
-	 ("C-c p" . counsel-projectile-switch-project)
-	 ("C-p" . counsel-projectile-find-file)
-	 )
+  :after projectile evil evil-leader
+  :init
+  (evil-leader/set-key
+    "b" 'counsel-projectile-switch-to-buffer
+    "o" 'counsel-projectile-find-file
+    "p" 'counsel-projectile-switch-project
+    )
   )
 
 (use-package ivy
