@@ -168,7 +168,7 @@
   :init
   (global-evil-leader-mode)
   :config
-  (evil-leader/set-leader ";")
+  (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
     "b" 'counsel-projectile-switch-to-buffer
     "B" 'ivy-switch-buffer
@@ -557,5 +557,10 @@ Don't mess with special buffers."
   :defer t
   )
 
+(use-package hl-line
+  :defer t
+  :init
+  (global-hl-line-mode)
+  )
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
