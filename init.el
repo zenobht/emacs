@@ -93,13 +93,13 @@
   :defer t
   :after evil
   :bind (
-	 :map evil-normal-state-map
-	 ( "C-j" . drag-stuff-down )
-	 ( "C-k" . drag-stuff-up )
-	 :map evil-visual-state-map
-	 ( "C-j" . drag-stuff-down )
-	 ( "C-k" . drag-stuff-up )
-	 )
+         :map evil-normal-state-map
+         ( "C-j" . drag-stuff-down )
+         ( "C-k" . drag-stuff-up )
+         :map evil-visual-state-map
+         ( "C-j" . drag-stuff-down )
+         ( "C-k" . drag-stuff-up )
+         )
   :init
   (drag-stuff-mode 1)
   )
@@ -111,12 +111,12 @@
   (trailing-whitespace (( t ( :background "red" :foreground "black" ))))
   :init
   (setq whitespace-display-mappings
-	;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-	'(
-	  (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-	  (newline-mark 10 [172 10]) ; LINE FEED,
-	  (tab-mark 9 [9655 9] [92 9]) ; tab
-	  ))
+        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+        '(
+          (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+          (newline-mark 10 [172 10]) ; LINE FEED,
+          (tab-mark 9 [9655 9] [92 9]) ; tab
+          ))
   )
 
 (use-package evil
@@ -124,17 +124,17 @@
   :bind (
          ( "M-{" . my/next-buffer)
          ( "M-}" . my/previous-buffer)
-	 :map evil-normal-state-map
-	 ( "gd" . evil-delete-buffer )
-	 ( "C-u" . evil-scroll-up )
-	 )
+         :map evil-normal-state-map
+         ( "gd" . evil-delete-buffer )
+         ( "C-u" . evil-scroll-up )
+         )
   :custom-face
   (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
   :init
   (setq evil-search-module 'evil-search
         evil-ex-search-case 'sensitive
-	evil-insert-state-message nil
-	)
+        evil-insert-state-message nil
+        )
   (evil-mode)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
@@ -157,9 +157,9 @@
 (use-package evil-numbers
   :defer t
   :bind (
-	 ( "C-c +" . evil-numbers/inc-at-pt )
-	 ( "C-c -" . evil-numbers/dec-at-pt )
-	 )
+         ( "C-c +" . evil-numbers/inc-at-pt )
+         ( "C-c -" . evil-numbers/dec-at-pt )
+         )
   )
 
 (use-package evil-leader
@@ -217,12 +217,12 @@
 (use-package ivy
   :defer t
   :bind (
-	 ("M-x" . counsel-M-x)
-	 :map minibuffer-local-map
-	 ("C-r" . counsel-minibuffer-history)
-	 :map ivy-minibuffer-map
-	 ([escape] . minibuffer-keyboard-quit)
-	 )
+         ("M-x" . counsel-M-x)
+         :map minibuffer-local-map
+         ("C-r" . counsel-minibuffer-history)
+         :map ivy-minibuffer-map
+         ([escape] . minibuffer-keyboard-quit)
+         )
   :init
   (ivy-mode)
   :config
@@ -264,19 +264,19 @@
 (use-package evil-multiedit
   :defer t
   :bind (
-	 :map evil-visual-state-map
-	 ("R" . evil-multiedit-match-all)
-	 ("C-b" . evil-multiedit-match-and-prev)
-	 ("C-n" . evil-multiedit-match-and-next)
-	 ("C-M-D" . evil-multiedit-restore)
-	 :map evil-normal-state-map
-	 ("C-b" . evil-multiedit-match-and-prev)
-	 ("C-n" . evil-multiedit-match-and-next)
-	 :map evil-multiedit-state-map
-	 ("RET" . evil-multiedit-toggle-or-restrict-region)
-	 ("C-j" . evil-multiedit-next)
-	 ("C-k" . evil-multiedit-prev)
-	 )
+         :map evil-visual-state-map
+         ("R" . evil-multiedit-match-all)
+         ("C-b" . evil-multiedit-match-and-prev)
+         ("C-n" . evil-multiedit-match-and-next)
+         ("C-M-D" . evil-multiedit-restore)
+         :map evil-normal-state-map
+         ("C-b" . evil-multiedit-match-and-prev)
+         ("C-n" . evil-multiedit-match-and-next)
+         :map evil-multiedit-state-map
+         ("RET" . evil-multiedit-toggle-or-restrict-region)
+         ("C-j" . evil-multiedit-next)
+         ("C-k" . evil-multiedit-prev)
+         )
   :after evil
   :config
   (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
@@ -310,8 +310,8 @@
 (use-package ranger
   :defer t
   :bind (:map ranger-normal-mode-map
-	      ( "+" . dired-create-directory)
-	      )
+              ( "+" . dired-create-directory)
+              )
   :init
   (ranger-override-dired-mode t)
   (setq ranger-cleanup-on-disable t
@@ -469,31 +469,31 @@ Don't mess with special buffers."
   (defvar my/projectile-project-to-switch nil)
 
   (setq wg-morph-on nil ;; switch off animation
-	persp-autokill-buffer-on-remove 'kill-weak
-	persp-auto-save-opt 0
-	persp-auto-resume-time -1
-	persp-nil-hidden t
-	persp-add-buffer-on-find-file t
-	persp-add-buffer-on-after-change-major-mode t
-	persp-hook-up-emacs-buffer-completion t)
+        persp-autokill-buffer-on-remove 'kill-weak
+        persp-auto-save-opt 0
+        persp-auto-resume-time -1
+        persp-nil-hidden t
+        persp-add-buffer-on-find-file t
+        persp-add-buffer-on-after-change-major-mode t
+        persp-hook-up-emacs-buffer-completion t)
 
   ;; Make ivy play nice
   (with-eval-after-load "ivy"
     (add-hook 'ivy-ignore-buffers
-	      #'(lambda (b)
-		  (when persp-mode
-		    (let ((persp (get-current-persp)))
-		      (if persp
-			  (not (persp-contain-buffer-p b persp))
-			nil)))))
+              #'(lambda (b)
+                  (when persp-mode
+                    (let ((persp (get-current-persp)))
+                      (if persp
+                          (not (persp-contain-buffer-p b persp))
+                        nil)))))
     (setq ivy-sort-functions-alist
-	  (append ivy-sort-functions-alist
-		  '((persp-kill-buffer   . nil)
-		    (persp-remove-buffer . nil)
-		    (persp-add-buffer    . nil)
-		    (persp-switch        . nil)
-		    (persp-window-switch . nil)
-		    (persp-frame-switch . nil)))))
+          (append ivy-sort-functions-alist
+                  '((persp-kill-buffer   . nil)
+                    (persp-remove-buffer . nil)
+                    (persp-add-buffer    . nil)
+                    (persp-switch        . nil)
+                    (persp-window-switch . nil)
+                    (persp-frame-switch . nil)))))
 
   (defun my/projectile-switch-project-by-name (counsel-projectile-switch-project-by-name &rest args)
     (setq my/projectile-project-to-switch (car args))
@@ -503,37 +503,37 @@ Don't mess with special buffers."
 
   (defun my/persp-create-project-persp ()
     (let ((frame (selected-frame))
-	  (name (file-name-nondirectory
-		 (directory-file-name
-		  (file-name-directory
-		   my/projectile-project-to-switch)))))
+          (name (file-name-nondirectory
+                 (directory-file-name
+                  (file-name-directory
+                   my/projectile-project-to-switch)))))
       (with-selected-frame frame
-	(persp-add-new name)
-	(persp-frame-switch name)
-	(persp-add-buffer my/persp-shared-buffers (get-current-persp) nil))))
+        (persp-add-new name)
+        (persp-frame-switch name)
+        (persp-add-buffer my/persp-shared-buffers (get-current-persp) nil))))
 
   (add-hook 'projectile-before-switch-project-hook 'my/persp-create-project-persp)
 
   (defun my/persp-concat-name (count)
     (if (eq count 0)
-	my/persp-default-workspace
+        my/persp-default-workspace
       (format "%s-%s" my/persp-default-workspace count)))
 
   (defun my/persp-next-main-name (&optional count)
     (let ((count (or count 0)))
       (if (persp-with-name-exists-p (my/persp-concat-name count))
-	  (my/persp-next-main-name (+ count 1))
-	(my/persp-concat-name count))))
+          (my/persp-next-main-name (+ count 1))
+        (my/persp-concat-name count))))
 
   (add-hook
    'after-make-frame-functions
    (lambda (frame)
      (let ((name (my/persp-next-main-name)))
        (with-selected-frame frame
-	 (set-frame-parameter frame 'my/persp-current-main name)
-	 (persp-add-new name)
-	 (persp-frame-switch name frame)
-	 (persp-add-buffer my/persp-shared-buffers (get-current-persp) nil)))))
+         (set-frame-parameter frame 'my/persp-current-main name)
+         (persp-add-new name)
+         (persp-frame-switch name frame)
+         (persp-add-buffer my/persp-shared-buffers (get-current-persp) nil)))))
 
   (add-hook
    'delete-frame-functions
@@ -544,9 +544,9 @@ Don't mess with special buffers."
 (use-package expand-region
   :after evil
   :bind (
-	 :map evil-visual-state-map
-	 ( "v" . er/expand-region)
-	 )
+         :map evil-visual-state-map
+         ( "v" . er/expand-region)
+         )
   )
 
 (use-package ein
