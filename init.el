@@ -2,7 +2,10 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil
+              electric-indent-inhibit t
+              evil-shift-width 2
+              )
 
 (setq
  package-quickstart t
@@ -44,6 +47,7 @@
  auto-save-interval 20
  large-file-warning-threshold nil
  auto-revert-check-vc-info t
+ backward-delete-char-untabify-method 'hungry
  )
 
 (set-terminal-coding-system  'utf-8)
@@ -235,6 +239,7 @@
             (t . ivy--regex-fuzzy)))
     (add-to-list 'ivy-highlight-functions-alist
                  '(swiper--re-builder . ivy--highlight-ignore-order))
+    (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
   )
 (use-package ivy-hydra
   :defer t
@@ -294,7 +299,7 @@
   :hook ((prog-mode text-mode) . highlight-indent-guides-mode)
   :config
   (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-character ?\|)
+  (setq highlight-indent-guides-character ?\│)
   (setq highlight-indent-guides-auto-enabled nil)
   (set-face-foreground 'highlight-indent-guides-character-face "black")
   )
