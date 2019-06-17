@@ -94,7 +94,7 @@
 
 ;;;; Color Constants
 (let ((class '((class color) (min-colors 89)))
-  (nord0 (if (display-graphic-p) "#2E3440" nil))
+  (nord0 (if (display-graphic-p) "#2E3440" "black"))
   (nord1 (if (display-graphic-p) "#3B4252" "black"))
   (nord2 (if (display-graphic-p) "#434C5E" "#434C5E"))
   (nord3 (if (display-graphic-p) "#4C566A" "brightblack"))
@@ -495,7 +495,7 @@
    `(diff-hl-change ((,class (:background ,nord13))))
    `(diff-hl-insert ((,class (:background ,nord14))))
    `(diff-hl-delete ((,class (:background ,nord11))))
-   
+
     ;; > Evil
     `(evil-ex-info ((,class (:foreground ,nord8))))
     `(evil-ex-substitute-replacement ((,class (:foreground ,nord9))))
