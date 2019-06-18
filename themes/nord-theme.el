@@ -94,7 +94,7 @@
 
 ;;;; Color Constants
 (let ((class '((class color) (min-colors 89)))
-  (nord0 (if (display-graphic-p) "#2E3440" "black"))
+  (nord0 (if (display-graphic-p) "#2E3440" nil))
   (nord1 (if (display-graphic-p) "#3B4252" "black"))
   (nord2 (if (display-graphic-p) "#434C5E" "#434C5E"))
   (nord3 (if (display-graphic-p) "#4C566A" "brightblack"))

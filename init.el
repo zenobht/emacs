@@ -412,8 +412,8 @@ Don't mess with special buffers."
 
 (advice-add 'vc-git-mode-line-string :filter-return 'my-shorten-vc-mode-line)
 
-(set-face-attribute 'mode-line-inactive nil :background "black")
-(set-face-attribute 'mode-line nil :background "brightblack")
+(set-face-attribute 'mode-line-inactive nil :background "brightblack")
+(set-face-attribute 'mode-line nil :background "black")
 
 (setq-default
  mode-line-format
