@@ -337,9 +337,9 @@
 
 (defun my/common-modes ()
   (interactive)
-  (git-gutter-mode 1)
-  (display-line-numbers-mode 1)
-  (highlight-indent-guides-mode 1)
+  (git-gutter-mode t)
+  (display-line-numbers-mode t)
+  (highlight-indent-guides-mode t)
   )
 
 (defun my/neotree-project-dir ()
@@ -412,8 +412,8 @@ Don't mess with special buffers."
 
 (advice-add 'vc-git-mode-line-string :filter-return 'my-shorten-vc-mode-line)
 
-(set-face-attribute 'mode-line-inactive nil :background "brightblack")
-(set-face-attribute 'mode-line nil :background "black")
+(set-face-attribute 'mode-line-inactive nil :background "black")
+(set-face-attribute 'mode-line nil :background "brightblack")
 
 (setq-default
  mode-line-format
