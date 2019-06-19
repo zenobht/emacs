@@ -2,11 +2,9 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(setq-default indent-tabs-mode nil
-              electric-indent-inhibit t
+(setq-default electric-indent-inhibit t
               evil-shift-width 2
               )
-
 (setq
  package-quickstart t
  package-enable-at-startup nil
@@ -17,22 +15,6 @@
  inhibit-startup-screen t
  inhibit-startup-message t
  initial-scratch-message ""
- c-basic-offset 2
- coffee-tab-width 2 ; coffeescript
- javascript-indent-level 2 ; javascript-mode
- js-indent-level 2 ; js-mode
- js2-basic-offset 2 ; js2-mode, in latest js2-mode, it's alias of js-indent-level
- web-mode-markup-indent-offset 2 ; web-mode, html tag in html file
- web-mode-css-indent-offset 2 ; web-mode, css in html file
- web-mode-code-indent-offset 2 ; web-mode, js code in html file
- css-indent-offset 2 ; css-mode
- sh-basic-offset 2
- sh-indentation 2
- whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
- show-trailing-whitespace t
- vc-follow-symlinks t
- create-lockfiles nil
- tab-width 2
  scroll-margin 3
  scroll-step 1
  scroll-conservatively 10000
@@ -93,6 +75,34 @@
   (when (string= "*Messages*" (buffer-name))
       (previous-buffer)))
 
+(defun my/setup-indent (n)
+  (setq-local c-basic-offset n)
+  (setq-local tab-width n)
+  (setq-local coffee-tab-width n)
+  (setq-local javascript-indent-level n)
+  (setq-local js-indent-level n)
+  (setq-local js2-basic-offset n)
+  (setq-local web-mode-markup-indent-offset n)
+  (setq-local web-mode-css-indent-offset n)
+  (setq-local web-mode-code-indent-offset n)
+  (setq-local css-indent-offset n)
+  (setq-local sh-basic-offset n)
+  (setq-local sh-indentation n)
+  )
+
+(defun my/configure ()
+  (setq whitespace-display-mappings
+        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+        '(
+          (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+          (newline-mark 10 [172 10]) ; LINE FEED,
+          (tab-mark 9 [9655 9] [92 9]) ; tab
+          )
+        indent-tabs-mode nil
+        )
+  (my/setup-indent 2)
+  )
+
 (use-package drag-stuff
   :defer t
   :after evil
@@ -110,17 +120,14 @@
 
 (use-package whitespace
   :defer t
-  :hook ((prog-mode text-mode) . whitespace-mode)
   :custom-face
-  (trailing-whitespace (( t ( :background "red" :foreground "black" ))))
+  (trailing-whitespace (( t ( :background "red" :foreground "white" ))))
   :init
-  (setq whitespace-display-mappings
-        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-        '(
-          (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-          (newline-mark 10 [172 10]) ; LINE FEED,
-          (tab-mark 9 [9655 9] [92 9]) ; tab
-          ))
+  (global-whitespace-mode 1)
+  (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
+        show-trailing-whitespace t
+        )
+
   )
 
 (use-package evil
@@ -138,6 +145,7 @@
   (setq evil-search-module 'evil-search
         evil-ex-search-case 'sensitive
         evil-insert-state-message nil
+        evil-want-C-i-jump nil
         )
   (evil-mode)
   :config
@@ -558,13 +566,9 @@ Don't mess with special buffers."
   :defer t
   )
 
-(use-package hl-line
-  :defer t
-  :init
-  (global-hl-line-mode)
-  )
-
 (set-face-attribute 'show-paren-match nil :background "brightblue" :foreground "white")
+
+(add-hook 'after-change-major-mode-hook #'my/configure)
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
