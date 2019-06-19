@@ -315,7 +315,8 @@
 (use-package git-gutter
   :defer t
   :after magit
-  :hook ((prog-mode text-mode) . git-gutter-mode)
+  :init
+  (global-git-gutter-mode 1)
   )
 
 (modify-syntax-entry ?_ "w")
@@ -340,13 +341,12 @@
 (use-package display-line-numbers
   :defer t
   :after evil
-  :hook ((prog-mode text-mode) . display-line-numbers-mode)
+  :init
+  (global-display-line-numbers-mode 1)
   )
 
 (defun my/common-modes ()
   (interactive)
-  (git-gutter-mode t)
-  (display-line-numbers-mode t)
   (highlight-indent-guides-mode t)
   )
 
@@ -564,6 +564,11 @@ Don't mess with special buffers."
 
 (use-package ein
   :defer t
+  )
+
+(use-package yaml-mode
+  :defer t
+  :mode "\\.yml\\'"
   )
 
 (set-face-attribute 'show-paren-match nil :background "brightblue" :foreground "white")
