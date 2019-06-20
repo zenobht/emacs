@@ -101,6 +101,34 @@
   (my/setup-indent 2)
   )
 
+(defun my/copy-to-clipboard ()
+  "Copies selection to x-clipboard."
+  (interactive)
+  (if (display-graphic-p)
+      (progn
+        (message "Yanked region to x-clipboard!")
+        (call-interactively 'clipboard-kill-ring-save)
+        )
+    (if (region-active-p)
+        (progn
+          (shell-command-on-region (region-beginning) (region-end) "pbcopy")
+          (message "Yanked region to clipboard!")
+          (deactivate-mark))
+      (message "No region active; can't yank to clipboard!")))
+  )
+
+(defun my/paste-from-clipboard ()
+  "Pastes from x-clipboard."
+  (interactive)
+  (if (display-graphic-p)
+      (progn
+        (clipboard-yank)
+        (message "graphics active")
+        )
+    (insert (shell-command-to-string "pbpaste"))
+    )
+  )
+
 (use-package drag-stuff
   :defer t
   :after evil
@@ -182,12 +210,14 @@
   (evil-leader/set-key
     "B" 'ivy-switch-buffer
     "c" 'evil-ex-nohighlight
-    "d" 'ranger
-    "f" 'swiper
+    "d" 'deer
+    "f" 'counsel-rg
     "g" 'magit-status
     "l" 'my/common-modes
-    "r" 'counsel-rg
-    "s" 'eshell
+    "s" 'swiper
+    "t" 'eshell
+    "yy" 'my/copy-to-clipboard
+    "yp" 'my/paste-from-clipboard
     )
   )
 
