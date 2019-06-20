@@ -304,7 +304,7 @@
 (use-package highlight-indent-guides
   :defer t
   :after evil
-  :hook ((prog-mode text-mode) . highlight-indent-guides-mode)
+  :hook ((prog-mode) . highlight-indent-guides-mode)
   :config
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-character ?\│)
@@ -574,6 +574,12 @@ Don't mess with special buffers."
 (set-face-attribute 'show-paren-match nil :background "brightblue" :foreground "white")
 
 (add-hook 'after-change-major-mode-hook #'my/configure)
+
+(use-package hl-line
+  :defer t
+  :init
+  (global-hl-line-mode 1)
+  )
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
