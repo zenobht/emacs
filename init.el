@@ -86,8 +86,6 @@
   (setq-local web-mode-css-indent-offset n)
   (setq-local web-mode-code-indent-offset n)
   (setq-local css-indent-offset n)
-  (setq-local sh-basic-offset n)
-  (setq-local sh-indentation n)
   )
 
 (defun my/configure ()
