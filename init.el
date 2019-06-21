@@ -298,9 +298,7 @@
 
 (use-package rainbow-delimiters
   :ensure t
-  :init
-  (progn
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)))
+  :hook ((prog-mode) . rainbow-delimiters-mode))
 
 (use-package evil-multiedit
   :defer t
@@ -608,6 +606,10 @@ Don't mess with special buffers."
   :init
   (global-hl-line-mode 1)
   )
+
+(use-package rainbow-mode
+  :defer t
+  :hook ((prog-mode) . rainbow-mode))
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
