@@ -131,7 +131,7 @@
   (nord-region-highlight-background (if
     (string= nord-region-highlight "frost") "#88C0D0"
       (if (string= nord-region-highlight "snowstorm") "#D8DEE9" "#434C5E")))
-  (nord-uniform-mode-lines-background (if nord-uniform-mode-lines "#4C566A" "#3B4252")))
+  (nord-uniform-mode-lines-background (if nord-uniform-mode-lines "#4C566A" "brightblack")))
 
 ;;;; +------------+
 ;;;; + Core Faces +
@@ -238,7 +238,7 @@
     `(message-separator ((,class (:inherit shadow))))
     `(minibuffer-prompt ((,class (:foreground ,nord8 :weight bold))))
     `(mm-command-output ((,class (:foreground ,nord8))))
-    `(mode-line ((,class (:foreground ,nord8 :background ,nord3))))
+    `(mode-line ((,class (:foreground ,nord8 :background ,nord1))))
     `(mode-line-buffer-id ((,class (:weight bold))))
     `(mode-line-highlight ((,class (:inherit highlight))))
     `(mode-line-inactive ((,class (:foreground ,nord4 :background ,nord-uniform-mode-lines-background))))
@@ -569,7 +569,14 @@
     `(helm-separator ((,class (:background ,nord2))))
     `(helm-visible-mark ((,class (:background ,nord2))))
 
-    ;; > Magit
+    ;;ivy
+    `(ivy-minibuffer-match-face-1 ((,class (:background ,nord4 :foreground ,nord1))))
+    `(ivy-minibuffer-match-face-2 ((,class (:background ,nord15 :foreground ,nord1 :weight bold))))
+    `(ivy-minibuffer-match-face-3 ((,class (:background ,nord7 :foreground ,nord6 :weight bold))))
+    `(ivy-minibuffer-match-face-4 ((,class (:background ,nord12 :foreground ,nord1 :weight bold))))
+    `(ivy-current-match ((,class (:background ,nord2 :foreground ,nord8 :weight bold))))
+
+ ;; > Magit
     `(magit-branch ((,class (:foreground ,nord7 :weight bold))))
     `(magit-diff-context-highlight ((,class (:background ,nord2))))
     `(magit-diff-file-header ((,class (:foreground ,nord8 :box (:color ,nord8)))))
