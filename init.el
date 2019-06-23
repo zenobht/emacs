@@ -608,5 +608,20 @@ Don't mess with special buffers."
   :defer t
   :hook ((prog-mode) . rainbow-mode))
 
+(use-package org
+  :defer t
+  :mode (("\\.org$" . org-mode))
+  :ensure org-plus-contrib
+  )
+
+(use-package evil-org
+  :after org evil
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  )
+
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
