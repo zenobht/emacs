@@ -417,7 +417,7 @@ Don't mess with special buffers."
       (kill-buffer buffer))))
 
 (use-package kotlin-mode
-  :mode "\\.kt\\'"
+  :mode (("\\.kt$" . kotlin-mode))
   :defer t
   )
 
@@ -591,7 +591,7 @@ Don't mess with special buffers."
 
 (use-package yaml-mode
   :defer t
-  :mode "\\.yml\\'"
+  :mode (("\\.yml$" . yaml-mode))
   )
 
 (set-face-attribute 'show-paren-match nil :background "brightblue" :foreground "white")
