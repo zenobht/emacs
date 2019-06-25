@@ -623,5 +623,14 @@ Don't mess with special buffers."
               (evil-org-set-key-theme)))
   )
 
+(use-package frog-jump-buffer
+  :defer t
+  :after evil-leader
+  :init
+  (evil-leader/set-key
+    ";" 'frog-jump-buffer)
+  (setq frog-jump-buffer-default-filter 'frog-jump-buffer-filter-same-project)
+  )
+
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
