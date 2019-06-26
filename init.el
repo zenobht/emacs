@@ -629,7 +629,10 @@ Don't mess with special buffers."
   :init
   (evil-leader/set-key
     ";" 'frog-jump-buffer)
-  (setq frog-jump-buffer-default-filter 'frog-jump-buffer-filter-same-project)
+  (setq
+   frog-jump-buffer-default-filter 'frog-jump-buffer-filter-same-project
+   frog-jump-buffer-include-current-buffer nil
+   )
   )
 
 ;; Make gc pauses faster by decreasing the threshold.
