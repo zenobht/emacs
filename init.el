@@ -161,8 +161,8 @@
   :bind (
          ( "M-{" . my/next-buffer)
          ( "M-}" . my/previous-buffer)
+         ( "M-d" . kill-this-buffer)
          :map evil-normal-state-map
-         ( "gd" . evil-delete-buffer )
          ( "C-u" . evil-scroll-up )
          )
   :custom-face
