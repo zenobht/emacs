@@ -28,6 +28,7 @@
  large-file-warning-threshold nil
  auto-revert-check-vc-info t
  backward-delete-char-untabify-method 'hungry
+ initial-major-mode (quote text-mode)
  )
 
 (set-terminal-coding-system  'utf-8)
