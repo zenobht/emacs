@@ -211,7 +211,6 @@
     "d" 'deer
     "f" 'counsel-rg
     "g" 'magit-status
-    "l" 'my/common-modes
     "s" 'swiper
     "t" 'eshell
     "yy" 'my/copy-to-clipboard
@@ -330,17 +329,6 @@
   (global-company-mode)
   )
 
-(use-package highlight-indent-guides
-  :defer t
-  :after evil
-  :hook ((prog-mode) . highlight-indent-guides-mode)
-  :config
-  (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-character ?\|)
-  (setq highlight-indent-guides-auto-enabled nil)
-  (set-face-foreground 'highlight-indent-guides-character-face "black")
-  )
-
 (use-package git-gutter
   :defer t
   :after magit
@@ -381,11 +369,6 @@
   :after evil
   :init
   (global-display-line-numbers-mode 1)
-  )
-
-(defun my/common-modes ()
-  (interactive)
-  (highlight-indent-guides-mode t)
   )
 
 (defun my/neotree-project-dir ()
