@@ -433,8 +433,6 @@ Don't mess with special buffers."
   )
 
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . prog-mode))
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(add-hook 'after-init-hook (lambda () (load-theme 'nord t)))
 (show-paren-mode 1)
 (electric-pair-mode 1)
 (menu-bar-mode -1)
@@ -451,7 +449,7 @@ Don't mess with special buffers."
 (defun my-shorten-vc-mode-line (string)
   (cond
    ((string-prefix-p "Git" string)
-    (concat "\ue0a0 " (magit-get-current-branch)))
+    (concat "\ue0a0 " (substring string 4)))
    (t
     string)))
 
@@ -637,6 +635,10 @@ Don't mess with special buffers."
               (evil-org-set-key-theme)))
   )
 
+(use-package esup
+  :defer t
+  )
+
 (use-package frog-jump-buffer
   :defer t
   :after evil-leader
@@ -645,6 +647,5 @@ Don't mess with special buffers."
     ";" 'frog-jump-buffer)
   (setq
    frog-jump-buffer-default-filter 'frog-jump-buffer-filter-same-project
-   frog-jump-buffer-include-current-buffer nil
    )
   )
