@@ -13,7 +13,7 @@
  inhibit-startup-screen t
  inhibit-startup-message t
  initial-scratch-message ""
- scroll-margin 3
+ scroll-margin 0
  scroll-step 1
  scroll-conservatively 10000
  scroll-preserve-screen-position 1
@@ -372,17 +372,17 @@
   )
 
 (defun my/neotree-project-dir ()
-    "Open NeoTree using the git root."
-    (interactive)
-    (let ((project-dir (projectile-project-root))
-	(file-name (buffer-file-name)))
+  "Open NeoTree using the git root."
+  (interactive)
+  (let ((project-dir (projectile-project-root))
+        (file-name (buffer-file-name)))
     (neotree-toggle)
     (if project-dir
-	(if (neo-global--window-exists-p)
-	    (progn
-		(neotree-dir project-dir)
-		(neotree-find file-name)))
-	(message "Could not find git project root."))))
+        (if (neo-global--window-exists-p)
+            (progn
+              (neotree-dir project-dir)
+              (neotree-find file-name)))
+      (message "Could not find git project root."))))
 
 (use-package neotree
   :defer t
@@ -452,6 +452,9 @@ Don't mess with special buffers."
                                'help-echo
                                "Evil mode"))
 
+            (vc-mode (:eval (propertize vc-mode 'face 'font-lock-warning-face 'help-echo "Buffer modified"
+                                  )))
+            " "
             (:eval (when (projectile-project-p)
                      (propertize (concat "[" (projectile-project-name) "]")
                                  'face 'font-lock-type-face
@@ -460,10 +463,9 @@ Don't mess with special buffers."
 
             " "
             mode-line-buffer-identification
-            " "
             (:eval (propertize (if (buffer-modified-p)
-                                   "[M]"
-                                 "[-]")
+                                   "[+]"
+                                 "")
                                'face 'font-lock-warning-face
                                'help-echo "Buffer modified"))
             " "
@@ -471,19 +473,13 @@ Don't mess with special buffers."
                      (propertize "RO"
                                  'face 'font-lock-type-face
                                  'help-echo "Buffer is read-only")))
-            "%3l:%c"
             ))
     ;; right
     (quote (
-            (vc-mode (:eval
-                      (propertize vc-mode
-                                  'face 'font-lock-warning-face
-                                  'help-echo "Buffer modified"
-                                  )))
-            " "
+            "%p "
+            "%3l:%2c "
             mode-name
-            " %p "
-            "%I "
+            "  %I "
             ))
     )
    )
