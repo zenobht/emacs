@@ -153,6 +153,7 @@
 
   )
 
+(global-unset-key (kbd "M-v"))
 (use-package evil
   :defer t
   :bind (
@@ -162,6 +163,8 @@
          ( "M-f" . find-file)
          :map evil-normal-state-map
          ( "C-u" . evil-scroll-up )
+         :map evil-visual-state-map
+         ( "M-c" . my/copy-to-clipboard)
          )
   :custom-face
   (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
@@ -213,8 +216,6 @@
     "g" 'magit-status
     "s" 'swiper
     "t" 'eshell
-    "yy" 'my/copy-to-clipboard
-    "yp" 'my/paste-from-clipboard
     )
   )
 
@@ -226,8 +227,9 @@
 
 (use-package evil-visualstar
   :defer t
-  :config
-  (global-evil-visualstar-mode))
+  :after evil
+  :init
+  (global-evil-visualstar-mode t))
 
 (use-package projectile
   :defer t
@@ -276,16 +278,11 @@
     (add-to-list 'ivy-highlight-functions-alist
                  '(swiper--re-builder . ivy--highlight-ignore-order))
     (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
+
+   (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
   )
 (use-package ivy-hydra
   :defer t
-  )
-
-(use-package evil-escape
-  :defer t
-  :after evil
-  :init
-  (evil-escape-mode)
   )
 
 (use-package dumb-jump
