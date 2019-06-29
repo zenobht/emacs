@@ -126,16 +126,17 @@
     )
   )
 
+(global-unset-key (kbd "C-l"))
 (use-package drag-stuff
   :defer t
   :after evil
   :bind (
          :map evil-normal-state-map
-         ( "C-j" . drag-stuff-down )
-         ( "C-k" . drag-stuff-up )
+         ( "M-j" . drag-stuff-down )
+         ( "M-k" . drag-stuff-up )
          :map evil-visual-state-map
-         ( "C-j" . drag-stuff-down )
-         ( "C-k" . drag-stuff-up )
+         ( "M-j" . drag-stuff-down )
+         ( "M-k" . drag-stuff-up )
          )
   :init
   (drag-stuff-mode 1)
@@ -264,6 +265,8 @@
          ("C-r" . counsel-minibuffer-history)
          :map ivy-minibuffer-map
          ([escape] . minibuffer-keyboard-quit)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
          )
   :init
   (ivy-mode)
