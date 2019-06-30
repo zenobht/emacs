@@ -212,6 +212,7 @@
   (evil-leader/set-key
     "B" 'ivy-switch-buffer
     "c" 'evil-ex-nohighlight
+    "C" 'my/calendar
     "d" 'deer
     "f" 'counsel-rg
     "g" 'magit-status
@@ -252,8 +253,8 @@
   :init
   (evil-leader/set-key
     "b" 'counsel-projectile-switch-to-buffer
-    "o" 'counsel-projectile-find-file
-    "p" 'counsel-projectile-switch-project
+    "p" 'counsel-projectile-find-file
+    "P" 'counsel-projectile-switch-project
     )
   )
 
@@ -261,15 +262,13 @@
   :defer t
   :bind (
          ("M-x" . counsel-M-x)
-         :map minibuffer-local-map
-         ("C-r" . counsel-minibuffer-history)
          :map ivy-minibuffer-map
-         ([escape] . minibuffer-keyboard-quit)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)
          )
   :init
-  (ivy-mode)
+  (use-package smex)
+  (ivy-mode 1)
   :config
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
@@ -280,9 +279,10 @@
             (t . ivy--regex-fuzzy)))
     (add-to-list 'ivy-highlight-functions-alist
                  '(swiper--re-builder . ivy--highlight-ignore-order))
-    (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
 
    (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
+   (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
+   (setq ivy-wrap t)
   )
 (use-package ivy-hydra
   :defer t
@@ -325,8 +325,16 @@
 
 (use-package company
   :defer t
+  :bind (:map company-active-map
+        ("C-j" . company-select-next)
+        ("C-k" . company-select-previous)
+        )
   :init
   (global-company-mode)
+  :config
+  (setq company-idle-delay 0) ; Delay to complete
+  (setq company-minimum-prefix-length 1)
+  (setq company-selection-wrap-around t) ; Loops around suggestions
   )
 
 (use-package git-gutter
@@ -576,10 +584,6 @@ Don't mess with special buffers."
          )
   )
 
-(use-package ein
-  :defer t
-  )
-
 (use-package yaml-mode
   :defer t
   :mode (("\\.yml$" . yaml-mode))
@@ -599,20 +603,71 @@ Don't mess with special buffers."
   :defer t
   :hook ((prog-mode) . rainbow-mode))
 
-(use-package org
-  :defer t
-  :mode (("\\.org$" . org-mode))
-  :ensure org-plus-contrib
-  )
-
 (use-package evil-org
   :defer t
-  :after org evil
+  :after evil evil-leader
+  :init
+  (progn
+    (evil-leader/set-key
+      "oa" 'org-agenda
+      "oc" 'org-capture
+      )
+    (setq org-agenda-files '("~/gdrive/gtd/inbox.org"
+                             "~/gdrive/gtd/gtd.org"
+                             "~/gdrive/gtd/tickler.org"
+                             "~/gdrive/gtd/gcal.org"
+                             ))
+
+    (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                                   (file+headline "~/gdrive/gtd/inbox.org" "Tasks")
+                                   "* TODO %i%?")
+                                  ("T" "Tickler" entry
+                                   (file+headline "~/gdrive/gtd/tickler.org" "Tickler")
+                                   "* %i%? \n %U")))
+    (setq org-refile-targets '(("~/gdrive/gtd/gtd.org" :maxlevel . 2)
+                               ("~/gdrive/gtd/someday.org" :level . 1)
+                               ("~/gdrive/gtd/tickler.org" :level . 2)))
+    (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+    )
   :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme)))
+  (progn
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (add-hook 'evil-org-mode-hook
+              (lambda ()
+                (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))))
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys)
+    )
+  )
+
+(use-package org-gcal
+  :defer t
+  :config
+  (setq org-gcal-client-id (exec-path-from-shell-copy-env "G_CLIENT_ID")
+      org-gcal-client-secret (exec-path-from-shell-copy-env "G_CLIENT_SECRET")
+      org-gcal-file-alist '(((exec-path-from-shell-copy-env "G_CALENDAR_ID") .  "~/gdrive/gtd/gcal.org")))
+  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+  (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync)))
+  )
+
+(use-package calfw-gcal)
+
+(use-package calfw-org)
+
+(defun my/calendar ()
+  (interactive)
+  (cfw:open-calendar-buffer
+    :contents-sources
+    (list
+    (cfw:org-create-source "Green")  ; orgmode source
+    ))
+  )
+
+(use-package calfw
+  :defer t
+  :after calfw-ical calfw-org evil-leader
+  :config
+  (setq cfw:org-overwrite-default-keybinding t)
   )
 
 (use-package esup

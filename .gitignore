@@ -8,3 +8,6 @@ recentf*
 .projectile
 .cache
 eshell
+bookmarks
+org-gcal
+smex-items
