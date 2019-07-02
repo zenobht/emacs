@@ -277,6 +277,7 @@
   :bind (
          ("M-x" . counsel-M-x)
          :map ivy-minibuffer-map
+         ([escape] . exit-minibuffer)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)
          )
@@ -296,7 +297,6 @@
                  '(swiper--re-builder . ivy--highlight-ignore-order))
 
    (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
-   (define-key ivy-minibuffer-map [escape] 'minibuffer-keyboard-quit)
    (setq ivy-wrap t)
   )
 (use-package ivy-hydra
