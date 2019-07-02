@@ -761,9 +761,15 @@ Don't mess with special buffers."
   (my/prettier-setup)
   )
 
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-mode))
-(add-hook 'js-mode-hook #'my/setup-tools-from-node)
+(use-package js
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-mode))
+  :config
+  (add-hook 'js-mode-hook #'my/setup-tools-from-node)
+  )
+
 (add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
 
 (use-package flycheck
