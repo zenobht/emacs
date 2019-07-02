@@ -3,6 +3,22 @@
 (setq-default electric-indent-inhibit t
               evil-shift-width 2
               )
+
+ (defun load-directory (directory)
+    "Load recursively all `.el' files in DIRECTORY."
+    (dolist (element (directory-files-and-attributes directory nil nil nil))
+      (let* ((path (car element))
+             (fullpath (concat directory "/" path))
+             (isdir (car (cdr element)))
+             (ignore-dir (or (string= path ".") (string= path ".."))))
+        (cond
+         ((and (eq isdir t) (not ignore-dir))
+          (load-directory fullpath))
+         ((and (eq isdir nil) (string= (substring path -3) ".el"))
+          (load (file-name-sans-extension fullpath)))))))
+
+(load-directory "~/.emacs.d/lib")
+
 (setq
  package-quickstart t
  package-enable-at-startup nil
@@ -73,16 +89,16 @@
       (previous-buffer)))
 
 (defun my/setup-indent (n)
-  (setq-local c-basic-offset n)
-  (setq-local tab-width n)
-  (setq-local coffee-tab-width n)
-  (setq-local javascript-indent-level n)
-  (setq-local js-indent-level n)
-  (setq-local js2-basic-offset n)
-  (setq-local web-mode-markup-indent-offset n)
-  (setq-local web-mode-css-indent-offset n)
-  (setq-local web-mode-code-indent-offset n)
-  (setq-local css-indent-offset n)
+  (setq c-basic-offset n)
+  (setq tab-width n)
+  (setq coffee-tab-width n)
+  (setq javascript-indent-level n)
+  (setq js-indent-level n)
+  (setq js2-basic-offset n)
+  (setq web-mode-markup-indent-offset n)
+  (setq web-mode-css-indent-offset n)
+  (setq web-mode-code-indent-offset n)
+  (setq css-indent-offset n)
   )
 
 (defun my/configure ()
@@ -149,9 +165,7 @@
   :init
   (global-whitespace-mode 1)
   (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
-        show-trailing-whitespace t
-        )
-
+        show-trailing-whitespace t)
   )
 
 (global-unset-key (kbd "M-v"))
@@ -276,6 +290,7 @@
           '(
             (counsel-M-x . ivy--regex-plus)
             (swiper . ivy--regex-plus)
+            (counsel-rg . ivy--regex-plus)
             (t . ivy--regex-fuzzy)))
     (add-to-list 'ivy-highlight-functions-alist
                  '(swiper--re-builder . ivy--highlight-ignore-order))
@@ -395,6 +410,8 @@
 (use-package neotree
   :defer t
   :init
+  (setq neo-window-width 35)
+  (setq neo-window-fixed-size nil)
   (evil-leader/set-key
     "n" 'my/neotree-project-dir)
   :config
@@ -714,3 +731,40 @@ Don't mess with special buffers."
                 (package-install package-desc)
                 (package-delete  old-package)))))
       (message "All packages are up to date"))))
+
+(defun my/prettier-setup ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (prettier (and root
+                        (expand-file-name "node_modules/.bin/prettier"
+                                          root))))
+    ;; (if (not (and prettier (file-executable-p prettier)))
+    ;;     ;; hack to remove formatting for js files if prettier is not installed locally
+    ;;     (advice-remove #'format-all-buffer :override #'+format/buffer)
+    ;;   )
+    ))
+
+(defun my/eslint-setup ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/.bin/eslint"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(defun my/setup-tools-from-node ()
+  (setup-project-paths)
+  ;; (my/eslint-setup)
+  (my/prettier-setup)
+  )
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-mode))
+(add-hook 'js-mode-hook #'my/setup-tools-from-node)
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
