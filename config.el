@@ -178,6 +178,8 @@
          ( "M-f" . find-file)
          :map evil-normal-state-map
          ( "C-u" . evil-scroll-up )
+         ( "[e" . next-error)
+         ( "]e" . previous-error)
          :map evil-visual-state-map
          ( "M-c" . my/copy-to-clipboard)
          )
@@ -498,6 +500,8 @@ Don't mess with special buffers."
                      (propertize "RO"
                                  'face 'font-lock-type-face
                                  'help-echo "Buffer is read-only")))
+            " "
+            (flycheck-mode flycheck-mode-line)
             ))
     ;; right
     (quote (
