@@ -441,6 +441,8 @@ Don't mess with special buffers."
 (use-package kotlin-mode
   :mode (("\\.kt$" . kotlin-mode))
   :defer t
+  :config
+  (setq-default kotlin-tab-width 4)
   )
 
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . prog-mode))
@@ -778,6 +780,13 @@ Don't mess with special buffers."
   :custom-face
   (flycheck-error ((t (:foreground "red" :underline "red"))))
   :init (global-flycheck-mode))
+
+(use-package flycheck-kotlin
+  :defer t
+  :after flycheck
+  :init
+  (flycheck-kotlin-setup)
+  )
 
 (use-package json-mode
   :defer t
