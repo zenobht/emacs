@@ -168,14 +168,9 @@
         show-trailing-whitespace t)
   )
 
-(global-unset-key (kbd "M-v"))
 (use-package evil
   :defer t
   :bind (
-         ( "M-{" . my/next-buffer)
-         ( "M-}" . my/previous-buffer)
-         ( "M-d" . kill-this-buffer)
-         ( "M-f" . find-file)
          :map evil-normal-state-map
          ( "C-u" . evil-scroll-up )
          ( "[e" . next-error)
@@ -195,6 +190,14 @@
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   )
+
+(bind-keys*
+ ( "M-{" . my/next-buffer)
+ ( "M-}" . my/previous-buffer)
+ ( "M-d" . kill-this-buffer)
+ ( "M-f" . find-file)
+ ( "M-v" . nil)
+ )
 
 (use-package windmove
   :defer t
@@ -279,7 +282,7 @@
   :bind (
          ("M-x" . counsel-M-x)
          :map ivy-minibuffer-map
-         ([escape] . exit-minibuffer)
+         ([escape] . keyboard-escape-quit)
          ("C-j" . ivy-next-line)
          ("C-k" . ivy-previous-line)
          )
