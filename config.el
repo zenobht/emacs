@@ -197,6 +197,7 @@
  ( "M-d" . kill-this-buffer)
  ( "M-f" . find-file)
  ( "M-v" . nil)
+ ( "C-l" . nil)
  )
 
 (use-package windmove
@@ -794,4 +795,14 @@ Don't mess with special buffers."
 (use-package json-mode
   :defer t
   :mode (("\\.json$" . json-mode))
+  )
+
+(use-package ace-window
+  :bind* ("M-o" . ace-window)
+  :init
+  (setq
+   aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+   aw-scope 'frame
+   aw-background nil
+   )
   )
