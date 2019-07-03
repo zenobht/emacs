@@ -460,7 +460,7 @@ Don't mess with special buffers."
 (defun my-shorten-vc-mode-line (string)
   (cond
    ((string-prefix-p "Git" string)
-    (concat "\ue0a0 " (substring string 4)))
+    (concat "\ue0a0 " (magit-get-current-branch)))
    (t
     string)))
 
@@ -475,16 +475,15 @@ Don't mess with special buffers."
     ;; left
     (quote (""
             (:eval (propertize evil-mode-line-tag
-                               'face 'font-lock-preprocessor-face
                                'help-echo
                                "Evil mode"))
 
-            (vc-mode (:eval (propertize vc-mode 'face 'font-lock-warning-face 'help-echo "Buffer modified"
-                                  )))
+            (vc-mode (:eval (propertize vc-mode
+                                        ;; 'face 'font-lock-type-face
+                                        'help-echo "Buffer modified")))
             " "
             (:eval (when (projectile-project-p)
                      (propertize (concat "[" (projectile-project-name) "]")
-                                 'face 'font-lock-type-face
                                  'help-echo "Project Name")
                      ))
 
@@ -493,12 +492,10 @@ Don't mess with special buffers."
             (:eval (propertize (if (buffer-modified-p)
                                    "[+]"
                                  "")
-                               'face 'font-lock-warning-face
                                'help-echo "Buffer modified"))
             " "
             (:eval (when buffer-read-only
                      (propertize "RO"
-                                 'face 'font-lock-type-face
                                  'help-echo "Buffer is read-only")))
             " "
             (flycheck-mode flycheck-mode-line)
