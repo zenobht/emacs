@@ -775,4 +775,11 @@ Don't mess with special buffers."
 
 (use-package flycheck
   :defer t
+  :custom-face
+  (flycheck-error ((t (:foreground "red" :underline "red"))))
   :init (global-flycheck-mode))
+
+(use-package json-mode
+  :defer t
+  :mode (("\\.json$" . json-mode))
+  )
