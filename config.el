@@ -821,3 +821,28 @@ Don't mess with special buffers."
    aw-background nil
    )
   )
+
+(defun my/mousewheel-scroll-up (event)
+    "Scroll window under mouse up by five lines."
+    (interactive "e")
+    (let ((current-window (selected-window)))
+      (unwind-protect
+          (progn
+            (select-window (posn-window (event-start event)))
+            (scroll-up 2))
+        (select-window current-window))))
+
+(defun my/mousewheel-scroll-down (event)
+    "Scroll window under mouse down by five lines."
+    (interactive "e")
+    (let ((current-window (selected-window)))
+      (unwind-protect
+          (progn
+            (select-window (posn-window (event-start event)))
+            (scroll-down 2))
+        (select-window current-window))))
+
+(xterm-mouse-mode 1)
+(unless window-system
+    (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
+    (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))
