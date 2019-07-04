@@ -463,14 +463,26 @@ Don't mess with special buffers."
     )
   )
 
-(defun my-shorten-vc-mode-line (string)
+(defvar my/mode-line-coding-format
+      '(:eval
+        (let* ((code (symbol-name buffer-file-coding-system))
+               (eol-type (coding-system-eol-type buffer-file-coding-system))
+               (eol (if (eq 0 eol-type) "UNIX"
+                      (if (eq 1 eol-type) "DOS"
+                        (if (eq 2 eol-type) "MAC"
+                          "???")))))
+          ;; (concat code " " eol " "))))
+          (concat code " "))))
+(put 'my/mode-line-coding-format 'risky-local-variable t)
+
+(defun my/shorten-vc-mode-line (string)
   (cond
    ((string-prefix-p "Git" string)
     (concat "\ue0a0 " (magit-get-current-branch)))
    (t
     string)))
 
-(advice-add 'vc-git-mode-line-string :filter-return 'my-shorten-vc-mode-line)
+(advice-add 'vc-git-mode-line-string :filter-return 'my/shorten-vc-mode-line)
 
 (setq-default
  mode-line-format
@@ -512,6 +524,7 @@ Don't mess with special buffers."
             "%3l:%2c "
             mode-name
             "  %I "
+            my/mode-line-coding-format
             ))
     )
    )
@@ -523,7 +536,7 @@ Don't mess with special buffers."
   :hook (after-init . (lambda () (persp-mode 1)))
   :config
   (defvar my/persp-default-workspace "main")
-  (defvar my/persp-shared-buffers '("*scratch*" "*Messages*"))
+  (defvar my/persp-shared-buffers '("*Messages*"))
   (defvar my/projectile-project-to-switch nil)
 
   (setq wg-morph-on nil ;; switch off animation
