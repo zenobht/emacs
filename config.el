@@ -142,7 +142,6 @@
     )
   )
 
-(global-unset-key (kbd "C-l"))
 (use-package drag-stuff
   :defer t
   :after evil
@@ -177,6 +176,7 @@
          ( "]e" . previous-error)
          :map evil-visual-state-map
          ( "M-c" . my/copy-to-clipboard)
+         ( "M-v" . my/paste-from-clipboard)
          )
   :custom-face
   (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
@@ -196,9 +196,11 @@
  ( "M-}" . my/previous-buffer)
  ( "M-d" . kill-this-buffer)
  ( "M-f" . find-file)
- ( "M-v" . nil)
- ( "C-l" . nil)
+ ( "M-v" . (lambda () (interactive) (message "Pasted from clipboard")))
+ ( "M-c" . my/copy-to-clipboard)
  )
+
+(unbind-key "C-l" global-map)
 
 (use-package windmove
   :defer t
