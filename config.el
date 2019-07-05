@@ -862,6 +862,28 @@ Don't mess with special buffers."
     (elfeed-untag elfeed-search-entries 'unread)
     (elfeed-search-update :force)) ; redraw
 
+(defun my/elfeed-star ()
+  "Apply starred to all selected entries."
+  (interactive )
+  (let* ((entries (elfeed-search-selected))
+         (tag 'starred))
+
+    (cl-loop for entry in entries do (elfeed-tag entry tag))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (use-region-p) (forward-line))))
+
+;; remove a start
+(defun my/elfeed-unstar ()
+  "Remove starred tag from all selected entries."
+  (interactive )
+  (let* ((entries (elfeed-search-selected))
+         (tag 'starred))
+
+    (cl-loop for entry in entries do (elfeed-untag entry tag))
+    (mapc #'elfeed-search-update-entry entries)
+    (unless (use-region-p) (forward-line))))
+
+
 (use-package elfeed
   :defer t
   :after evil-leader evil
@@ -880,6 +902,10 @@ Don't mess with special buffers."
     (kbd "n") 'elfeed-unjam
     (kbd "w") 'elfeed-web-start
     (kbd "W") 'elfeed-web-stop
+    (kbd "m") 'my/elfeed-star
+    (kbd "M") 'my/elfeed-unstar
+    (kbd "t") (lambda () (interactive) (elfeed-search-set-filter "+starred"))
+    (kbd "d") (lambda () (interactive) (elfeed-search-set-filter "@1-weeks-ago"))
     )
   (evil-define-key 'normal elfeed-show-mode-map
     (kbd "q") 'quit-window
