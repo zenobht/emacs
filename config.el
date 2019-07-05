@@ -885,6 +885,7 @@ Don't mess with special buffers."
     (kbd "q") 'quit-window
     )
   (add-hook 'elfeed-search-update-hook #'my/elfeed-search-add-separators)
+  (setq elfeed-search-filter "@1-weeks-ago")
   )
 
 (use-package ov
@@ -939,6 +940,8 @@ inserted. "
   :after elfeed
   :init
   (elfeed-goodies/setup)
+  (setq elfeed-goodies/feed-source-column-width 40
+        elfeed-goodies/tag-column-width 25)
   )
 
 (use-package elfeed-org
