@@ -864,11 +864,87 @@ Don't mess with special buffers."
 
 (use-package elfeed
   :defer t
-  :after evil-leader
+  :after evil-leader evil
+  :bind (("M-e" . elfeed))
+  :custom-face
+  (elfeed-search-date-face ((t (:foreground "brightmagenta"))))
+  (elfeed-search-feed-face ((t (:foreground "brightgreen"))))
+  (elfeed-search-tag-face ((t (:foreground "brightmagenta"))))
+  (elfeed-search-title-face ((t (:foreground "blue"))))
   :init
-  (evil-leader/set-key
-    "ee" 'elfeed
-    "eo" 'elfeed-search-show-entry
-    "er" 'my/elfeed-mark-all-read
+  (evil-define-key 'normal elfeed-search-mode-map
+    (kbd "RET") 'elfeed-search-show-entry
+    (kbd "u") 'elfeed-update
+    (kbd "U") 'elfeed-search-update--force
+    (kbd "q") 'quit-window
+    (kbd "n") 'elfeed-unjam
+    (kbd "w") 'elfeed-web-start
+    (kbd "W") 'elfeed-web-stop
     )
+  (evil-define-key 'normal elfeed-show-mode-map
+    (kbd "q") 'quit-window
+    )
+  (add-hook 'elfeed-search-update-hook #'my/elfeed-search-add-separators)
+  )
+
+(use-package ov
+  :defer t
+  )
+
+(cl-defun my/elfeed-search-add-separators (&key (min-group-size 2))
+    "Insert overlay spacers where the current date changes.
+If no group has at least MIN-GROUP-SIZE items, no spacers will be
+inserted. "
+    ;; TODO: Use column-specific functions so that, e.g. date column could be grouped by month/year
+    (cl-labels ((count-date-items (date)
+                                  (cl-loop for entry in elfeed-search-entries
+                                           when (equal date (elfeed-search-format-date (elfeed-entry-date entry)))
+                                           count it))
+                (insert-date (date &key count)
+                             (ov (line-beginning-position) (line-beginning-position)
+                                 'before-string (propertize (format "\n%s (%s)\n" date count)
+                                                            'face 'elfeed-search-date-face)
+                                 'type 'date-separator))
+                (entry-date (offset)
+                      (when-let ((entry (nth offset elfeed-search-entries)))
+                        (elfeed-search-format-date (elfeed-entry-date entry)))))
+      (ov-clear)
+      (save-excursion
+        (goto-char (point-min))
+        (cl-loop with largest-group-size = 1
+                 with offset = (- 1 elfeed-search--offset) ; 1 is first line
+                 with prev-data = (entry-date offset)
+
+                 initially do (insert-date prev-data
+                                           :count (count-date-items prev-data))
+
+                 while (not (eobp))
+                 do (progn
+                      (forward-line 1)
+                      (incf offset))
+
+                 for current-data = (entry-date offset)
+                 if (not (equal current-data prev-data))
+                 do (progn
+                      (insert-date current-data
+                                   :count (count-date-items current-data))
+                      (setq prev-data current-data))
+                 else do (incf largest-group-size)
+
+                 finally do (when (< largest-group-size min-group-size)
+                              (ov-clear))))))
+
+(use-package elfeed-goodies
+  :defer t
+  :after elfeed
+  :init
+  (elfeed-goodies/setup)
+  )
+
+(use-package elfeed-org
+  :defer t
+  :after elfeed
+  :init
+  (setq rmh-elfeed-org-files (list "~/gdrive/feed/elfeed.org"))
+  (elfeed-org)
   )
