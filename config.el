@@ -499,11 +499,12 @@ Don't mess with special buffers."
                                "Evil mode"))
 
             (vc-mode (:eval (propertize vc-mode
-                                        ;; 'face 'font-lock-type-face
+                                        'face 'bold
                                         'help-echo "Buffer modified")))
             " "
             (:eval (when (projectile-project-p)
                      (propertize (concat "[" (projectile-project-name) "]")
+                                 'face 'italic
                                  'help-echo "Project Name")
                      ))
 
@@ -829,7 +830,7 @@ Don't mess with special buffers."
       (unwind-protect
           (progn
             (select-window (posn-window (event-start event)))
-            (scroll-up 2))
+            (scroll-up 5))
         (select-window current-window))))
 
 (defun my/mousewheel-scroll-down (event)
@@ -839,10 +840,19 @@ Don't mess with special buffers."
       (unwind-protect
           (progn
             (select-window (posn-window (event-start event)))
-            (scroll-down 2))
+            (scroll-down 5))
         (select-window current-window))))
 
 (xterm-mouse-mode 1)
 (unless window-system
     (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
     (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))
+
+(use-package wgrep
+  :defer t
+  :after ivy
+  :init
+  (ivy-set-occur 'counsel-rg 'counsel-rg-occur)
+  :config
+  (setq wgrep-auto-save-buffer t)
+  )
