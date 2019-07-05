@@ -856,3 +856,19 @@ Don't mess with special buffers."
   :config
   (setq wgrep-auto-save-buffer t)
   )
+
+(defun my/elfeed-mark-all-read ()
+    (interactive)
+    (elfeed-untag elfeed-search-entries 'unread)
+    (elfeed-search-update :force)) ; redraw
+
+(use-package elfeed
+  :defer t
+  :after evil-leader
+  :init
+  (evil-leader/set-key
+    "ee" 'elfeed
+    "eo" 'elfeed-search-show-entry
+    "er" 'my/elfeed-mark-all-read
+    )
+  )
