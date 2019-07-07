@@ -889,7 +889,7 @@ Don't mess with special buffers."
   :after evil-leader evil
   :bind (("M-e" . elfeed))
   :custom-face
-  (elfeed-search-date-face ((t (:foreground "brightmagenta"))))
+  (elfeed-search-date-face ((t (:foreground "brightcyan"))))
   (elfeed-search-feed-face ((t (:foreground "brightgreen"))))
   (elfeed-search-tag-face ((t (:foreground "brightmagenta"))))
   (elfeed-search-title-face ((t (:foreground "blue"))))
@@ -906,6 +906,7 @@ Don't mess with special buffers."
     (kbd "M") 'my/elfeed-unstar
     (kbd "t") (lambda () (interactive) (elfeed-search-set-filter "+starred"))
     (kbd "d") (lambda () (interactive) (elfeed-search-set-filter "@1-weeks-ago"))
+    (kbd "o") 'elfeed-search-browse-url
     )
   (evil-define-key 'normal elfeed-show-mode-map
     (kbd "q") 'quit-window
