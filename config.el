@@ -456,7 +456,8 @@ Don't mess with special buffers."
 (electric-pair-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(global-visual-line-mode t)
+(add-hook 'text-mode-hook (lambda () (interactive)(visual-line-mode -1)))
+(add-hook 'prog-mode-hook (lambda () (interactive)(visual-line-mode +1)))
 
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length containing LEFT, and RIGHT aligned respectively."
@@ -883,6 +884,16 @@ Don't mess with special buffers."
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
 
+(defun my/show-elfeed (buffer)
+  (with-current-buffer buffer
+    (setq buffer-read-only nil)
+    (setq fill-column 110)
+    (goto-char (point-min))
+    (re-search-forward "\n\n")
+    (fill-individual-paragraphs (point) (point-max))
+    (setq buffer-read-only t))
+  ;; (setq fill-column 80)
+  (switch-to-buffer buffer))
 
 (use-package elfeed
   :defer t
@@ -913,6 +924,7 @@ Don't mess with special buffers."
     )
   (add-hook 'elfeed-search-update-hook #'my/elfeed-search-add-separators)
   (setq elfeed-search-filter "@1-weeks-ago")
+  (setq elfeed-show-entry-switch #'my/show-elfeed)
   )
 
 (use-package ov
@@ -967,7 +979,7 @@ inserted. "
   :after elfeed
   :init
   (elfeed-goodies/setup)
-  (setq elfeed-goodies/feed-source-column-width 40
+  (setq elfeed-goodies/feed-source-column-width 35
         elfeed-goodies/tag-column-width 25)
   )
 
