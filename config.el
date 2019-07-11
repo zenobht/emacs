@@ -253,7 +253,8 @@
     "C" 'my/calendar
     "d" 'deer
     "f" 'counsel-rg
-    "g" 'magit-status
+    "gg" 'magit-status
+    "gb" 'magit-blame
     "s" 'swiper
     "t" 'eshell
     )
@@ -367,11 +368,12 @@
   :bind (:map company-active-map
         ("C-j" . company-select-next)
         ("C-k" . company-select-previous)
+        ([escape] . company-abort)
         )
   :init
   (global-company-mode)
   :config
-  (setq company-idle-delay 0) ; Delay to complete
+  (setq company-idle-delay 0.2) ; Delay to complete
   (setq company-minimum-prefix-length 1)
   (setq company-selection-wrap-around t) ; Loops around suggestions
   )
