@@ -167,6 +167,20 @@
         show-trailing-whitespace t)
   )
 
+(defun my/visual-shift-left ()
+  (interactive)
+  ;; (evil-shift-left (region-beginning) (region-end))
+  (call-interactively 'evil-shift-left)
+  (evil-normal-state)
+  (evil-visual-restore))
+
+(defun my/visual-shift-right ()
+  (interactive)
+  ;; (evil-shift-right (region-beginning) (region-end))
+  (call-interactively 'evil-shift-right)
+  (evil-normal-state)
+  (evil-visual-restore))
+
 (use-package evil
   :defer t
   :bind (
@@ -189,6 +203,8 @@
   (evil-mode)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
+  (define-key evil-visual-state-map (kbd ">") 'my/visual-shift-right)
+  (define-key evil-visual-state-map (kbd "<") 'my/visual-shift-left)
   )
 
 (bind-keys*
