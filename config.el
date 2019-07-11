@@ -418,6 +418,8 @@
   :after evil
   :init
   (global-display-line-numbers-mode 1)
+  :config
+  (setq display-line-numbers-width-start 100)
   )
 
 (defun my/neotree-project-dir ()
@@ -665,6 +667,8 @@ Don't mess with special buffers."
 (use-package evil-org
   :defer t
   :after evil evil-leader
+  :custom-face
+  (org-hide ((t (:foreground "black" :background: "black"))))
   :init
   (progn
     (evil-leader/set-key
@@ -687,6 +691,7 @@ Don't mess with special buffers."
                                ("~/gdrive/gtd/someday.org" :level . 1)
                                ("~/gdrive/gtd/tickler.org" :level . 2)))
     (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+    (setq org-hide-leading-stars t)
     )
   :config
   (progn
