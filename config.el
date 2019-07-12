@@ -42,9 +42,11 @@
  auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
  auto-save-interval 20
  large-file-warning-threshold nil
+ vc-follow-symlinks t
  auto-revert-check-vc-info t
  backward-delete-char-untabify-method 'hungry
  initial-major-mode (quote text-mode)
+ mouse-wheel-progressive-speed nil
  )
 
 (set-terminal-coding-system  'utf-8)
@@ -373,7 +375,7 @@
   :init
   (global-company-mode)
   :config
-  (setq company-idle-delay 0.2) ; Delay to complete
+  (setq company-idle-delay 0.1) ; Delay to complete
   (setq company-minimum-prefix-length 1)
   (setq company-selection-wrap-around t) ; Loops around suggestions
   )
@@ -868,6 +870,7 @@ Don't mess with special buffers."
         (select-window current-window))))
 
 (xterm-mouse-mode 1)
+(pixel-scroll-mode)
 (unless window-system
     (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
     (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))
