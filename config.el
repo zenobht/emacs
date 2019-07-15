@@ -216,6 +216,7 @@
  ( "M-f" . find-file)
  ( "M-v" . (lambda () (interactive) (message "Pasted from clipboard")))
  ( "M-c" . my/copy-to-clipboard)
+ ( "M-e" . elfeed)
  )
 
 (unbind-key "C-l" global-map)
@@ -921,10 +922,18 @@ Don't mess with special buffers."
   ;; (setq fill-column 80)
   (switch-to-buffer buffer))
 
+(defun my/elfeed-search-show-entry (entry)
+  "Display the currently selected item in a buffer without going to next line."
+  (interactive (list (elfeed-search-selected :ignore-region)))
+  (require 'elfeed-show)
+  (when (elfeed-entry-p entry)
+    (elfeed-untag entry 'unread)
+    (elfeed-search-update-entry entry)
+    (elfeed-show-entry entry)))
+
 (use-package elfeed
   :defer t
   :after evil-leader evil
-  :bind (("M-e" . elfeed))
   :custom-face
   (elfeed-search-date-face ((t (:foreground "brightcyan"))))
   (elfeed-search-feed-face ((t (:foreground "brightgreen"))))
@@ -932,7 +941,7 @@ Don't mess with special buffers."
   (elfeed-search-title-face ((t (:foreground "blue"))))
   :init
   (evil-define-key 'normal elfeed-search-mode-map
-    (kbd "RET") 'elfeed-search-show-entry
+    (kbd "RET") 'my/elfeed-search-show-entry
     (kbd "u") 'elfeed-update
     (kbd "U") 'elfeed-search-update--force
     (kbd "q") 'quit-window
