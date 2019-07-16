@@ -79,17 +79,26 @@
 (defun my/next-buffer ()
   "next-buffer, only skip *Messages*"
   (interactive)
-  (next-buffer)
-  (when (string= "*Messages*" (buffer-name))
-      (next-buffer)))
+  (if (projectile-project-p)
+      (projectile-next-project-buffer)
+    (progn
+      (next-buffer)
+      (when (string= "*Messages*" (buffer-name))
+        (next-buffer)))
+    )
+  )
 
 (defun my/previous-buffer ()
   "previous-buffer, only skip *Messages*"
   (interactive)
-  (previous-buffer)
-  (when (string= "*Messages*" (buffer-name))
-      (previous-buffer)))
-
+  (if (projectile-project-p)
+      (projectile-previous-project-buffer)
+    (progn
+      (previous-buffer)
+      (when (string= "*Messages*" (buffer-name))
+        (previous-buffer)))
+    )
+  )
 (defun my/setup-indent (n)
   (setq c-basic-offset n)
   (setq tab-width n)
@@ -278,7 +287,7 @@
 (use-package projectile
   :defer t
   :init
-  (projectile-mode)
+  (projectile-global-mode)
   :config
   (setq projectile-enable-caching t)
   (setq projectile-indexing-method 'alien)
@@ -558,86 +567,18 @@ Don't mess with special buffers."
   )
  )
 
-(use-package persp-mode
+(use-package perspective
   :defer t
-  :hook (after-init . (lambda () (persp-mode 1)))
-  :config
-  (defvar my/persp-default-workspace "main")
-  (defvar my/persp-shared-buffers '("*Messages*"))
-  (defvar my/projectile-project-to-switch nil)
+  )
 
-  (setq wg-morph-on nil ;; switch off animation
-        persp-autokill-buffer-on-remove 'kill-weak
-        persp-auto-save-opt 0
-        persp-auto-resume-time -1
-        persp-nil-hidden t
-        persp-add-buffer-on-find-file t
-        persp-add-buffer-on-after-change-major-mode t
-        persp-hook-up-emacs-buffer-completion t)
-
-  ;; Make ivy play nice
-  (with-eval-after-load "ivy"
-    (add-hook 'ivy-ignore-buffers
-              #'(lambda (b)
-                  (when persp-mode
-                    (let ((persp (get-current-persp)))
-                      (if persp
-                          (not (persp-contain-buffer-p b persp))
-                        nil)))))
-    (setq ivy-sort-functions-alist
-          (append ivy-sort-functions-alist
-                  '((persp-kill-buffer   . nil)
-                    (persp-remove-buffer . nil)
-                    (persp-add-buffer    . nil)
-                    (persp-switch        . nil)
-                    (persp-window-switch . nil)
-                    (persp-frame-switch . nil)))))
-
-  (defun my/projectile-switch-project-by-name (counsel-projectile-switch-project-by-name &rest args)
-    (setq my/projectile-project-to-switch (car args))
-    (apply counsel-projectile-switch-project-by-name args)
-    (setq my/projectile-project-to-switch nil))
-  (advice-add #'counsel-projectile-switch-project-by-name :around #'my/projectile-switch-project-by-name)
-
-  (defun my/persp-create-project-persp ()
-    (let ((frame (selected-frame))
-          (name (file-name-nondirectory
-                 (directory-file-name
-                  (file-name-directory
-                   my/projectile-project-to-switch)))))
-      (with-selected-frame frame
-        (persp-add-new name)
-        (persp-frame-switch name)
-        (persp-add-buffer my/persp-shared-buffers (get-current-persp) nil))))
-
-  (add-hook 'projectile-before-switch-project-hook 'my/persp-create-project-persp)
-
-  (defun my/persp-concat-name (count)
-    (if (eq count 0)
-        my/persp-default-workspace
-      (format "%s-%s" my/persp-default-workspace count)))
-
-  (defun my/persp-next-main-name (&optional count)
-    (let ((count (or count 0)))
-      (if (persp-with-name-exists-p (my/persp-concat-name count))
-          (my/persp-next-main-name (+ count 1))
-        (my/persp-concat-name count))))
-
-  (add-hook
-   'after-make-frame-functions
-   (lambda (frame)
-     (let ((name (my/persp-next-main-name)))
-       (with-selected-frame frame
-         (set-frame-parameter frame 'my/persp-current-main name)
-         (persp-add-new name)
-         (persp-frame-switch name frame)
-         (persp-add-buffer my/persp-shared-buffers (get-current-persp) nil)))))
-
-  (add-hook
-   'delete-frame-functions
-   (lambda (frame)
-     (with-selected-frame frame
-       (persp-kill (frame-parameter frame 'my/persp-current-main))))))
+(use-package nameframe
+  :defer t
+  :after projectile perspective
+  :init
+  (persp-mode)
+  (nameframe-projectile-mode t)
+  (nameframe-perspective-mode t)
+  )
 
 (use-package expand-region
   :defer t
