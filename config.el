@@ -79,26 +79,30 @@
 (defun my/next-buffer ()
   "next-buffer, only skip *Messages*"
   (interactive)
-  (if (projectile-project-p)
-      (projectile-next-project-buffer)
-    (progn
-      (next-buffer)
-      (when (string= "*Messages*" (buffer-name))
-        (next-buffer)))
+  (progn
+    (projectile-next-project-buffer)
+    (when (string= "*Messages*" (buffer-name))
+            (projectile-next-project-buffer))
     )
   )
 
 (defun my/previous-buffer ()
   "previous-buffer, only skip *Messages*"
   (interactive)
-  (if (projectile-project-p)
+  (progn
       (projectile-previous-project-buffer)
-    (progn
-      (previous-buffer)
       (when (string= "*Messages*" (buffer-name))
-        (previous-buffer)))
+              (projectile-previous-project-buffer))
+      )
+  )
+
+(defun my/last-used-buffer ()
+  (interactive)
+  (let ((buffer-names (counsel-projectile--project-buffers)))
+    (switch-to-buffer (car buffer-names) nil 'force-same-window)
     )
   )
+
 (defun my/setup-indent (n)
   (setq c-basic-offset n)
   (setq tab-width n)
@@ -219,10 +223,11 @@
   )
 
 (bind-keys*
- ( "M-{" . my/next-buffer)
- ( "M-}" . my/previous-buffer)
+ ( "M-}" . my/next-buffer)
+ ( "M-{" . my/previous-buffer)
  ( "M-d" . kill-this-buffer)
  ( "M-f" . find-file)
+ ( "M-r" . my/last-used-buffer)
  ( "M-v" . (lambda () (interactive) (message "Pasted from clipboard")))
  ( "M-c" . my/copy-to-clipboard)
  ( "M-e" . elfeed)
@@ -302,6 +307,7 @@
   :defer t
   :after projectile evil evil-leader
   :init
+  (setq counsel-projectile-remove-current-buffer t)
   (evil-leader/set-key
     "b" 'counsel-projectile-switch-to-buffer
     "p" 'counsel-projectile-find-file
