@@ -79,21 +79,17 @@
 (defun my/next-buffer ()
   "next-buffer, only skip *Messages*"
   (interactive)
-  (progn
-    (projectile-next-project-buffer)
-    (while (string-match-p "^\*" (buffer-name))
-      (projectile-next-project-buffer))
-    )
+  (projectile-next-project-buffer)
+  (while (string-match-p "^\*" (buffer-name))
+    (projectile-next-project-buffer))
   )
 
 (defun my/previous-buffer ()
   "previous-buffer, only skip *Messages*"
   (interactive)
-  (progn
-    (projectile-previous-project-buffer)
-    (while (string-match-p "^\*" (buffer-name))
-      (projectile-previous-project-buffer))
-    )
+  (projectile-previous-project-buffer)
+  (while (string-match-p "^\*" (buffer-name))
+    (projectile-previous-project-buffer))
   )
 
 (defun my/last-used-buffer ()
