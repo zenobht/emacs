@@ -77,36 +77,22 @@
   )
 
 (defun my/next-buffer ()
-  "next-buffer, only skip *Messages*"
   (interactive)
-  (if (projectile-project-p)
-      (progn
-        (projectile-next-project-buffer)
-        (while (string-match-p "^\*" (buffer-name))
-          (projectile-next-project-buffer))
-        )
-    (next-buffer)
-    )
+  (next-buffer)
+  (while (string-match-p "^\*" (buffer-name))
+    (next-buffer))
   )
 
 (defun my/previous-buffer ()
-  "previous-buffer, only skip *Messages*"
   (interactive)
-  (if (projectile-project-p)
-      (progn
-        (projectile-previous-project-buffer)
-        (while (string-match-p "^\*" (buffer-name))
-          (projectile-previous-project-buffer))
-        )
-    (previous-buffer)
-    )
+  (previous-buffer)
+  (while (string-match-p "^\*" (buffer-name))
+    (previous-buffer))
   )
 
 (defun my/last-used-buffer ()
   (interactive)
-  (let ((buffer-names (counsel-projectile--project-buffers)))
-    (switch-to-buffer (car buffer-names) nil 'force-same-window)
-    )
+  (switch-to-buffer (other-buffer))
   )
 
 (defun my/setup-indent (n)
@@ -300,7 +286,7 @@ Version 2017-11-01"
   :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-    "B" 'ivy-switch-buffer
+    "b" 'ivy-switch-buffer
     "c" 'evil-ex-nohighlight
     "C" 'my/calendar
     "d" 'deer
@@ -363,7 +349,7 @@ Version 2017-11-01"
   (use-package smex)
   (ivy-mode 1)
   :config
-  (setq ivy-use-virtual-buffers t)
+  (setq ivy-use-virtual-buffers nil)
   (setq enable-recursive-minibuffers t)
   (setq ivy-re-builders-alist
           '(
@@ -607,19 +593,6 @@ Don't mess with special buffers."
    )
   )
  )
-
-(use-package perspective
-  :defer t
-  )
-
-(use-package nameframe
-  :defer t
-  :after projectile perspective
-  :init
-  (persp-mode)
-  (nameframe-projectile-mode t)
-  (nameframe-perspective-mode t)
-  )
 
 (use-package expand-region
   :defer t

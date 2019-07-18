@@ -45,7 +45,7 @@ If it's found, then add it to the `exec-path'."
       (setq base-path exec-path)
       ;;(add-to-list 'base-path "~/")
     )
-  ;; set exec-path for 
+  ;; set exec-path for
   (setq exec-path base-path)
   ;;(print base-path)
   (let* ((root (locate-dominating-file
