@@ -387,8 +387,8 @@
   :init
   (global-company-mode)
   :config
-  (setq company-idle-delay 0.1) ; Delay to complete
-  (setq company-minimum-prefix-length 1)
+  (setq company-idle-delay 0) ; Delay to complete
+  (setq company-minimum-prefix-length 2)
   (setq company-selection-wrap-around t) ; Loops around suggestions
   )
 
