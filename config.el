@@ -244,6 +244,18 @@
   (global-evil-surround-mode 1)
   )
 
+(use-package vimish-fold
+  :defer t
+  :after evil
+  :bind (
+         :map evil-normal-state-map
+              ( "zc" . vimish-fold)
+              ( "zo" . vimish-fold-unfold)
+              ( "zO" . vimish-fold-unfold-all)
+         )
+  :init
+  (vimish-fold-global-mode 1)
+  )
 
 (use-package evil-numbers
   :defer t
