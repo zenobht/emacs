@@ -58,7 +58,8 @@
 (set-input-method nil)
 
 (setq package-archives
-      '(("gnu" . "https://elpa.gnu.org/packages/")
+      '(
+        ("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
@@ -759,6 +760,12 @@ Don't mess with special buffers."
                                         root))))
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(defmacro measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "%.06f" (float-time (time-since time)))))
 
 (defun my/setup-tools-from-node ()
   (setup-project-paths)
