@@ -232,8 +232,8 @@ Version 2017-11-01"
     ))
 
 (bind-keys*
- ( "M-}" . my/next-buffer)
- ( "M-{" . my/previous-buffer)
+ ( "C-<up>" . my/next-buffer)
+ ( "C-<down>" . my/previous-buffer)
  ( "M-d" . kill-this-buffer)
  ( "M-f" . find-file)
  ( "M-r" . my/last-used-buffer)
@@ -387,11 +387,11 @@ Version 2017-11-01"
   :bind (
          :map evil-visual-state-map
          ("R" . evil-multiedit-match-all)
-         ("C-b" . evil-multiedit-match-and-prev)
+         ("C-p" . evil-multiedit-match-and-prev)
          ("C-n" . evil-multiedit-match-and-next)
          ("C-M-D" . evil-multiedit-restore)
          :map evil-normal-state-map
-         ("C-b" . evil-multiedit-match-and-prev)
+         ("C-p" . evil-multiedit-match-and-prev)
          ("C-n" . evil-multiedit-match-and-next)
          :map evil-multiedit-state-map
          ("RET" . evil-multiedit-toggle-or-restrict-region)
@@ -514,6 +514,7 @@ Don't mess with special buffers."
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . prog-mode))
 (show-paren-mode 1)
 (electric-pair-mode 1)
+(delete-selection-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (add-hook 'text-mode-hook (lambda () (interactive)(visual-line-mode -1)))
