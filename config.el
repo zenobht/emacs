@@ -988,3 +988,29 @@ inserted. "
   (setq rmh-elfeed-org-files (list "~/gdrive/feed/elfeed.org"))
   (elfeed-org)
   )
+
+(use-package tabbar
+  :defer t
+  :custom-face
+  (tabbar-default ((t (:inherit variable-pitch :background "black" :foreground "white" :height 0.8))))
+  (tabbar-selected ((t (:background "white" :foreground "black" :box (:line-width 1 :color "white" :style pressed-button)))))
+  :hook ((special-mode) . tabbar-local-mode)
+  :init
+  (tabbar-mode)
+  :config
+  (defun tabbar-buffer-groups ()
+  (list
+   (cond
+    ((string-equal "*" (substring (buffer-name) 0 1))
+     "Emacs Buffer"
+     )
+    ((eq major-mode 'dired-mode)
+     "Dired"
+     )
+    (t
+     "User Buffer"
+     )
+    )))
+  (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+  (setq tabbar-separator (quote (1)))
+  )
