@@ -162,7 +162,7 @@ a `before-save-hook'."
    "Format the current buffer according to the prettier tool."
    (interactive)
    (setq COMMAND prettier-js-command)
-   (when (eq major-mode 'react-mode) 
+   (when (eq major-mode 'react-mode)
      (setq COMMAND prettier-eslint-command))
    (let* ((ext (file-name-extension buffer-file-name t))
           (bufferfile (make-temp-file "prettier" nil ext))

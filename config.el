@@ -232,8 +232,8 @@ Version 2017-11-01"
     ))
 
 (bind-keys*
- ( "C-<up>" . my/next-buffer)
- ( "C-<down>" . my/previous-buffer)
+ ( "C-k" . my/next-buffer)
+ ( "C-j" . my/previous-buffer)
  ( "M-d" . kill-this-buffer)
  ( "M-f" . find-file)
  ( "M-r" . my/last-used-buffer)
