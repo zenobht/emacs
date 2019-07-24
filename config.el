@@ -232,8 +232,10 @@ Version 2017-11-01"
     ))
 
 (bind-keys*
- ( "C-k" . my/next-buffer)
- ( "C-j" . my/previous-buffer)
+ ( "C-h" . tabbar-backward-group)
+ ( "C-j" . tabbar-backward-tab)
+ ( "C-k" . tabbar-forward-tab)
+ ( "C-l" . tabbar-forward-group)
  ( "M-d" . kill-this-buffer)
  ( "M-f" . find-file)
  ( "M-r" . my/last-used-buffer)
@@ -995,7 +997,7 @@ inserted. "
   :defer t
   :custom-face
   (tabbar-default ((t (:inherit variable-pitch :background "black" :foreground "white" :height 0.8))))
-  (tabbar-selected ((t (:background "white" :foreground "black" :box (:line-width 1 :color "white" :style pressed-button)))))
+  (tabbar-selected ((t (:background "white" :foreground "black" :weight bold :box (:line-width 1 :color "white" :style pressed-button)))))
   :hook ((special-mode) . tabbar-local-mode)
   :init
   (tabbar-mode)
@@ -1014,5 +1016,5 @@ inserted. "
      )
     )))
   (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
-  (setq tabbar-separator (quote (1)))
+  (setq tabbar-separator (quote (" | ")))
   )
