@@ -281,6 +281,18 @@ Version 2017-11-01"
          )
   )
 
+(defun my/rg-star-search ()
+  (interactive)
+  (if (evil-visual-state-p)
+      (let ((selection (regexp-quote (buffer-substring-no-properties (region-beginning) (region-end)))))
+        (counsel-rg selection)
+        )
+    (let ((current-word (word-at-point)))
+      (counsel-rg current-word)
+      )
+    )
+  )
+
 (use-package evil-leader
   :after evil ivy
   :defer t
@@ -289,6 +301,7 @@ Version 2017-11-01"
   :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
+    "*" 'my/rg-star-search
     "b" 'ivy-switch-buffer
     "c" 'evil-ex-nohighlight
     "C" 'my/calendar
