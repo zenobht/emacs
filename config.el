@@ -155,11 +155,11 @@
   :after evil
   :bind (
          :map evil-normal-state-map
-         ( "M-j" . drag-stuff-down )
-         ( "M-k" . drag-stuff-up )
+         ( "C-<up>" . drag-stuff-up )
+         ( "C-<down>" . drag-stuff-down )
          :map evil-visual-state-map
-         ( "M-j" . drag-stuff-down )
-         ( "M-k" . drag-stuff-up )
+         ( "C-<up>" . drag-stuff-up )
+         ( "C-<down>" . drag-stuff-down )
          )
   :init
   (drag-stuff-mode 1)
@@ -1005,6 +1005,9 @@ inserted. "
   (defun tabbar-buffer-groups ()
   (list
    (cond
+    ((string-match "elfeed" (buffer-name))
+     "Elfeed"
+     )
     ((string-equal "*" (substring (buffer-name) 0 1))
      "Emacs Buffer"
      )
