@@ -296,6 +296,7 @@ Version 2017-11-01"
     "gb" 'magit-blame
     "s" 'swiper
     "t" 'eshell
+    "u" 'package-upgrade-all
     )
   )
 
@@ -331,9 +332,10 @@ Version 2017-11-01"
   :init
   (setq counsel-projectile-remove-current-buffer t)
   (evil-leader/set-key
-    "b" 'counsel-projectile-switch-to-buffer
-    "p" 'counsel-projectile-find-file
-    "P" 'counsel-projectile-switch-project
+    "pb" 'counsel-projectile-switch-to-buffer
+    "pf" 'counsel-projectile-find-file
+    "pp" 'counsel-projectile-switch-project
+    "pi" 'projectile-invalidate-cache
     )
   )
 
