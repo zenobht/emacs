@@ -155,11 +155,11 @@
   :after evil
   :bind (
          :map evil-normal-state-map
-         ( "C-<up>" . drag-stuff-up )
-         ( "C-<down>" . drag-stuff-down )
+         ( "C-k" . drag-stuff-up )
+         ( "C-j" . drag-stuff-down )
          :map evil-visual-state-map
-         ( "C-<up>" . drag-stuff-up )
-         ( "C-<down>" . drag-stuff-down )
+         ( "C-k" . drag-stuff-up )
+         ( "C-j" . drag-stuff-down )
          )
   :init
   (drag-stuff-mode 1)
@@ -232,10 +232,10 @@ Version 2017-11-01"
     ))
 
 (bind-keys*
- ( "C-h" . tabbar-backward-group)
- ( "C-j" . tabbar-backward-tab)
- ( "C-k" . tabbar-forward-tab)
- ( "C-l" . tabbar-forward-group)
+ ( "C-h" . tabbar-backward-tab)
+ ( "M-j" . tabbar-backward-group)
+ ( "M-k" . tabbar-forward-group)
+ ( "C-l" . tabbar-forward-tab)
  ( "M-d" . kill-this-buffer)
  ( "M-f" . find-file)
  ( "M-r" . my/last-used-buffer)
