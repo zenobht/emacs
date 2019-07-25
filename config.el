@@ -237,6 +237,7 @@ Version 2017-11-01"
  ( "M-k" . tabbar-forward-group)
  ( "C-l" . tabbar-forward-tab)
  ( "M-d" . kill-this-buffer)
+ ( "M-D" . delete-window)
  ( "M-f" . find-file)
  ( "M-r" . my/last-used-buffer)
  ( "M-v" . (lambda () (interactive) (message "Pasted from clipboard")))
@@ -301,9 +302,9 @@ Version 2017-11-01"
   :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
+    "`" 'evil-ex-nohighlight
     "*" 'my/rg-star-search
     "b" 'ivy-switch-buffer
-    "c" 'evil-ex-nohighlight
     "C" 'my/calendar
     "d" 'deer
     "f" 'counsel-rg
@@ -314,12 +315,6 @@ Version 2017-11-01"
     "u" 'package-upgrade-all
     )
   )
-
-(use-package evil-commentary
-  :defer t
-  :after evil
-  :init
-  (evil-commentary-mode))
 
 (use-package evil-visualstar
   :defer t
@@ -1049,4 +1044,20 @@ inserted. "
   :after company
   :init
   (add-to-list 'company-backends #'company-tabnine)
+  )
+
+(use-package evil-nerd-commenter
+  :defer t
+  :after evil-leader
+  :init
+  (evil-leader/set-key
+    "ci" 'evilnc-comment-or-uncomment-lines
+    "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+    "cc" 'evilnc-copy-and-comment-lines
+    "cp" 'evilnc-comment-or-uncomment-paragraphs
+    "cr" 'comment-or-uncomment-region
+    "cv" 'evilnc-toggle-invert-comment-line-by-line
+    "."  'evilnc-copy-and-comment-operator
+    "\\" 'evilnc-comment-operator ; if you prefer backslash key
+    )
   )
