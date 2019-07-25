@@ -430,9 +430,18 @@ Version 2017-11-01"
   :init
   (global-company-mode)
   :config
-  (setq company-idle-delay 0) ; Delay to complete
-  (setq company-minimum-prefix-length 2)
-  (setq company-selection-wrap-around t) ; Loops around suggestions
+  (company-tng-configure-default)
+  (setq
+   company-idle-delay 0 ; Delay to complete
+   company-minimum-prefix-length 2
+   company-selection-wrap-around t ; Loops around suggestions
+   company-show-numbers t
+   company-frontends '(
+                       company-tng-frontend
+                       company-pseudo-tooltip-frontend
+                       company-echo-metadata-frontend
+                       )
+   )
   )
 
 (use-package git-gutter
@@ -1033,4 +1042,11 @@ inserted. "
     )))
   (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
   (setq tabbar-separator (quote (" | ")))
+  )
+
+(use-package company-tabnine
+  :defer t
+  :after company
+  :init
+  (add-to-list 'company-backends #'company-tabnine)
   )
