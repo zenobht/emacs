@@ -795,13 +795,14 @@ Don't mess with special buffers."
   (my/prettier-setup)
   )
 
-(use-package js
+(use-package web-mode
   :defer t
+  :after flycheck
   :init
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-mode))
-  :config
-  (add-hook 'js-mode-hook #'my/setup-tools-from-node)
+  (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode))
+  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (add-hook 'web-mode-hook #'my/setup-tools-from-node)
   )
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
