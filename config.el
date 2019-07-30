@@ -302,7 +302,7 @@ Version 2017-11-01"
   :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-    "`" 'evil-ex-nohighlight
+    "<escape>" 'evil-ex-nohighlight
     "*" 'my/rg-star-search
     "b" 'ivy-switch-buffer
     "C" 'my/calendar
@@ -420,7 +420,6 @@ Version 2017-11-01"
   :bind (:map company-active-map
         ("C-j" . company-select-next)
         ("C-k" . company-select-previous)
-        ([escape] . company-abort)
         )
   :init
   (global-company-mode)
@@ -758,6 +757,7 @@ Don't mess with special buffers."
                                              package-alist))))
                 (package-install package-desc)
                 (package-delete  old-package)))))
+      (load-file user-init-file)
       (message "All packages are up to date"))))
 
 (defun my/prettier-setup ()

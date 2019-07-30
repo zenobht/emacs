@@ -166,6 +166,7 @@
     `(shadow ((,class (:foreground ,nord3))))
     `(underline ((,class (:underline t))))
     `(warning ((,class (:foreground ,nord13 :weight bold))))
+    `(lazy-highlight ((,class (:background: ,nord7 :foreground ,nord3))))
 
     ;; +--- Syntax ---+
     ;; > C
@@ -577,6 +578,10 @@
     `(ivy-minibuffer-match-face-3 ((,class (:background ,nord7 :foreground ,nord6 :weight bold))))
     `(ivy-minibuffer-match-face-4 ((,class (:background ,nord12 :foreground ,nord1 :weight bold))))
     `(ivy-current-match ((,class (:background ,nord2 :foreground ,nord8 :weight bold))))
+    `(swiper-match-face-1 ((,class (:background ,nord15 :foreground ,nord1 :weight bold))))
+    `(swiper-match-face-2 ((,class (:background ,nord4 :foreground ,nord3 :weight bold))))
+    `(swiper-match-face-3 ((,class (:background ,nord7 :foreground ,nord6 :weight bold))))
+    `(swiper-match-face-4 ((,class (:background ,nord12 :foreground ,nord1 :weight bold))))
 
  ;; > Magit
     `(magit-branch ((,class (:foreground ,nord7 :weight bold))))
