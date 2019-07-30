@@ -194,8 +194,10 @@
   :bind (
          :map evil-normal-state-map
          ( "C-u" . evil-scroll-up )
-         ( "[e" . next-error)
-         ( "]e" . previous-error)
+         ( "[e" . previous-error)
+         ( "]e" . next-error)
+         ( "gj" . evil-jump-backward)
+         ( "gk" . evil-jump-forward)
          :map evil-visual-state-map
          ( "M-c" . my/copy-to-clipboard)
          ( "M-v" . my/paste-from-clipboard)
@@ -233,8 +235,7 @@ Version 2017-11-01"
 
 (bind-keys*
  ( "C-j" . tabbar-backward-tab)
- ( "C-h" . tabbar-backward-group)
- ( "C-l" . tabbar-forward-group)
+ ( "C-l" . tabbar-backward-group)
  ( "C-k" . tabbar-forward-tab)
  ( "M-d" . kill-this-buffer)
  ( "M-D" . delete-window)
@@ -384,8 +385,7 @@ Version 2017-11-01"
   :defer t
   :bind
   (:map evil-normal-state-map
-        ("g D" . dumb-jump-go)
-        ("g b" . dumb-jump-go-back)
+        ("gD" . dumb-jump-go)
         )
   :config
   (setq dumb-jump-selector 'ivy))
