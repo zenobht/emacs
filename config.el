@@ -415,6 +415,27 @@ Version 2017-11-01"
   (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
   )
 
+(defun company-mode/backend-with-yas (backend)
+  (if (and (listp backend) (member 'company-yasnippet backend))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-yasnippet))))
+
+(use-package yasnippet
+  :defer t
+  :after company
+  :init
+  (yas-global-mode +1)
+  :config
+  (add-to-list 'company-backends #'company-mode/backend-with-yas)
+  ;; (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+  )
+
+(use-package yasnippet-snippets
+  :defer
+  :after yasnippet
+  )
+
 (use-package company
   :defer t
   :bind (:map company-active-map
