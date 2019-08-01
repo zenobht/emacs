@@ -217,6 +217,11 @@
   (fset 'evil-visual-update-x-selection 'ignore)
   (define-key evil-visual-state-map (kbd ">") 'my/visual-shift-right)
   (define-key evil-visual-state-map (kbd "<") 'my/visual-shift-left)
+  (eval-after-load 'evil-ex
+    '(evil-ex-define-cmd "jsf" (lambda ()
+                                 (interactive)
+                                 (json-mode)
+                                 (json-pretty-print-buffer))))
   )
 
 (defun my/new-empty-buffer ()
