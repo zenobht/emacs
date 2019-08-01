@@ -192,6 +192,8 @@
 (use-package evil
   :defer t
   :bind (
+         :map evil-insert-state-map
+         ( "M-/" . yas-expand)
          :map evil-normal-state-map
          ( "C-u" . evil-scroll-up )
          ( "[e" . previous-error)
@@ -425,10 +427,11 @@ Version 2017-11-01"
   :defer t
   :after company
   :init
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
   (yas-global-mode +1)
   :config
-  (add-to-list 'company-backends #'company-mode/backend-with-yas)
-  ;; (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+  ;; (add-to-list 'company-backends #'company-mode/backend-with-yas)
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
   )
 
 (use-package yasnippet-snippets
@@ -467,6 +470,7 @@ Version 2017-11-01"
   )
 
 (modify-syntax-entry ?_ "w")
+(modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
 
 (use-package ranger
   :defer t
@@ -488,6 +492,8 @@ Version 2017-11-01"
 
 (use-package evil-magit
   :defer t
+  :custom-face
+  (magit-branch-local ((t (:foreground "brightyellow"))))
   :init
   (evil-magit-init)
   :config
@@ -626,8 +632,8 @@ Don't mess with special buffers."
             ))
     ;; right
     (quote (
+            (:eval (propertize "[%2l:%2c] " 'face 'bold))
             "%p "
-            "%3l:%2c "
             mode-name
             "  %I "
             my/mode-line-coding-format
