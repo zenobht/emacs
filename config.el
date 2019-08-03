@@ -47,7 +47,10 @@
  backward-delete-char-untabify-method 'hungry
  initial-major-mode (quote text-mode)
  mouse-wheel-progressive-speed nil
+ display-buffer-alist '(("\\`\\*e?shell" display-buffer-pop-up-window))
  )
+
+(add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))
 
 (set-terminal-coding-system  'utf-8)
 (set-keyboard-coding-system  'utf-8)
