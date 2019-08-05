@@ -153,13 +153,35 @@
     )
   )
 
+(defun my/move-up ()
+  (interactive)
+  (if (eq major-mode 'org-mode)
+      ;; in org-mode move subtree if its heading else move item
+      (if (string-prefix-p "*" (thing-at-point 'line))
+          (org-move-subtree-up)
+        (org-move-item-up))
+    ;; else use drag-stuff
+    (drag-stuff-up))
+  )
+
+(defun my/move-down ()
+  (interactive)
+  (if (eq major-mode 'org-mode)
+      ;; in org-mode move subtree if its heading else move item
+      (if (string-prefix-p "*" (thing-at-point 'line))
+          (org-move-subtree-down)
+        (org-move-item-down))
+    ;; else use drag-stuff
+    (drag-stuff-down))
+  )
+
 (use-package drag-stuff
   :defer t
   :after evil
   :bind (
          :map evil-normal-state-map
-         ( "C-<up>" . drag-stuff-up )
-         ( "C-<down>" . drag-stuff-down )
+         ( "C-<up>" . my/move-up )
+         ( "C-<down>" . my/move-down )
          :map evil-visual-state-map
          ( "C-<up>" . drag-stuff-up )
          ( "C-<down>" . drag-stuff-down )
