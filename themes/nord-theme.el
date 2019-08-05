@@ -640,9 +640,9 @@
     `(neo-vc-user-face ((,class (:foreground ,nord4))))
 
     ;; > Org
-    `(org-level-1 ((,class (:foreground ,nord15 :weight bold))))
+    `(org-level-1 ((,class (:foreground ,nord13 :weight bold))))
     `(org-level-2 ((,class (:inherit org-level-1 :foreground ,nord14))))
-    `(org-level-3 ((,class (:inherit org-level-1 :foreground ,nord13))))
+    `(org-level-3 ((,class (:inherit org-level-1 :foreground ,nord15))))
     `(org-level-4 ((,class (:inherit org-level-1 :foreground ,nord8))))
     `(org-level-5 ((,class (:inherit org-level-1))))
     `(org-level-6 ((,class (:inherit org-level-2))))
