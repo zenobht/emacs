@@ -153,41 +153,43 @@
     )
   )
 
-(defun my/move-up ()
-  (interactive)
+(defun my/move-up (args)
+  (interactive "*p")
   (if (eq major-mode 'org-mode)
       ;; in org-mode move subtree if its heading else move item
       (if (string-prefix-p "*" (thing-at-point 'line))
           (org-move-subtree-up)
         (org-move-item-up))
     ;; else use drag-stuff
-    (drag-stuff-up))
+    (move-text-up)
+    )
   )
 
-(defun my/move-down ()
-  (interactive)
+(defun my/move-down (args)
+  (interactive "*p")
   (if (eq major-mode 'org-mode)
       ;; in org-mode move subtree if its heading else move item
       (if (string-prefix-p "*" (thing-at-point 'line))
           (org-move-subtree-down)
         (org-move-item-down))
     ;; else use drag-stuff
-    (drag-stuff-down))
+    (move-text-down)
+    )
   )
 
-(use-package drag-stuff
+(use-package move-text
   :defer t
   :after evil
   :bind (
          :map evil-normal-state-map
-         ( "C-<up>" . my/move-up )
-         ( "C-<down>" . my/move-down )
-         :map evil-visual-state-map
-         ( "C-<up>" . drag-stuff-up )
-         ( "C-<down>" . drag-stuff-down )
+         ("K" . my/move-up)
+         ("J" . my/move-down)
          )
-  :init
-  (drag-stuff-mode 1)
+  :config
+  (define-key evil-visual-state-map "J"
+    (concat ":m '>+1" (kbd "RET") "gv=gv"))
+  (define-key evil-visual-state-map "K"
+    (concat ":m '<-2" (kbd "RET") "gv=gv"))
   )
 
 (use-package whitespace
@@ -225,15 +227,16 @@
          ( "]e" . next-error)
          ( "gj" . evil-jump-backward)
          ( "gk" . evil-jump-forward)
+         ( "gm" . evil-join)
          :map evil-visual-state-map
          ( "M-c" . my/copy-to-clipboard)
          ( "M-v" . my/paste-from-clipboard)
+         ( "gm" . evil-join)
          )
   :custom-face
   (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
   :init
   (setq evil-search-module 'evil-search
-        evil-ex-search-case 'sensitive
         evil-insert-state-message nil
         evil-want-C-i-jump nil
         )
