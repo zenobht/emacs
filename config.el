@@ -502,7 +502,6 @@ Version 2017-11-01"
   (global-git-gutter-mode 1)
   )
 
-(modify-syntax-entry ?_ "w")
 (modify-syntax-entry ?- "w" emacs-lisp-mode-syntax-table)
 
 (use-package ranger
@@ -597,8 +596,18 @@ Don't mess with special buffers."
 (delete-selection-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(add-hook 'text-mode-hook (lambda () (interactive)(visual-line-mode -1)))
-(add-hook 'prog-mode-hook (lambda () (interactive)(visual-line-mode +1)))
+
+(add-hook 'text-mode-hook
+          (lambda ()
+            (interactive)
+            (visual-line-mode -1)
+            (modify-syntax-entry ?_ "w")))
+
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (interactive)
+            (visual-line-mode +1)
+            (modify-syntax-entry ?_ "w")))
 
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length containing LEFT, and RIGHT aligned respectively."
