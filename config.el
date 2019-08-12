@@ -5,6 +5,7 @@
               )
 
  (defun load-directory (directory)
+
     "Load recursively all `.el' files in DIRECTORY."
     (dolist (element (directory-files-and-attributes directory nil nil nil))
       (let* ((path (car element))
@@ -154,43 +155,51 @@
     )
   )
 
-(defun my/move-up (args)
-  (interactive "*p")
+(defun move-line (n)
+  (let ((column (current-column))
+        (line (delete-and-extract-region (line-beginning-position) (+ (line-end-position) 1))))
+    (forward-line n)
+    (insert line)
+    (forward-line -1)
+    (forward-char column)))
+
+(defun my/move-up ()
+  (interactive)
   (if (eq major-mode 'org-mode)
       ;; in org-mode move subtree if its heading else move item
       (if (string-prefix-p "*" (thing-at-point 'line))
           (org-move-subtree-up)
         (org-move-item-up))
     ;; else use drag-stuff
-    (move-text-up)
+    (move-line -1)
     )
   )
 
-(defun my/move-down (args)
-  (interactive "*p")
+(defun my/move-down ()
+  (interactive)
   (if (eq major-mode 'org-mode)
       ;; in org-mode move subtree if its heading else move item
       (if (string-prefix-p "*" (thing-at-point 'line))
           (org-move-subtree-down)
         (org-move-item-down))
     ;; else use drag-stuff
-    (move-text-down)
+    (move-line 1)
     )
   )
 
-(use-package move-text
+(use-package drag-stuff
   :defer t
   :after evil
   :bind (
          :map evil-normal-state-map
          ("K" . my/move-up)
          ("J" . my/move-down)
+         :map evil-visual-state-map
+         ("K" . drag-stuff-up)
+         ("J" . drag-stuff-down)
          )
-  :config
-  (define-key evil-visual-state-map "J"
-    (concat ":m '>+1" (kbd "RET") "gv=gv"))
-  (define-key evil-visual-state-map "K"
-    (concat ":m '<-2" (kbd "RET") "gv=gv"))
+  :init
+  (drag-stuff-global-mode)
   )
 
 (use-package whitespace
@@ -270,8 +279,8 @@ Version 2017-11-01"
     ))
 
 (bind-keys*
- ( "C-j" . tabbar-backward-tab)
  ( "C-l" . tabbar-backward-group)
+ ( "C-j" . tabbar-backward-tab)
  ( "C-k" . tabbar-forward-tab)
  ( "M-d" . kill-this-buffer)
  ( "M-D" . delete-window)
@@ -598,6 +607,7 @@ Don't mess with special buffers."
 (delete-selection-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(push '(?\' . ?\') electric-pair-pairs)
 
 (add-hook 'text-mode-hook
           (lambda ()
@@ -873,6 +883,7 @@ Don't mess with special buffers."
   (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (add-hook 'web-mode-hook #'my/setup-tools-from-node)
+  (setq web-mode-enable-auto-pairing nil)
   )
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
