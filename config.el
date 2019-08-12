@@ -78,6 +78,7 @@
   :init
   (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize)
+  (setup-project-paths)
   )
 
 (defun my/next-buffer ()
@@ -360,8 +361,7 @@ Version 2017-11-01"
 
 (use-package projectile
   :defer t
-  :init
-  (projectile-global-mode)
+  :init (projectile-global-mode)
   :config
   (setq projectile-enable-caching t)
   (setq projectile-indexing-method 'alien)
@@ -370,6 +370,8 @@ Version 2017-11-01"
   (setq projectile-globally-ignored-directories
         '(".git" "node_modules" "__pycache__" ".vs"))
   (setq projectile-globally-ignored-files '("TAGS" "tags" ".DS_Store"))
+  (add-hook 'projectile-after-switch-project-hook
+            (lambda () (setup-project-paths)))
   )
 
 (use-package counsel-projectile
@@ -859,7 +861,6 @@ Don't mess with special buffers."
      (message "%.06f" (float-time (time-since time)))))
 
 (defun my/setup-tools-from-node ()
-  (setup-project-paths)
   (my/eslint-setup)
   (my/prettier-setup)
   )
