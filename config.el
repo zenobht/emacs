@@ -421,7 +421,7 @@ Version 2017-11-01"
   :defer t
   :bind
   (:map evil-normal-state-map
-        ("gD" . dumb-jump-go)
+        ("gd" . dumb-jump-go)
         )
   :config
   (setq dumb-jump-selector 'ivy))
@@ -742,10 +742,6 @@ Don't mess with special buffers."
       "oa" 'org-agenda
       "oc" 'org-capture
       )
-    (evil-leader/set-key-for-mode 'org-mode
-      "[" 'my/org-move-down
-      "]" 'my/org-move-up
-      )
     (setq org-agenda-files '("~/gdrive/gtd/inbox.org"
                              "~/gdrive/gtd/gtd.org"
                              "~/gdrive/gtd/tickler.org"
@@ -774,6 +770,13 @@ Don't mess with special buffers."
     (evil-org-agenda-set-keys)
     )
   )
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (define-key org-mode-map (kbd "<C-up>") 'my/org-move-up)
+            (define-key org-mode-map (kbd "<C-down>") 'my/org-move-down)
+            )
+          )
 
 (use-package org-gcal
   :defer t
