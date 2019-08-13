@@ -155,53 +155,6 @@
     )
   )
 
-(defun move-line (n)
-  (let ((column (current-column))
-        (line (delete-and-extract-region (line-beginning-position) (+ (line-end-position) 1))))
-    (forward-line n)
-    (insert line)
-    (forward-line -1)
-    (forward-char column)))
-
-(defun my/move-up ()
-  (interactive)
-  (if (eq major-mode 'org-mode)
-      ;; in org-mode move subtree if its heading else move item
-      (if (string-prefix-p "*" (thing-at-point 'line))
-          (org-move-subtree-up)
-        (org-move-item-up))
-    ;; else use drag-stuff
-    (move-line -1)
-    )
-  )
-
-(defun my/move-down ()
-  (interactive)
-  (if (eq major-mode 'org-mode)
-      ;; in org-mode move subtree if its heading else move item
-      (if (string-prefix-p "*" (thing-at-point 'line))
-          (org-move-subtree-down)
-        (org-move-item-down))
-    ;; else use drag-stuff
-    (move-line 1)
-    )
-  )
-
-(use-package drag-stuff
-  :defer t
-  :after evil
-  :bind (
-         :map evil-normal-state-map
-         ("K" . my/move-up)
-         ("J" . my/move-down)
-         :map evil-visual-state-map
-         ("K" . drag-stuff-up)
-         ("J" . drag-stuff-down)
-         )
-  :init
-  (drag-stuff-global-mode)
-  )
-
 (use-package whitespace
   :defer t
   :custom-face
@@ -260,6 +213,43 @@
                                  (interactive)
                                  (json-mode)
                                  (json-pretty-print-buffer))))
+
+  (evil-define-operator evil-move-up (beg end)
+    "Move region up by one line."
+    :motion evil-line
+    (interactive "<r>")
+    (evil-visual-line)
+    (let ((beg-line (line-number-at-pos beg))
+          (end-line (line-number-at-pos end))
+          (dest (- (line-number-at-pos beg) 2)))
+      (evil-move beg end dest)
+      (goto-line (- beg-line 1))
+      (exchange-point-and-mark)
+      (goto-line (- end-line 2))
+      (evil-visual-line)
+      )
+    )
+
+  (evil-define-operator evil-move-down (beg end)
+    "Move region down by one line."
+    :motion evil-line
+    (interactive "<r>")
+    (evil-visual-line)
+    (let ((beg-line (line-number-at-pos beg))
+          (end-line (line-number-at-pos end))
+          (dest (+ (line-number-at-pos end) 0)))
+      (evil-move beg end dest)
+      (goto-line (+ beg-line 1))
+      (exchange-point-and-mark)
+      (goto-line (+ end-line 0))
+      (evil-visual-line)
+      )
+    )
+
+  (define-key evil-normal-state-map (kbd "K") 'evil-move-up)
+  (define-key evil-normal-state-map (kbd "J") 'evil-move-down)
+  (define-key evil-visual-state-map (kbd "K") 'evil-move-up)
+  (define-key evil-visual-state-map (kbd "J") 'evil-move-down)
   )
 
 (defun my/new-empty-buffer ()
