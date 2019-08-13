@@ -179,6 +179,14 @@
   (evil-normal-state)
   (evil-visual-restore))
 
+(defun my/substitute()
+  (interactive)
+  (if (eq evil-state 'visual)
+      (evil-ex "`<,`>s!!!")
+    (evil-ex "%s!!!g")
+    )
+  )
+
 (use-package evil
   :defer t
   :bind (
@@ -191,6 +199,7 @@
          ( "gj" . evil-jump-backward)
          ( "gk" . evil-jump-forward)
          ( "gm" . evil-join)
+         ( "gs" . my/substitute)
          :map evil-visual-state-map
          ( "M-c" . my/copy-to-clipboard)
          ( "M-v" . my/paste-from-clipboard)
@@ -593,11 +602,20 @@ Don't mess with special buffers."
 
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . prog-mode))
 (show-paren-mode 1)
-(electric-pair-mode 1)
 (delete-selection-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+
 (push '(?\' . ?\') electric-pair-pairs)
+(electric-pair-mode 1)
+
+(defun my/disable-in-minibuffer ()
+  (electric-pair-mode -1))
+(defun my/enable-on-minibuffer-exit ()
+  (electric-pair-mode +1))
+
+(add-hook 'minibuffer-setup-hook #'my/disable-in-minibuffer)
+(add-hook 'minibuffer-exit-hook #'my/enable-on-minibuffer-exit)
 
 (add-hook 'text-mode-hook
           (lambda ()
