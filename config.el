@@ -715,6 +715,22 @@ Don't mess with special buffers."
   :defer t
   :hook ((prog-mode) . rainbow-mode))
 
+
+(defun my/org-move-up ()
+  (interactive)
+  (if (string-prefix-p "*" (thing-at-point 'line))
+      (org-move-subtree-up)
+    (org-move-item-up))
+  )
+
+(defun my/org-move-down ()
+  (interactive)
+  ;; in org-mode move subtree if its heading else move item
+  (if (string-prefix-p "*" (thing-at-point 'line))
+      (org-move-subtree-down)
+    (org-move-item-down))
+  )
+
 (use-package evil-org
   :defer t
   :after evil evil-leader
@@ -725,6 +741,10 @@ Don't mess with special buffers."
     (evil-leader/set-key
       "oa" 'org-agenda
       "oc" 'org-capture
+      )
+    (evil-leader/set-key-for-mode 'org-mode
+      "[" 'my/org-move-down
+      "]" 'my/org-move-up
       )
     (setq org-agenda-files '("~/gdrive/gtd/inbox.org"
                              "~/gdrive/gtd/gtd.org"
