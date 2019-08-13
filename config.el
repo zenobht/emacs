@@ -1115,23 +1115,29 @@ inserted. "
   (tabbar-mode)
   :config
   (defun tabbar-buffer-groups ()
-  (list
-   (cond
-    ((string-match "elfeed" (buffer-name))
-     "Elfeed"
-     )
-    ((string-equal "*" (substring (buffer-name) 0 1))
-     "Emacs Buffer"
-     )
-    ((eq major-mode 'dired-mode)
-     "Dired"
-     )
-    (t
-     "User Buffer"
-     )
-    )))
-  (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
-  (setq tabbar-separator (quote (" | ")))
+    (list
+     (cond
+      ((string-match "elfeed" (buffer-name))
+       "Elfeed"
+       )
+      ((string-equal "*" (substring (buffer-name) 0 1))
+       "Emacs Buffer"
+       )
+      ((eq major-mode 'dired-mode)
+       "Dired"
+       )
+      (t
+       "User Buffer"
+       )
+      )))
+  (setq
+   tabbar-home-button-value nil
+   tabbar-buffer-home-button (quote (("[+]") ""))
+   tabbar-home-button (quote (("[+]") ""))
+   tabbar-scroll-left-button (quote ((" <") ""))
+   tabbar-scroll-right-button (quote ((" >") ""))
+   tabbar-buffer-groups-function 'tabbar-buffer-groups
+   tabbar-separator (quote (" | ")))
   )
 
 (use-package company-tabnine
