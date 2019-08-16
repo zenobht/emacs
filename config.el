@@ -182,9 +182,14 @@
 (defun my/substitute()
   (interactive)
   (if (eq evil-state 'visual)
-      (evil-ex "`<,`>s!!!")
+      (evil-ex "`<,`>s!!!g")
     (evil-ex "%s!!!g")
     )
+  )
+
+(defun my/visual-macro ()
+  (interactive)
+  (evil-ex "`<,`>norm @")
   )
 
 (use-package evil
@@ -198,12 +203,12 @@
          ( "]e" . next-error)
          ( "gj" . evil-jump-backward)
          ( "gk" . evil-jump-forward)
-         ( "gm" . evil-join)
          ( "gs" . my/substitute)
          :map evil-visual-state-map
          ( "M-c" . my/copy-to-clipboard)
          ( "M-v" . my/paste-from-clipboard)
-         ( "gm" . evil-join)
+         ( "gs" . my/substitute)
+         ( "gM" . my/visual-macro)
          )
   :custom-face
   (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
@@ -255,10 +260,10 @@
       )
     )
 
-  (define-key evil-normal-state-map (kbd "K") 'evil-move-up)
-  (define-key evil-normal-state-map (kbd "J") 'evil-move-down)
-  (define-key evil-visual-state-map (kbd "K") 'evil-move-up)
-  (define-key evil-visual-state-map (kbd "J") 'evil-move-down)
+  (define-key evil-normal-state-map (kbd "M-k") 'evil-move-up)
+  (define-key evil-normal-state-map (kbd "M-j") 'evil-move-down)
+  (define-key evil-visual-state-map (kbd "M-k") 'evil-move-up)
+  (define-key evil-visual-state-map (kbd "M-j") 'evil-move-down)
   )
 
 (defun my/new-empty-buffer ()
@@ -278,7 +283,7 @@ Version 2017-11-01"
     ))
 
 (bind-keys*
- ( "C-l" . tabbar-backward-group)
+ ( "M-t" . tabbar-backward-group)
  ( "C-j" . tabbar-backward-tab)
  ( "C-k" . tabbar-forward-tab)
  ( "M-d" . kill-this-buffer)
