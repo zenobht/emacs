@@ -49,6 +49,7 @@
  initial-major-mode (quote text-mode)
  mouse-wheel-progressive-speed nil
  display-buffer-alist '(("\\`\\*e?shell" display-buffer-pop-up-window))
+ indent-tabs-mode nil
  )
 
 (add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))
@@ -115,15 +116,6 @@
   )
 
 (defun my/configure ()
-  (setq whitespace-display-mappings
-        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-        '(
-          (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-          (newline-mark 10 [172 10]) ; LINE FEED,
-          (tab-mark 9 [9655 9] [92 9]) ; tab
-          )
-        indent-tabs-mode nil
-        )
   (my/setup-indent 2)
   )
 
@@ -163,6 +155,14 @@
   (global-whitespace-mode 1)
   (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
         show-trailing-whitespace t)
+  (setq whitespace-display-mappings
+        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+        '(
+          (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+          (newline-mark 10 [172 10]) ; LINE FEED,
+          (tab-mark 9 [9655 9] [92 9]) ; tab
+          )
+        )
   )
 
 (defun my/visual-shift-left ()
@@ -611,8 +611,13 @@ Don't mess with special buffers."
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
-(push '(?\' . ?\') electric-pair-pairs)
-(electric-pair-mode 1)
+(use-package electric
+  :defer t
+  :init
+  (electric-pair-mode 1)
+  :config
+  (push '(?\' . ?\') electric-pair-pairs)
+  )
 
 (defun my/disable-in-minibuffer ()
   (electric-pair-mode -1))
