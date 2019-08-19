@@ -152,7 +152,6 @@
   :custom-face
   (trailing-whitespace (( t ( :background "red" :foreground "white" ))))
   :init
-  (global-whitespace-mode 1)
   (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
         show-trailing-whitespace t)
   (setq whitespace-display-mappings
@@ -632,6 +631,7 @@ Don't mess with special buffers."
             (interactive)
             (visual-line-mode -1)
             (setq indent-tabs-mode nil)
+            (whitespace-mode +1)
             (modify-syntax-entry ?_ "w")))
 
 (add-hook 'prog-mode-hook
@@ -639,6 +639,7 @@ Don't mess with special buffers."
             (interactive)
             (visual-line-mode +1)
             (setq indent-tabs-mode nil)
+            (whitespace-mode +1)
             (modify-syntax-entry ?_ "w")))
 
 (defun simple-mode-line-render (left right)
