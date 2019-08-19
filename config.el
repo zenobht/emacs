@@ -631,12 +631,14 @@ Don't mess with special buffers."
           (lambda ()
             (interactive)
             (visual-line-mode -1)
+            (setq indent-tabs-mode nil)
             (modify-syntax-entry ?_ "w")))
 
 (add-hook 'prog-mode-hook
           (lambda ()
             (interactive)
             (visual-line-mode +1)
+            (setq indent-tabs-mode nil)
             (modify-syntax-entry ?_ "w")))
 
 (defun simple-mode-line-render (left right)
