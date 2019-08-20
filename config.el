@@ -285,8 +285,8 @@ Version 2017-11-01"
  ( "M-t" . tabbar-backward-group)
  ( "C-j" . tabbar-backward-tab)
  ( "C-k" . tabbar-forward-tab)
- ( "M-d" . kill-this-buffer)
- ( "M-D" . delete-window)
+ ( "M-z" . kill-this-buffer)
+ ( "M-Z" . delete-window)
  ( "M-f" . find-file)
  ( "M-r" . my/last-used-buffer)
  ( "M-v" . (lambda () (interactive) (message "Pasted from clipboard")))
@@ -448,12 +448,12 @@ Version 2017-11-01"
   :bind (
          :map evil-visual-state-map
          ("R" . evil-multiedit-match-all)
-         ("C-p" . evil-multiedit-match-and-prev)
-         ("C-n" . evil-multiedit-match-and-next)
+         ("M-D" . evil-multiedit-match-and-prev)
+         ("M-d" . evil-multiedit-match-and-next)
          ("C-M-D" . evil-multiedit-restore)
          :map evil-normal-state-map
-         ("C-p" . evil-multiedit-match-and-prev)
-         ("C-n" . evil-multiedit-match-and-next)
+         ("M-D" . evil-multiedit-match-and-prev)
+         ("M-d" . evil-multiedit-match-and-next)
          :map evil-multiedit-state-map
          ("RET" . evil-multiedit-toggle-or-restrict-region)
          ("C-j" . evil-multiedit-next)
