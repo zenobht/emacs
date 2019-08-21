@@ -1062,6 +1062,7 @@ Don't mess with special buffers."
     (kbd "n") 'elfeed-unjam
     (kbd "w") 'elfeed-web-start
     (kbd "W") 'elfeed-web-stop
+    (kbd "c") 'my/elfeed-mark-all-read
     (kbd "m") 'my/elfeed-star
     (kbd "M") 'my/elfeed-unstar
     (kbd "t") (lambda () (interactive) (elfeed-search-set-filter "+starred"))
