@@ -231,7 +231,8 @@
     "Move region up by one line."
     :motion evil-line
     (interactive "<r>")
-    (evil-visual-line)
+    (if (not (eq evil-state 'normal))
+        (evil-visual-line))
     (let ((beg-line (line-number-at-pos beg))
           (end-line (line-number-at-pos end))
           (dest (- (line-number-at-pos beg) 2)))
@@ -239,7 +240,8 @@
       (goto-line (- beg-line 1))
       (exchange-point-and-mark)
       (goto-line (- end-line 2))
-      (evil-visual-line)
+      (if (not (eq evil-state 'normal))
+          (evil-visual-line))
       )
     )
 
@@ -247,7 +249,8 @@
     "Move region down by one line."
     :motion evil-line
     (interactive "<r>")
-    (evil-visual-line)
+    (if (not (eq evil-state 'normal))
+        (evil-visual-line))
     (let ((beg-line (line-number-at-pos beg))
           (end-line (line-number-at-pos end))
           (dest (+ (line-number-at-pos end) 0)))
@@ -255,7 +258,8 @@
       (goto-line (+ beg-line 1))
       (exchange-point-and-mark)
       (goto-line (+ end-line 0))
-      (evil-visual-line)
+      (if (not (eq evil-state 'normal))
+          (evil-visual-line))
       )
     )
 
