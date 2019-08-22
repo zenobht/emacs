@@ -1036,15 +1036,6 @@ Don't mess with special buffers."
   ;; (setq fill-column 80)
   (switch-to-buffer buffer))
 
-(defun my/elfeed-search-show-entry (entry)
-  "Display the currently selected item in a buffer without going to next line."
-  (interactive (list (elfeed-search-selected :ignore-region)))
-  (require 'elfeed-show)
-  (when (elfeed-entry-p entry)
-    (elfeed-untag entry 'unread)
-    (elfeed-search-update-entry entry)
-    (elfeed-show-entry entry)))
-
 (use-package elfeed
   :defer t
   :after evil-leader evil
@@ -1055,19 +1046,24 @@ Don't mess with special buffers."
   (elfeed-search-title-face ((t (:foreground "blue"))))
   :init
   (evil-define-key 'normal elfeed-search-mode-map
-    (kbd "RET") 'my/elfeed-search-show-entry
-    (kbd "u") 'elfeed-update
-    (kbd "U") 'elfeed-search-update--force
+    (kbd "RET") 'elfeed-search-show-entry
+    (kbd "!") 'elfeed-update
     (kbd "q") 'quit-window
     (kbd "n") 'elfeed-unjam
     (kbd "w") 'elfeed-web-start
     (kbd "W") 'elfeed-web-stop
-    (kbd "c") 'my/elfeed-mark-all-read
+    (kbd "R") 'my/elfeed-mark-all-read
+    (kbd "u") 'elfeed-search-tag-all-unread
+    (kbd "r") 'elfeed-search-untag-all-unread
     (kbd "m") 'my/elfeed-star
     (kbd "M") 'my/elfeed-unstar
     (kbd "t") (lambda () (interactive) (elfeed-search-set-filter "+starred"))
     (kbd "d") (lambda () (interactive) (elfeed-search-set-filter "@1-weeks-ago"))
     (kbd "o") 'elfeed-search-browse-url
+    )
+  (evil-define-key 'visual elfeed-search-mode-map
+    (kbd "r") 'elfeed-search-untag-all-unread
+    (kbd "u") 'elfeed-search-tag-all-unread
     )
   (evil-define-key 'normal elfeed-show-mode-map
     (kbd "q") 'quit-window
