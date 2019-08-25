@@ -58,8 +58,7 @@ If it's found, then add it to the `exec-path'."
           ;; find out why path is added twice
           (add-to-list 'exec-path path)
           (add-to-list 'exec-path root)
-          (delete-dups exec-path) ;; temp fix
-           ;;(print exec-path)
+          ;; (print exec-path)
           (when setup-project-paths-debug
             (message (concat "added " path  " to exec-path"))))
       (when setup-project-paths-debug
