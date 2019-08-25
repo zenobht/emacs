@@ -339,6 +339,8 @@ Version 2017-11-01"
     )
   )
 
+(use-package paradox)
+
 (use-package evil-leader
   :after evil ivy
   :defer t
@@ -357,7 +359,8 @@ Version 2017-11-01"
     "gb" 'magit-blame
     "s" 'swiper
     "t" 'eshell
-    "u" 'package-upgrade-all
+    "ll" 'paradox-list-packages
+    "lu" 'paradox-upgrade-packages
     )
   )
 
