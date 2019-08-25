@@ -49,7 +49,6 @@
  initial-major-mode (quote text-mode)
  mouse-wheel-progressive-speed nil
  display-buffer-alist '(("\\`\\*e?shell" display-buffer-pop-up-window))
- indent-tabs-mode nil
  )
 
 (add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))
@@ -806,6 +805,7 @@ Don't mess with special buffers."
           (lambda ()
             (define-key org-mode-map (kbd "<C-up>") 'my/org-move-up)
             (define-key org-mode-map (kbd "<C-down>") 'my/org-move-down)
+            (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle)
             )
           )
 
