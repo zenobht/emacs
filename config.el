@@ -200,9 +200,9 @@
          ( "C-u" . evil-scroll-up )
          ( "[e" . previous-error)
          ( "]e" . next-error)
-         ( "gj" . evil-jump-backward)
-         ( "gk" . evil-jump-forward)
          ( "gs" . my/substitute)
+         ( "C-i" . evil-jump-forward)
+         ( "C-o" . evil-jump-backward)
          :map evil-visual-state-map
          ( "M-c" . my/copy-to-clipboard)
          ( "M-v" . my/paste-from-clipboard)
@@ -314,18 +314,10 @@ Version 2017-11-01"
   (global-evil-surround-mode 1)
   )
 
-(use-package vimish-fold
-  :defer t
+(use-package evil-vimish-fold
   :after evil
-  :bind (
-         :map evil-normal-state-map
-              ( "zc" . vimish-fold)
-              ( "zo" . vimish-fold-unfold)
-              ( "zO" . vimish-fold-unfold-all)
-         )
   :init
-  (vimish-fold-global-mode 1)
-  )
+  (evil-vimish-fold-mode 1))
 
 (use-package evil-numbers
   :defer t
@@ -436,10 +428,11 @@ Version 2017-11-01"
 
 (use-package dumb-jump
   :defer t
-  :bind
-  (:map evil-normal-state-map
-        ("gd" . dumb-jump-go)
-        )
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g i" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config
   (setq dumb-jump-selector 'ivy))
 
