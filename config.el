@@ -1239,3 +1239,10 @@ inserted. "
   :bind (("M-g g" . elpy-goto-definition))
   :init
   (advice-add 'python-mode :before 'elpy-enable))
+
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
