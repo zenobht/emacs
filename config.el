@@ -1238,3 +1238,8 @@ inserted. "
     "\\" 'evilnc-comment-operator ; if you prefer backslash key
     )
   )
+(use-package elpy
+  :defer t
+  :bind (("M-g g" . elpy-goto-definition))
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
