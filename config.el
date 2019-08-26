@@ -41,7 +41,7 @@
  kept-old-versions 2
  version-control t
  auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
- auto-save-interval 20
+ auto-save-interval 50
  large-file-warning-threshold nil
  vc-follow-symlinks t
  auto-revert-check-vc-info t
@@ -537,6 +537,7 @@ Version 2017-11-01"
 
 (use-package evil-magit
   :defer t
+  :after evil
   :custom-face
   (magit-branch-local ((t (:foreground "brightyellow"))))
   :init
@@ -915,8 +916,9 @@ Don't mess with special buffers."
      (message "%.06f" (float-time (time-since time)))))
 
 (defun my/setup-tools-from-node ()
-  (my/eslint-setup)
-  (my/prettier-setup)
+  ;; (my/eslint-setup)
+  ;; (my/prettier-setup)
+  (prettier-js-mode +1)
   )
 
 
