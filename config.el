@@ -177,6 +177,7 @@
         evil-want-C-i-jump nil
         )
   (evil-mode)
+  (evil-esc-mode)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (define-key evil-visual-state-map (kbd ">") 'my/visual-shift-right)
@@ -383,7 +384,6 @@ Version 2017-11-01"
   (setq counsel-projectile-remove-current-buffer t)
   (evil-leader/set-key
     "pb" 'counsel-projectile-switch-to-buffer
-    "pf" 'counsel-projectile-find-file
     "pp" 'counsel-projectile-switch-project
     "pi" 'projectile-invalidate-cache
     )
@@ -1185,6 +1185,9 @@ inserted. "
       ((string-match "elfeed" (buffer-name))
        "Elfeed"
        )
+      ((string-equal "*fzf*" (buffer-name))
+       "FZF Buffer"
+       )
       ((string-equal "*" (substring (buffer-name) 0 1))
        "Emacs Buffer"
        )
@@ -1239,3 +1242,25 @@ inserted. "
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+(use-package fzf
+  :defer t
+  :after projectile
+  :init
+  (evil-set-initial-state 'term-mode 'emacs)
+  (require 'term)
+  (defun term-send-esc ()
+    "Send ESC in term mode."
+    (interactive)
+    (term-send-raw-string "\x1b")
+    )
+  ;; to quit fzf with ESC key
+  (define-key term-raw-map (kbd "<escape>")  'term-send-esc)
+  (evil-leader/set-key
+    "pf" 'fzf-projectile)
+  )
+
+(with-eval-after-load 'evil
+  (load-file (expand-file-name "evil-esc-mode/evil-esc-mode.el" user-emacs-directory))
+  (evil-esc-mode)
+  )
