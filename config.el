@@ -51,6 +51,8 @@
  display-buffer-alist '(("\\`\\*e?shell" display-buffer-pop-up-window))
  )
 
+(setq-default indent-tabs-mode nil)
+
 (add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))
 
 (set-terminal-coding-system  'utf-8)
@@ -80,20 +82,6 @@
   (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize)
   (setup-project-paths)
-  )
-
-(defun my/next-buffer ()
-  (interactive)
-  (next-buffer)
-  (while (string-match-p "^\*" (buffer-name))
-    (next-buffer))
-  )
-
-(defun my/previous-buffer ()
-  (interactive)
-  (previous-buffer)
-  (while (string-match-p "^\*" (buffer-name))
-    (previous-buffer))
   )
 
 (defun my/last-used-buffer ()
@@ -163,33 +151,6 @@
         )
   )
 
-(defun my/visual-shift-left ()
-  (interactive)
-  ;; (evil-shift-left (region-beginning) (region-end))
-  (call-interactively 'evil-shift-left)
-  (evil-normal-state)
-  (evil-visual-restore))
-
-(defun my/visual-shift-right ()
-  (interactive)
-  ;; (evil-shift-right (region-beginning) (region-end))
-  (call-interactively 'evil-shift-right)
-  (evil-normal-state)
-  (evil-visual-restore))
-
-(defun my/substitute()
-  (interactive)
-  (if (eq evil-state 'visual)
-      (evil-ex "`<,`>s!!!g")
-    (evil-ex "%s!!!g")
-    )
-  )
-
-(defun my/visual-macro ()
-  (interactive)
-  (evil-ex "`<,`>norm @")
-  )
-
 (use-package evil
   :defer t
   :bind (
@@ -225,6 +186,34 @@
                                  (interactive)
                                  (json-mode)
                                  (json-pretty-print-buffer))))
+
+
+  (defun my/visual-shift-left ()
+    (interactive)
+    ;; (evil-shift-left (region-beginning) (region-end))
+    (call-interactively 'evil-shift-left)
+    (evil-normal-state)
+    (evil-visual-restore))
+
+  (defun my/visual-shift-right ()
+    (interactive)
+    ;; (evil-shift-right (region-beginning) (region-end))
+    (call-interactively 'evil-shift-right)
+    (evil-normal-state)
+    (evil-visual-restore))
+
+  (defun my/substitute()
+    (interactive)
+    (if (eq evil-state 'visual)
+        (evil-ex "`<,`>s!!!g")
+      (evil-ex "%s!!!g")
+      )
+    )
+
+  (defun my/visual-macro ()
+    (interactive)
+    (evil-ex "`<,`>norm @")
+    )
 
   (evil-define-operator evil-move-up (beg end)
     "Move region up by one line."
@@ -320,6 +309,7 @@ Version 2017-11-01"
 
 (use-package evil-numbers
   :defer t
+  :after evil
   :bind (
          ( "C-c +" . evil-numbers/inc-at-pt )
          ( "C-c -" . evil-numbers/dec-at-pt )
@@ -338,7 +328,9 @@ Version 2017-11-01"
     )
   )
 
-(use-package paradox)
+(use-package paradox
+  :defer t
+  )
 
 (use-package evil-leader
   :after evil ivy
@@ -432,6 +424,7 @@ Version 2017-11-01"
   :defer t
   :bind (("M-g o" . dumb-jump-go-other-window)
          ("M-g j" . dumb-jump-go)
+         ("M-g k" . dumb-jump-back)
          ("M-g i" . dumb-jump-go-prompt)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
@@ -444,6 +437,7 @@ Version 2017-11-01"
 
 (use-package evil-multiedit
   :defer t
+  :after evil
   :bind (
          :map evil-visual-state-map
          ("R" . evil-multiedit-match-all)
@@ -458,7 +452,6 @@ Version 2017-11-01"
          ("C-j" . evil-multiedit-next)
          ("C-k" . evil-multiedit-prev)
          )
-  :after evil
   :config
   (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
   )
@@ -630,7 +623,6 @@ Don't mess with special buffers."
           (lambda ()
             (interactive)
             (visual-line-mode -1)
-            (setq indent-tabs-mode nil)
             (whitespace-mode +1)
             (modify-syntax-entry ?_ "w")))
 
@@ -638,7 +630,6 @@ Don't mess with special buffers."
           (lambda ()
             (interactive)
             (visual-line-mode +1)
-            (setq indent-tabs-mode nil)
             (whitespace-mode +1)
             (modify-syntax-entry ?_ "w")))
 
