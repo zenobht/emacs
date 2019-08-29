@@ -160,6 +160,7 @@
          ( "C-u" . evil-scroll-up )
          ( "[e" . previous-error)
          ( "]e" . next-error)
+         ( "gc" . evil-ex-nohighlight)
          ( "gs" . my/substitute)
          ( "C-i" . evil-jump-forward)
          ( "C-o" . evil-jump-backward)
@@ -330,6 +331,12 @@ Version 2017-11-01"
 
 (use-package paradox
   :defer t
+  :after evil-leader
+  :init
+  (evil-leader/set-key
+    "pl" 'paradox-list-packages
+    "pu" 'paradox-upgrade-packages
+    )
   )
 
 (use-package evil-leader
@@ -340,7 +347,6 @@ Version 2017-11-01"
   :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-    "<escape>" 'evil-ex-nohighlight
     "*" 'my/rg-star-search
     "b" 'ivy-switch-buffer
     "C" 'my/calendar
@@ -350,8 +356,6 @@ Version 2017-11-01"
     "gb" 'magit-blame
     "s" 'swiper
     "t" 'eshell
-    "ll" 'paradox-list-packages
-    "lu" 'paradox-upgrade-packages
     )
   )
 
