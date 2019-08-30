@@ -1106,7 +1106,7 @@ Don't mess with special buffers."
     (kbd "q") 'quit-window
     )
   (add-hook 'elfeed-search-update-hook #'my/elfeed-search-add-separators)
-  (setq elfeed-search-filter "@1-weeks-ago")
+  (setq elfeed-search-filter "@2-days-ago")
   (setq elfeed-show-entry-switch #'my/show-elfeed)
   )
 
