@@ -1194,9 +1194,6 @@ inserted. "
 
 (use-package tabbar
   :defer t
-  :custom-face
-  (tabbar-default ((t (:inherit variable-pitch :background "black" :foreground "white" :height 0.8))))
-  (tabbar-selected ((t (:background "white" :foreground "black" :weight bold :box (:line-width 1 :color "white" :style pressed-button)))))
   :hook ((special-mode) . tabbar-local-mode)
   :init
   (tabbar-mode)
@@ -1221,6 +1218,7 @@ inserted. "
        )
       )))
   (setq
+   tabbar-background-color nil
    tabbar-home-button-value nil
    tabbar-buffer-home-button (quote (("[+]") ""))
    tabbar-home-button (quote (("[+]") ""))
@@ -1228,6 +1226,21 @@ inserted. "
    tabbar-scroll-right-button (quote ((" >") ""))
    tabbar-buffer-groups-function 'tabbar-buffer-groups
    tabbar-separator (quote (" | ")))
+
+  (if (display-graphic-p)
+      (progn
+        (set-face-attribute 'tabbar-default nil :background "#3b4252" :foreground "white" :height 1 :family "Fira Code")
+        )
+    (progn
+      (set-face-attribute 'tabbar-default nil :background "black" :foreground "white" :family "Fira Code")
+      )
+    )
+  (set-face-attribute 'tabbar-button nil :inherit 'tabbar-default :box nil)
+  (set-face-attribute 'tabbar-highlight nil :underline t)
+  (set-face-attribute 'tabbar-modified nil :inherit 'tabbar-default :foreground "green" :box nil)
+  (set-face-attribute 'tabbar-selected nil :inherit 'tabbar-default :background "white" :foreground "black" :weight 'bold :box nil)
+  (set-face-attribute 'tabbar-selected-modified nil :inherit 'tabbar-default :foreground "red" :box nil)
+  (set-face-attribute 'tabbar-unselected nil :inherit 'tabbar-default :box nil)
   )
 
 (use-package company-tabnine
@@ -1252,6 +1265,7 @@ inserted. "
     "\\" 'evilnc-comment-operator ; if you prefer backslash key
     )
   )
+
 (use-package elpy
   :defer t
   :bind (("M-g g" . elpy-goto-definition))
