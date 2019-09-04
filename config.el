@@ -396,7 +396,7 @@ Version 2017-11-01"
   (evil-leader/set-key
     "pb" 'counsel-projectile-switch-to-buffer
     "pp" 'counsel-projectile-switch-project
-    "pf" 'counsel-fzf
+    "pf" 'counsel-projectile-find-file
     "pi" 'projectile-invalidate-cache
     )
   )
@@ -1204,9 +1204,6 @@ inserted. "
      (cond
       ((string-match "elfeed" (buffer-name))
        "Elfeed"
-       )
-      ((string-equal "*fzf*" (buffer-name))
-       "FZF Buffer"
        )
       ((string-equal "*" (substring (buffer-name) 0 1))
        "Emacs Buffer"
