@@ -554,8 +554,6 @@ Version 2017-11-01"
 (use-package display-line-numbers
   :defer t
   :after evil
-  :init
-  (global-display-line-numbers-mode 1)
   :config
   (setq display-line-numbers-width-start 100)
   )
@@ -645,6 +643,7 @@ Don't mess with special buffers."
           (lambda ()
             (interactive)
             (visual-line-mode -1)
+            (display-line-numbers-mode +1)
             (whitespace-mode +1)
             (modify-syntax-entry ?_ "w")))
 
@@ -652,6 +651,7 @@ Don't mess with special buffers."
           (lambda ()
             (interactive)
             (visual-line-mode +1)
+            (display-line-numbers-mode +1)
             (whitespace-mode +1)
             (my/mode-hook)
             (modify-syntax-entry ?_ "w")))
