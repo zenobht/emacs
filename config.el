@@ -1,5 +1,17 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(if (display-graphic-p)
+    (progn
+      (add-to-list 'default-frame-alist
+                   '(font . "Fira Code-14"))
+      (set-face-attribute 'default t :font "Fira Code-14")
+      (menu-bar-mode t)
+      )
+  (progn
+    (menu-bar-mode -1)
+    )
+  )
+
 (setq-default electric-indent-inhibit t
               evil-shift-width 2
               )
@@ -599,7 +611,7 @@ Don't mess with special buffers."
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . prog-mode))
 (show-paren-mode 1)
 (delete-selection-mode 1)
-(menu-bar-mode -1)
+(tool-bar-mode -1)
 (scroll-bar-mode -1)
 
 (use-package electric
