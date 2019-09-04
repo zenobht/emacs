@@ -303,11 +303,6 @@ Version 2017-11-01"
   (global-evil-surround-mode 1)
   )
 
-(use-package evil-vimish-fold
-  :after evil
-  :init
-  (evil-vimish-fold-mode 1))
-
 (use-package evil-numbers
   :defer t
   :after evil
@@ -623,6 +618,16 @@ Don't mess with special buffers."
 (add-hook 'minibuffer-setup-hook #'my/disable-in-minibuffer)
 (add-hook 'minibuffer-exit-hook #'my/enable-on-minibuffer-exit)
 
+(defun my/mode-hook ()
+
+  (hs-minor-mode)
+
+  (local-set-key (kbd "C-c K") 'hs-show-all) ;; ctrl+shift+=
+  (local-set-key (kbd "C-c J") 'hs-hide-all)   ;; ctrl+shift+-
+  (local-set-key (kbd "C-c k") 'hs-show-block)
+  (local-set-key (kbd "C-c j") 'hs-hide-block)
+)
+
 (add-hook 'text-mode-hook
           (lambda ()
             (interactive)
@@ -635,6 +640,7 @@ Don't mess with special buffers."
             (interactive)
             (visual-line-mode +1)
             (whitespace-mode +1)
+            (my/mode-hook)
             (modify-syntax-entry ?_ "w")))
 
 (defun simple-mode-line-render (left right)
