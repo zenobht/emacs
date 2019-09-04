@@ -359,8 +359,9 @@ Version 2017-11-01"
     "C" 'my/calendar
     "d" 'deer
     "f" 'counsel-rg
-    "gg" 'magit-status
     "gb" 'magit-blame
+    "gg" 'magit-status
+    "gl" 'magit-log
     "s" 'swiper
     "t" 'eshell
     )
