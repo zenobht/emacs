@@ -168,6 +168,8 @@
   :bind (
          :map evil-insert-state-map
          ( "M-/" . yas-expand)
+         ( "C-a" . (lambda () (interactive) (evil-paste-from-register ?.)))
+         ( "C-r" . evil-paste-from-register)
          :map evil-normal-state-map
          ( "C-u" . evil-scroll-up )
          ( "[e" . previous-error)
