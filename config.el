@@ -148,8 +148,6 @@
 
 (use-package whitespace
   :defer t
-  :custom-face
-  (trailing-whitespace (( t ( :background "red" :foreground "white" ))))
   :init
   (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
         show-trailing-whitespace t)
@@ -184,8 +182,6 @@
          ( "gs" . my/substitute)
          ( "gM" . my/visual-macro)
          )
-  :custom-face
-  (evil-ex-lazy-highlight  ((t (:background "blue" :foreground "black" ))))
   :init
   (setq evil-search-module 'evil-search
         evil-insert-state-message nil
@@ -545,8 +541,6 @@ Version 2017-11-01"
 (use-package evil-magit
   :defer t
   :after evil
-  :custom-face
-  (magit-branch-local ((t (:foreground "brightyellow"))))
   :init
   (evil-magit-init)
   :config
@@ -748,8 +742,6 @@ Don't mess with special buffers."
   :mode (("\\.yml$" . yaml-mode))
   )
 
-(set-face-attribute 'show-paren-match nil :background "brightblue" :foreground "white")
-
 (add-hook 'after-change-major-mode-hook #'my/configure)
 
 (use-package hl-line
@@ -781,8 +773,6 @@ Don't mess with special buffers."
 (use-package evil-org
   :defer t
   :after evil evil-leader
-  :custom-face
-  (org-hide ((t (:foreground "black" :background: "black"))))
   :init
   (progn
     (evil-leader/set-key
@@ -996,8 +986,6 @@ Don't mess with special buffers."
 
 (use-package flycheck
   :defer t
-  :custom-face
-  (flycheck-error ((t (:foreground "red" :underline "red"))))
   :init (global-flycheck-mode))
 
 (use-package flycheck-kotlin
@@ -1097,11 +1085,6 @@ Don't mess with special buffers."
 (use-package elfeed
   :defer t
   :after evil-leader evil
-  :custom-face
-  (elfeed-search-date-face ((t (:foreground "brightcyan"))))
-  (elfeed-search-feed-face ((t (:foreground "brightgreen"))))
-  (elfeed-search-tag-face ((t (:foreground "brightmagenta"))))
-  (elfeed-search-title-face ((t (:foreground "blue"))))
   :init
   (evil-define-key 'normal elfeed-search-mode-map
     (kbd "RET") 'elfeed-search-show-entry
@@ -1226,21 +1209,6 @@ inserted. "
    tabbar-scroll-right-button (quote ((" >") ""))
    tabbar-buffer-groups-function 'tabbar-buffer-groups
    tabbar-separator (quote (" | ")))
-
-  (if (display-graphic-p)
-      (progn
-        (set-face-attribute 'tabbar-default nil :background "#3b4252" :foreground "white" :height 1 :family "Fira Code")
-        )
-    (progn
-      (set-face-attribute 'tabbar-default nil :background "black" :foreground "white" :family "Fira Code")
-      )
-    )
-  (set-face-attribute 'tabbar-button nil :inherit 'tabbar-default :box nil)
-  (set-face-attribute 'tabbar-highlight nil :underline t)
-  (set-face-attribute 'tabbar-modified nil :inherit 'tabbar-default :foreground "green" :box nil)
-  (set-face-attribute 'tabbar-selected nil :inherit 'tabbar-default :background "white" :foreground "black" :weight 'bold :box nil)
-  (set-face-attribute 'tabbar-selected-modified nil :inherit 'tabbar-default :foreground "red" :box nil)
-  (set-face-attribute 'tabbar-unselected nil :inherit 'tabbar-default :box nil)
   )
 
 (use-package company-tabnine
