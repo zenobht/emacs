@@ -62,7 +62,7 @@
   Please see https://github.com/arcticicestudio/nord-emacs/issues/73 for more details."
   "0.4.0")
 
-(defcustom nord-region-highlight nil
+(defcustom nord-region-highlight "snowstorm"
   "Allows to set a region highlight style based on the Nord components.
   Valid styles are
     - 'snowstorm' - Uses 'nord0' as foreground- and 'nord4' as background color
@@ -92,39 +92,49 @@
   Please see https://github.com/arcticicestudio/nord-emacs/issues/73 for more details."
   "0.4.0")
 
+
+(defun isTrueColor()
+  (if (or (display-graphic-p) (string= (exec-path-from-shell-getenv "TERM") "screen-24bit"))
+     t
+     nil
+    )
+  )
+
+(setq true-color-p (isTrueColor))
+
 ;;;; Color Constants
 (let ((class '((class color) (min-colors 89)))
-  (nord0 (if (display-graphic-p) "#2E3440" nil))
-  (nord1 (if (display-graphic-p) "#3B4252" "black"))
-  (nord2 (if (display-graphic-p) "#434C5E" "#434C5E"))
-  (nord3 (if (display-graphic-p) "#4C566A" "brightblack"))
-  (nord4 (if (display-graphic-p) "#D8DEE9" "#D8DEE9"))
-  (nord5 (if (display-graphic-p) "#E5E9F0" "white"))
-  (nord6 (if (display-graphic-p) "#ECEFF4" "brightwhite"))
-  (nord7 (if (display-graphic-p) "#8FBCBB" "cyan"))
-  (nord8 (if (display-graphic-p) "#88C0D0" "brightcyan"))
-  (nord9 (if (display-graphic-p) "#81A1C1" "blue"))
-  (nord10 (if (display-graphic-p) "#5E81AC" "brightblue"))
-  (nord11 (if (display-graphic-p) "#BF616A" "red"))
-  (nord12 (if (display-graphic-p) "#D08770" "brightyellow"))
-  (nord13 (if (display-graphic-p) "#EBCB8B" "yellow"))
-  (nord14 (if (display-graphic-p) "#A3BE8C" "green"))
-  (nord15 (if (display-graphic-p) "#B48EAD" "magenta"))
-  (nord-annotation (if (display-graphic-p) "#D08770" "brightyellow"))
-  (nord-attribute (if (display-graphic-p) "#8FBCBB" "cyan"))
-  (nord-class (if (display-graphic-p) "#8FBCBB" "cyan"))
-  (nord-comment (if (display-graphic-p) (nord-theme--brightened-comment-color nord-comment-brightness) "color-244"))
-  (nord-escape (if (display-graphic-p) "#D08770" "brightyellow"))
-  (nord-method (if (display-graphic-p) "#88C0D0" "brightcyan"))
-  (nord-keyword (if (display-graphic-p) "#81A1C1" "blue"))
-  (nord-numeric (if (display-graphic-p) "#B48EAD" "magenta"))
-  (nord-operator (if (display-graphic-p) "#81A1C1" "blue"))
-  (nord-preprocessor (if (display-graphic-p) "#5E81AC" "brightblue"))
-  (nord-punctuation (if (display-graphic-p) "#D8DEE9" "#D8DEE9"))
-  (nord-regexp (if (display-graphic-p) "#EBCB8B" "yellow"))
-  (nord-string (if (display-graphic-p) "#A3BE8C" "green"))
-  (nord-tag (if (display-graphic-p) "#81A1C1" "blue"))
-  (nord-variable (if (display-graphic-p) "#D8DEE9" "#D8DEE9"))
+  (nord0 (if true-color-p "#2E3440" nil))
+  (nord1 (if true-color-p "#3B4252" "black"))
+  (nord2 (if true-color-p "#434C5E" "#434C5E"))
+  (nord3 (if true-color-p "#4C566A" "brightblack"))
+  (nord4 (if true-color-p "#D8DEE9" "#D8DEE9"))
+  (nord5 (if true-color-p "#E5E9F0" "white"))
+  (nord6 (if true-color-p "#ECEFF4" "brightwhite"))
+  (nord7 (if true-color-p "#8FBCBB" "cyan"))
+  (nord8 (if true-color-p "#88C0D0" "brightcyan"))
+  (nord9 (if true-color-p "#81A1C1" "blue"))
+  (nord10 (if true-color-p "#5E81AC" "brightblue"))
+  (nord11 (if true-color-p "#BF616A" "red"))
+  (nord12 (if true-color-p "#D08770" "brightyellow"))
+  (nord13 (if true-color-p "#EBCB8B" "yellow"))
+  (nord14 (if true-color-p "#A3BE8C" "green"))
+  (nord15 (if true-color-p "#B48EAD" "magenta"))
+  (nord-annotation (if true-color-p "#D08770" "brightyellow"))
+  (nord-attribute (if true-color-p "#8FBCBB" "cyan"))
+  (nord-class (if true-color-p "#8FBCBB" "cyan"))
+  (nord-comment (if true-color-p (nord-theme--brightened-comment-color nord-comment-brightness) "color-244"))
+  (nord-escape (if true-color-p "#D08770" "brightyellow"))
+  (nord-method (if true-color-p "#88C0D0" "brightcyan"))
+  (nord-keyword (if true-color-p "#81A1C1" "blue"))
+  (nord-numeric (if true-color-p "#B48EAD" "magenta"))
+  (nord-operator (if true-color-p "#81A1C1" "blue"))
+  (nord-preprocessor (if true-color-p "#5E81AC" "brightblue"))
+  (nord-punctuation (if true-color-p "#D8DEE9" "#D8DEE9"))
+  (nord-regexp (if true-color-p "#EBCB8B" "yellow"))
+  (nord-string (if true-color-p "#A3BE8C" "green"))
+  (nord-tag (if true-color-p "#81A1C1" "blue"))
+  (nord-variable (if true-color-p "#D8DEE9" "#D8DEE9"))
   (nord-region-highlight-foreground (if (or
     (string= nord-region-highlight "frost")
     (string= nord-region-highlight "snowstorm")) "#2E3440" nil))
@@ -273,8 +283,8 @@
     `(region ((,class (:foreground ,nord-region-highlight-foreground :background ,nord-region-highlight-background))))
     `(scroll-bar ((,class (:background ,nord3))))
     `(secondary-selection ((,class (:background ,nord2))))
-    `(show-paren-match-face ((,class (:foreground ,nord0 :background ,nord8))))
-    `(show-paren-mismatch-face ((,class (:background ,nord11))))
+    `(show-paren-match ((,class (:foreground ,nord0 :background ,nord8))))
+    `(show-paren-mismatch ((,class (:background ,nord11))))
     `(success ((,class (:foreground ,nord14))))
     `(term ((,class (:foreground ,nord4 :background ,nord0))))
     `(term-color-black ((,class (:foreground ,nord1 :background ,nord1))))
@@ -287,7 +297,7 @@
     `(term-color-magenta ((,class (:foreground ,nord15 :background ,nord15))))
     `(tool-bar ((,class (:foreground ,nord4 :background ,nord3))))
     `(tooltip ((,class (:foreground ,nord0 :background ,nord4))))
-    `(trailing-whitespace ((,class (:foreground ,nord3))))
+    `(trailing-whitespace ((,class (:background ,nord11))))
     `(tty-menu-disabled-face ((,class (:foreground ,nord1))))
     `(tty-menu-enabled-face ((,class (:background ,nord2 foreground ,nord4))))
     `(tty-menu-selected-face ((,class (:foreground ,nord8 :underline t))))
@@ -324,6 +334,7 @@
     `(window-divider ((,class (:background ,nord3))))
     `(window-divider-first-pixel ((,class (:background ,nord3))))
     `(window-divider-last-pixel ((,class (:background ,nord3))))
+    `(line-number-current-line ((,class (:foreground ,nord9))))
 
     ;;;; +-----------------+
     ;;;; + Package Support +
@@ -503,9 +514,10 @@
     `(evil-ex-info ((,class (:foreground ,nord8))))
     `(evil-ex-substitute-replacement ((,class (:foreground ,nord9))))
     `(evil-ex-substitute-matches ((,class (:inherit isearch))))
+    `(evil-ex-lazy-highlight  ((,class (:background ,nord10 :foreground ,nord4))))
 
     ;; > Flycheck
-    `(flycheck-error ((,class (:underline (:style wave :color ,nord11)))))
+    `(flycheck-error ((,class (:foreground ,nord11 :underline (:style wave :color ,nord11)))))
     `(flycheck-fringe-error ((,class (:foreground ,nord11 :weight bold))))
     `(flycheck-fringe-info ((,class (:foreground ,nord8 :weight bold))))
     `(flycheck-fringe-warning ((,class (:foreground ,nord13 :weight bold))))
@@ -521,6 +533,12 @@
     `(git-gutter+-modified ((,class (:foreground ,nord13))))
     `(git-gutter+-added ((,class (:foreground ,nord14))))
     `(git-gutter+-deleted ((,class (:foreground ,nord11))))
+
+    ;; > Elfeed
+    `(elfeed-search-date-face ((,class (:foreground ,nord8))))
+    `(elfeed-search-feed-face ((,class (:foreground ,nord14))))
+    `(elfeed-search-tag-face ((,class (:foreground ,nord15))))
+    `(elfeed-search-title-face ((,class (:foreground ,nord9))))
 
     ;; > Helm
     `(helm-bookmark-addressbook ((,class (:foreground ,nord7))))
@@ -638,6 +656,15 @@
     `(neo-vc-removed-face ((,class (:foreground ,nord11 :strike-through nil))))
     `(neo-vc-up-to-date-face ((,class (:foreground ,nord4))))
     `(neo-vc-user-face ((,class (:foreground ,nord4))))
+
+    ;; > Tabbar
+    `(tabbar-default ((,class (:background ,nord1))))
+    `(tabbar-button ((,class (:inherit tabbar-default :box nil))))
+    `(tabbar-highlight ((,class (:underline t))))
+    `(tabbar-modified ((,class (:inherit tabbar-default :foreground ,nord14 :box nil))))
+    `(tabbar-selected ((,class (:inherit tabbar-default :background ,nord4 :foreground ,nord1 :weight bold :box nil))))
+    `(tabbar-selected-modified ((,class (:inherit tabbar-default :background ,nord4 :foreground ,nord12 :weight bold :box nil))))
+    `(tabbar-unselected ((,class (:inherit tabbar-default :box nil))))
 
     ;; > Org
     `(org-level-1 ((,class (:foreground ,nord13 :weight bold))))
