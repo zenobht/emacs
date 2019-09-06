@@ -1113,6 +1113,16 @@ Don't mess with special buffers."
   (add-hook 'elfeed-search-update-hook #'my/elfeed-search-add-separators)
   (setq elfeed-search-filter "@2-days-ago")
   (setq elfeed-show-entry-switch #'my/show-elfeed)
+  (add-hook 'elfeed-show-mode-hook
+            (lambda ()
+              (let ((inhibit-read-only t)
+                    (inhibit-modification-hooks t))
+                (setq-local truncate-lines nil)
+                (setq-local shr-width 85)
+                (set-buffer-modified-p nil))
+              (setq-local left-margin-width 15)
+              (setq-local right-margin-width 15)
+              ))
   )
 
 (use-package ov
