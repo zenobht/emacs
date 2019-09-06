@@ -280,7 +280,7 @@
     `(package-status-installed ((,class (:foreground ,nord7 :weight bold))))
     `(package-status-unsigned ((,class (:underline ,nord13))))
     `(query-replace ((,class (:foreground ,nord8 :background ,nord2))))
-    `(region ((,class (:foreground ,nord-region-highlight-foreground :background ,nord-region-highlight-background))))
+    `(region ((,class (:background ,nord3))))
     `(scroll-bar ((,class (:background ,nord3))))
     `(secondary-selection ((,class (:background ,nord2))))
     `(show-paren-match ((,class (:foreground ,nord0 :background ,nord8))))
@@ -658,7 +658,7 @@
     `(neo-vc-user-face ((,class (:foreground ,nord4))))
 
     ;; > Tabbar
-    `(tabbar-default ((,class (:background ,nord1))))
+    `(tabbar-default ((,class (:background ,nord2))))
     `(tabbar-button ((,class (:inherit tabbar-default :box nil))))
     `(tabbar-highlight ((,class (:underline t))))
     `(tabbar-modified ((,class (:inherit tabbar-default :foreground ,nord14 :box nil))))
