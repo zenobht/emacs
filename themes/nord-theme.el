@@ -658,7 +658,7 @@
     `(neo-vc-user-face ((,class (:foreground ,nord4))))
 
     ;; > Tabbar
-    `(tabbar-default ((,class (:background ,nord2))))
+    `(tabbar-default ((,class (:background ,nord1))))
     `(tabbar-button ((,class (:inherit tabbar-default :box nil))))
     `(tabbar-highlight ((,class (:underline t))))
     `(tabbar-modified ((,class (:inherit tabbar-default :foreground ,nord14 :box nil))))
