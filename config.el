@@ -1257,3 +1257,27 @@ inserted. "
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+(use-package ein
+  :defer t
+  :config
+  (progn
+    (setq ein:jupyter-default-notebook-directory "~/jupyter_notebooks/")
+    (with-eval-after-load 'ein-notebooklist
+      (evil-define-key 'normal ein:notebook-multilang-mode-map
+        (kbd "j") 'ein:worksheet-goto-next-input
+        (kbd "k") 'ein:worksheet-goto-prev-input
+        (kbd "J") 'ein:worksheet-move-cell-down
+        (kbd "K") 'ein:worksheet-move-cell-up
+        (kbd "D") 'ein:worksheet-kill-cell
+        (kbd "o") 'ein:worksheet-insert-cell-below
+        (kbd "O") 'ein:worksheet-insert-cell-above
+        (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next
+        (kbd "RET") 'ein:worksheet-execute-cell
+        (kbd "C-l") 'ein:worksheet-clear-output
+        (kbd "C-S-l") 'ein:worksheet-clear-all-output)
+      (evil-define-key 'insert ein:notebook-multilang-mode-map
+        (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next)
+      )
+    )
+  )
