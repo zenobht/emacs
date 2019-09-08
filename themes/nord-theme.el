@@ -658,12 +658,12 @@
     `(neo-vc-user-face ((,class (:foreground ,nord4))))
 
     ;; > Tabbar
-    `(tabbar-default ((,class (:background ,nord1))))
+    `(tabbar-default ((,class (:foreground "#72809a" :background ,nord1))))
     `(tabbar-button ((,class (:inherit tabbar-default :box nil))))
     `(tabbar-highlight ((,class (:underline t))))
     `(tabbar-modified ((,class (:inherit tabbar-default :foreground ,nord14 :box nil))))
-    `(tabbar-selected ((,class (:inherit tabbar-default :background ,nord4 :foreground ,nord1 :weight bold :box nil))))
-    `(tabbar-selected-modified ((,class (:inherit tabbar-default :background ,nord4 :foreground ,nord12 :weight bold :box nil))))
+    `(tabbar-selected ((,class (:inherit tabbar-default :foreground ,nord6 :weight bold :box nil))))
+    `(tabbar-selected-modified ((,class (:inherit tabbar-default :foreground ,nord12 :weight bold :box nil))))
     `(tabbar-unselected ((,class (:inherit tabbar-default :box nil))))
 
     ;; > Org

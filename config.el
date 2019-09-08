@@ -1219,7 +1219,7 @@ inserted. "
    tabbar-scroll-left-button (quote ((" <") ""))
    tabbar-scroll-right-button (quote ((" >") ""))
    tabbar-buffer-groups-function 'tabbar-buffer-groups
-   tabbar-separator (quote (" | ")))
+   tabbar-separator (quote (" ")))
   )
 
 (use-package company-tabnine
