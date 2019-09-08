@@ -143,6 +143,7 @@
       (if (string= nord-region-highlight "snowstorm") "#D8DEE9" "#434C5E")))
   (nord-uniform-mode-lines-background (if nord-uniform-mode-lines "#4C566A" "black"))
   (nord-inactive-modeline-foreground "#6c6c6c")
+  (nord-tabbar-foreground "#72809a")
   )
 
 ;;;; +------------+
@@ -658,7 +659,7 @@
     `(neo-vc-user-face ((,class (:foreground ,nord4))))
 
     ;; > Tabbar
-    `(tabbar-default ((,class (:foreground "#72809a" :background ,nord1))))
+    `(tabbar-default ((,class (:foreground ,nord-tabbar-foreground :background ,nord1))))
     `(tabbar-button ((,class (:inherit tabbar-default :box nil))))
     `(tabbar-highlight ((,class (:underline t))))
     `(tabbar-modified ((,class (:inherit tabbar-default :foreground ,nord14 :box nil))))
