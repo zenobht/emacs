@@ -16,19 +16,19 @@
               evil-shift-width 2
               )
 
- (defun load-directory (directory)
+(defun load-directory (directory)
 
-    "Load recursively all `.el' files in DIRECTORY."
-    (dolist (element (directory-files-and-attributes directory nil nil nil))
-      (let* ((path (car element))
-             (fullpath (concat directory "/" path))
-             (isdir (car (cdr element)))
-             (ignore-dir (or (string= path ".") (string= path ".."))))
-        (cond
-         ((and (eq isdir t) (not ignore-dir))
-          (load-directory fullpath))
-         ((and (eq isdir nil) (string= (substring path -3) ".el"))
-          (load (file-name-sans-extension fullpath)))))))
+  "Load recursively all `.el' files in DIRECTORY."
+  (dolist (element (directory-files-and-attributes directory nil nil nil))
+    (let* ((path (car element))
+           (fullpath (concat directory "/" path))
+           (isdir (car (cdr element)))
+           (ignore-dir (or (string= path ".") (string= path ".."))))
+      (cond
+       ((and (eq isdir t) (not ignore-dir))
+        (load-directory fullpath))
+       ((and (eq isdir nil) (string= (substring path -3) ".el"))
+        (load (file-name-sans-extension fullpath)))))))
 
 (load-directory "~/.emacs.d/lib")
 
@@ -415,16 +415,16 @@ Version 2017-11-01"
   (setq ivy-use-virtual-buffers nil)
   (setq enable-recursive-minibuffers t)
   (setq ivy-re-builders-alist
-          '(
-            (counsel-M-x . ivy--regex-plus)
-            (swiper . ivy--regex-plus)
-            (counsel-rg . ivy--regex-plus)
-            (t . ivy--regex-fuzzy)))
-    (add-to-list 'ivy-highlight-functions-alist
-                 '(swiper--re-builder . ivy--highlight-ignore-order))
+        '(
+          (counsel-M-x . ivy--regex-plus)
+          (swiper . ivy--regex-plus)
+          (counsel-rg . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
+  (add-to-list 'ivy-highlight-functions-alist
+               '(swiper--re-builder . ivy--highlight-ignore-order))
 
-   (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
-   (setq ivy-wrap t)
+  (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
+  (setq ivy-wrap t)
   )
 (use-package ivy-hydra
   :defer t
@@ -491,9 +491,9 @@ Version 2017-11-01"
 (use-package company
   :defer t
   :bind (:map company-active-map
-        ("C-j" . company-select-next)
-        ("C-k" . company-select-previous)
-        )
+              ("C-j" . company-select-next)
+              ("C-k" . company-select-previous)
+              )
   :init
   (global-company-mode)
   :config
@@ -529,7 +529,7 @@ Version 2017-11-01"
   :init
   (ranger-override-dired-mode t)
   (setq ranger-cleanup-on-disable t
-       ranger-listing-dir-first nil)
+        ranger-listing-dir-first nil)
   )
 
 (defun mu-magit-kill-buffers ()
@@ -627,14 +627,12 @@ Don't mess with special buffers."
 (add-hook 'minibuffer-exit-hook #'my/enable-on-minibuffer-exit)
 
 (defun my/mode-hook ()
-
   (hs-minor-mode)
-
   (local-set-key (kbd "C-c K") 'hs-show-all) ;; ctrl+shift+=
   (local-set-key (kbd "C-c J") 'hs-hide-all)   ;; ctrl+shift+-
   (local-set-key (kbd "C-c k") 'hs-show-block)
   (local-set-key (kbd "C-c j") 'hs-hide-block)
-)
+  )
 
 (add-hook 'text-mode-hook
           (lambda ()
@@ -661,15 +659,15 @@ Don't mess with special buffers."
   )
 
 (defvar my/mode-line-coding-format
-      '(:eval
-        (let* ((code (symbol-name buffer-file-coding-system))
-               (eol-type (coding-system-eol-type buffer-file-coding-system))
-               (eol (if (eq 0 eol-type) "UNIX"
-                      (if (eq 1 eol-type) "DOS"
-                        (if (eq 2 eol-type) "MAC"
-                          "???")))))
-          ;; (concat code " " eol " "))))
-          (concat code " "))))
+  '(:eval
+    (let* ((code (symbol-name buffer-file-coding-system))
+           (eol-type (coding-system-eol-type buffer-file-coding-system))
+           (eol (if (eq 0 eol-type) "UNIX"
+                  (if (eq 1 eol-type) "DOS"
+                    (if (eq 2 eol-type) "MAC"
+                      "???")))))
+      ;; (concat code " " eol " "))))
+      (concat code " "))))
 (put 'my/mode-line-coding-format 'risky-local-variable t)
 
 (defun my/shorten-vc-mode-line (string)
@@ -821,8 +819,8 @@ Don't mess with special buffers."
   :defer t
   :config
   (setq org-gcal-client-id (exec-path-from-shell-copy-env "G_CLIENT_ID")
-      org-gcal-client-secret (exec-path-from-shell-copy-env "G_CLIENT_SECRET")
-      org-gcal-file-alist '(((exec-path-from-shell-copy-env "G_CALENDAR_ID") .  "~/gdrive/gtd/gcal.org")))
+        org-gcal-client-secret (exec-path-from-shell-copy-env "G_CLIENT_SECRET")
+        org-gcal-file-alist '(((exec-path-from-shell-copy-env "G_CALENDAR_ID") .  "~/gdrive/gtd/gcal.org")))
   (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
   (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync)))
   )
@@ -834,8 +832,8 @@ Don't mess with special buffers."
 (defun my/calendar ()
   (interactive)
   (cfw:open-calendar-buffer
-    :contents-sources
-    (list
+   :contents-sources
+   (list
     (cfw:org-create-source "Green")  ; orgmode source
     ))
   )
@@ -975,7 +973,7 @@ Don't mess with special buffers."
   (add-hook 'web-mode-hook
             (lambda ()
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
-		(setup-tide-mode))))
+                (setup-tide-mode))))
   ;; (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (flycheck-add-mode 'typescript-tslint 'web-mode)
@@ -1012,30 +1010,30 @@ Don't mess with special buffers."
   )
 
 (defun my/mousewheel-scroll-up (event)
-    "Scroll window under mouse up by five lines."
-    (interactive "e")
-    (let ((current-window (selected-window)))
-      (unwind-protect
-          (progn
-            (select-window (posn-window (event-start event)))
-            (scroll-up 5))
-        (select-window current-window))))
+  "Scroll window under mouse up by five lines."
+  (interactive "e")
+  (let ((current-window (selected-window)))
+    (unwind-protect
+        (progn
+          (select-window (posn-window (event-start event)))
+          (scroll-up 5))
+      (select-window current-window))))
 
 (defun my/mousewheel-scroll-down (event)
-    "Scroll window under mouse down by five lines."
-    (interactive "e")
-    (let ((current-window (selected-window)))
-      (unwind-protect
-          (progn
-            (select-window (posn-window (event-start event)))
-            (scroll-down 5))
-        (select-window current-window))))
+  "Scroll window under mouse down by five lines."
+  (interactive "e")
+  (let ((current-window (selected-window)))
+    (unwind-protect
+        (progn
+          (select-window (posn-window (event-start event)))
+          (scroll-down 5))
+      (select-window current-window))))
 
 (xterm-mouse-mode 1)
 (pixel-scroll-mode)
 (unless window-system
-    (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
-    (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))
+  (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
+  (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))
 
 (use-package wgrep
   :defer t
@@ -1047,9 +1045,9 @@ Don't mess with special buffers."
   )
 
 (defun my/elfeed-mark-all-read ()
-    (interactive)
-    (elfeed-untag elfeed-search-entries 'unread)
-    (elfeed-search-update :force)) ; redraw
+  (interactive)
+  (elfeed-untag elfeed-search-entries 'unread)
+  (elfeed-search-update :force)) ; redraw
 
 (defun my/elfeed-star ()
   "Apply starred to all selected entries."
@@ -1130,47 +1128,47 @@ Don't mess with special buffers."
   )
 
 (cl-defun my/elfeed-search-add-separators (&key (min-group-size 2))
-    "Insert overlay spacers where the current date changes.
+  "Insert overlay spacers where the current date changes.
 If no group has at least MIN-GROUP-SIZE items, no spacers will be
 inserted. "
-    ;; TODO: Use column-specific functions so that, e.g. date column could be grouped by month/year
-    (cl-labels ((count-date-items (date)
-                                  (cl-loop for entry in elfeed-search-entries
-                                           when (equal date (elfeed-search-format-date (elfeed-entry-date entry)))
-                                           count it))
-                (insert-date (date &key count)
-                             (ov (line-beginning-position) (line-beginning-position)
-                                 'before-string (propertize (format "\n%s (%s)\n" date count)
-                                                            'face 'elfeed-search-date-face)
-                                 'type 'date-separator))
-                (entry-date (offset)
-                      (when-let ((entry (nth offset elfeed-search-entries)))
-                        (elfeed-search-format-date (elfeed-entry-date entry)))))
-      (ov-clear)
-      (save-excursion
-        (goto-char (point-min))
-        (cl-loop with largest-group-size = 1
-                 with offset = (- 1 elfeed-search--offset) ; 1 is first line
-                 with prev-data = (entry-date offset)
+  ;; TODO: Use column-specific functions so that, e.g. date column could be grouped by month/year
+  (cl-labels ((count-date-items (date)
+                                (cl-loop for entry in elfeed-search-entries
+                                         when (equal date (elfeed-search-format-date (elfeed-entry-date entry)))
+                                         count it))
+              (insert-date (date &key count)
+                           (ov (line-beginning-position) (line-beginning-position)
+                               'before-string (propertize (format "\n%s (%s)\n" date count)
+                                                          'face 'elfeed-search-date-face)
+                               'type 'date-separator))
+              (entry-date (offset)
+                          (when-let ((entry (nth offset elfeed-search-entries)))
+                            (elfeed-search-format-date (elfeed-entry-date entry)))))
+    (ov-clear)
+    (save-excursion
+      (goto-char (point-min))
+      (cl-loop with largest-group-size = 1
+               with offset = (- 1 elfeed-search--offset) ; 1 is first line
+               with prev-data = (entry-date offset)
 
-                 initially do (insert-date prev-data
-                                           :count (count-date-items prev-data))
+               initially do (insert-date prev-data
+                                         :count (count-date-items prev-data))
 
-                 while (not (eobp))
-                 do (progn
-                      (forward-line 1)
-                      (incf offset))
+               while (not (eobp))
+               do (progn
+                    (forward-line 1)
+                    (incf offset))
 
-                 for current-data = (entry-date offset)
-                 if (not (equal current-data prev-data))
-                 do (progn
-                      (insert-date current-data
-                                   :count (count-date-items current-data))
-                      (setq prev-data current-data))
-                 else do (incf largest-group-size)
+               for current-data = (entry-date offset)
+               if (not (equal current-data prev-data))
+               do (progn
+                    (insert-date current-data
+                                 :count (count-date-items current-data))
+                    (setq prev-data current-data))
+               else do (incf largest-group-size)
 
-                 finally do (when (< largest-group-size min-group-size)
-                              (ov-clear))))))
+               finally do (when (< largest-group-size min-group-size)
+                            (ov-clear))))))
 
 (use-package elfeed-goodies
   :defer t
