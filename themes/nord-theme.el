@@ -75,6 +75,12 @@
   :type 'boolean
   :group 'nord)
 
+(defcustom nord-theme-enable-italics t
+  "Enable italics for functions, comments"
+  :type 'boolean
+  :group 'nord
+  )
+
 (setq nord-theme--brightened-comments '("#4c566a" "#4e586d" "#505b70" "#525d73" "#556076" "#576279" "#59647c" "#5b677f" "#5d6982" "#5f6c85" "#616e88" "#63718b" "#66738e" "#687591" "#6a7894" "#6d7a96" "#6f7d98" "#72809a" "#75829c" "#78859e" "#7b88a1"))
 
 (defun nord-theme--brightened-comment-color (percent)
@@ -101,6 +107,12 @@
   )
 
 (setq true-color-p (isTrueColor))
+
+(defun getSlantType()
+  (if nord-theme-enable-italics 'italic 'normal)
+  )
+
+(setq slantType (getSlantType))
 
 ;;;; Color Constants
 (let ((class '((class color) (min-colors 89)))
@@ -143,7 +155,7 @@
       (if (string= nord-region-highlight "snowstorm") "#D8DEE9" "#434C5E")))
   (nord-uniform-mode-lines-background (if nord-uniform-mode-lines "#4C566A" "black"))
   (nord-inactive-modeline-foreground "#6c6c6c")
-  (nord-tabbar-foreground "#72809a")
+  (nord-tabbar-foreground "#8d94a1")
   )
 
 ;;;; +------------+
@@ -158,12 +170,12 @@
     `(error ((,class (:foreground ,nord11 :weight bold))))
     `(escape-glyph ((,class (:foreground ,nord12))))
     `(font-lock-builtin-face ((,class (:foreground ,nord9))))
-    `(font-lock-comment-face ((,class (:foreground ,nord-comment))))
+    `(font-lock-comment-face ((,class (:foreground ,nord-comment :slant ,slantType))))
     `(font-lock-comment-delimiter-face ((,class (:foreground ,nord-comment))))
     `(font-lock-constant-face ((,class (:foreground ,nord9))))
-    `(font-lock-doc-face ((,class (:foreground ,nord-comment))))
-    `(font-lock-function-name-face ((,class (:foreground ,nord8))))
-    `(font-lock-keyword-face ((,class (:foreground ,nord9))))
+    `(font-lock-doc-face ((,class (:foreground ,nord-comment :slant ,slantType))))
+    `(font-lock-function-name-face ((,class (:foreground ,nord8 :slant ,slantType))))
+    `(font-lock-keyword-face ((,class (:foreground ,nord9 :slant ,slantType))))
     `(font-lock-negation-char-face ((,class (:foreground ,nord9))))
     `(font-lock-preprocessor-face ((,class (:foreground ,nord10 :weight bold))))
     `(font-lock-reference-face ((,class (:foreground ,nord9))))
@@ -449,7 +461,7 @@
     ;; > Web Mode
     `(web-mode-attr-tag-custom-face ((,class (:foreground ,nord-attribute))))
     `(web-mode-builtin-face ((,class (:foreground ,nord-keyword))))
-    `(web-mode-comment-face ((,class (:foreground ,nord-comment))))
+    `(web-mode-comment-face ((,class (:foreground ,nord-comment :slant ,slantType))))
     `(web-mode-comment-keyword-face ((,class (:foreground ,nord-comment))))
     `(web-mode-constant-face ((,class (:foreground ,nord-variable))))
     `(web-mode-css-at-rule-face ((,class (:foreground ,nord-annotation))))
@@ -459,15 +471,15 @@
     `(web-mode-css-selector-face ((,class (:foreground ,nord-keyword))))
     `(web-mode-css-string-face ((,class (:foreground ,nord-string))))
     `(web-mode-doctype-face ((,class (:foreground ,nord-preprocessor))))
-    `(web-mode-function-call-face ((,class (:foreground ,nord-method))))
-    `(web-mode-function-name-face ((,class (:foreground ,nord-method))))
+    `(web-mode-function-call-face ((,class (:foreground ,nord-method :slant ,slantType))))
+    `(web-mode-function-name-face ((,class (:foreground ,nord-method :slant ,slantType))))
     `(web-mode-html-attr-name-face ((,class (:foreground ,nord-attribute))))
     `(web-mode-html-attr-equal-face ((,class (:foreground ,nord-punctuation))))
     `(web-mode-html-attr-value-face ((,class (:foreground ,nord-string))))
     `(web-mode-html-entity-face ((,class (:foreground ,nord-keyword))))
     `(web-mode-html-tag-bracket-face ((,class (:foreground ,nord-punctuation))))
-    `(web-mode-html-tag-custom-face ((,class (:foreground ,nord-tag))))
-    `(web-mode-html-tag-face ((,class (:foreground ,nord-tag))))
+    `(web-mode-html-tag-custom-face ((,class (:foreground ,nord-tag :slant ,slantType))))
+    `(web-mode-html-tag-face ((,class (:foreground ,nord-tag :slant ,slantType))))
     `(web-mode-html-tag-namespaced-face ((,class (:foreground ,nord-keyword))))
     `(web-mode-json-key-face ((,class (:foreground ,nord-class))))
     `(web-mode-json-string-face ((,class (:foreground ,nord-string))))
