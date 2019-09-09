@@ -267,7 +267,7 @@
     `(mode-line ((,class (:foreground ,nord4 :background ,nord1))))
     `(mode-line-buffer-id ((,class (:weight bold))))
     `(mode-line-highlight ((,class (:inherit highlight))))
-    `(mode-line-inactive ((,class (:foreground ,nord-inactive-modeline-foreground :background ,nord1))))
+    `(mode-line-inactive ((,class (:foreground ,nord-tabbar-foreground :background ,nord1))))
     `(next-error ((,class (:inherit error))))
     `(nobreak-space ((,class (:foreground ,nord3))))
     `(outline-1 ((,class (:foreground ,nord8 :weight bold))))
