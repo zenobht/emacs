@@ -652,9 +652,12 @@
     `(powerline-evil-visual-face ((,class (:foreground ,nord0 :background ,nord7))))
     `(powerline-evil-replace-face ((,class (:foreground ,nord0 :background ,nord9))))
 
+    ;; > Dired
+    `(dired-directory ((,class (:foreground ,nord9 :bold t))))
+
     ;; > NeoTree
     `(neo-banner-face ((,class (:foreground ,nord10))))
-    `(neo-dir-link-face ((,class (:foreground ,nord9))))
+    `(neo-dir-link-face ((,class (:foreground ,nord9 :bold t))))
     `(neo-expand-btn-face ((,class (:foreground ,nord6 :bold t))))
     `(neo-file-link-face ((,class (:foreground ,nord4))))
     `(neo-root-dir-face ((,class (:foreground ,nord7 :weight bold))))
