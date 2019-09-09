@@ -2,9 +2,7 @@
 
 (if (display-graphic-p)
     (progn
-      (add-to-list 'default-frame-alist
-                   '(font . "Fira Code-14"))
-      (set-face-attribute 'default t :font "Fira Code-14")
+      (set-frame-font "Meslo LG M DZ for Powerline-13")
       (menu-bar-mode t)
       )
   (progn
@@ -355,7 +353,8 @@ Version 2017-11-01"
     "*" 'my/rg-star-search
     "b" 'ivy-switch-buffer
     "C" 'my/calendar
-    "d" 'deer
+    "dd" 'deer
+    "dr" 'ranger
     "f" 'counsel-rg
     "gb" 'magit-blame
     "gg" 'magit-status
