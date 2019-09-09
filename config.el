@@ -353,8 +353,7 @@ Version 2017-11-01"
     "*" 'my/rg-star-search
     "b" 'ivy-switch-buffer
     "C" 'my/calendar
-    "dd" 'deer
-    "dr" 'ranger
+    "d" 'deer
     "f" 'counsel-rg
     "gb" 'magit-blame
     "gg" 'magit-status
@@ -529,6 +528,11 @@ Version 2017-11-01"
   (ranger-override-dired-mode t)
   (setq ranger-cleanup-on-disable t
         ranger-listing-dir-first nil)
+  :config
+  ;; disable ranger-details-message function to fix mode-line jumping
+  ;; TODO find out the reason for mode-line jumping in ranger/deer
+  (defun ranger-details-message (&optional sizes))
+  (add-hook 'ranger-mode-hook (lambda() (setq mode-line-format nil)))
   )
 
 (defun mu-magit-kill-buffers ()
@@ -659,15 +663,41 @@ Don't mess with special buffers."
 
 (defvar my/mode-line-coding-format
   '(:eval
-    (let* ((code (symbol-name buffer-file-coding-system))
-           (eol-type (coding-system-eol-type buffer-file-coding-system))
-           (eol (if (eq 0 eol-type) "UNIX"
-                  (if (eq 1 eol-type) "DOS"
-                    (if (eq 2 eol-type) "MAC"
-                      "???")))))
-      ;; (concat code " " eol " "))))
-      (concat code " "))))
+    (propertize
+     (concat (pcase (coding-system-eol-type buffer-file-coding-system)
+               (0 " LF")
+               (1 " CRLF")
+               (2 " CR"))
+             (let ((sys (coding-system-plist buffer-file-coding-system)))
+               (cond ((memq (plist-get sys :category)
+                            '(coding-category-undecided coding-category-utf-8))
+                      " UTF-8 ")
+                     (t (upcase (symbol-name (plist-get sys :name))))))))
+    )
+  )
+
 (put 'my/mode-line-coding-format 'risky-local-variable t)
+
+(defvar ml-selected-window (frame-selected-window))
+
+(defun set-selected-window ()
+  (when (not (minibuffer-window-active-p (frame-selected-window)))
+    (setq ml-selected-window (frame-selected-window))))
+
+(defun unset-selected-window ()
+  (setq ml-selected-window nil))
+
+(add-hook 'window-configuration-change-hook 'set-selected-window)
+
+(add-hook 'focus-in-hook 'set-selected-window)
+
+(add-hook 'focus-out-hook 'unset-selected-window)
+
+(add-hook 'buffer-list-update-hook #'set-selected-window)
+
+(defun selected-window-active ()
+  (eq ml-selected-window (selected-window))
+  )
 
 (defun my/shorten-vc-mode-line (string)
   (cond
@@ -678,6 +708,9 @@ Don't mess with special buffers."
 
 (advice-add 'vc-git-mode-line-string :filter-return 'my/shorten-vc-mode-line)
 
+;; remove mode-line-buffer-identification default width
+(setq-default mode-line-buffer-identification (propertized-buffer-identification "%b"))
+
 (setq-default
  mode-line-format
  '
@@ -687,38 +720,42 @@ Don't mess with special buffers."
     ;; left
     (quote (""
             (:eval (propertize evil-mode-line-tag
+                               'face  (if (selected-window-active) 'font-lock-constant-face)
                                'help-echo
                                "Evil mode"))
-
-            (vc-mode (:eval (propertize vc-mode
-                                        'face 'bold
-                                        'help-echo "Buffer modified")))
-            " "
+            " %I"
             (:eval (when (projectile-project-p)
-                     (propertize (concat "[" (projectile-project-name) "]")
-                                 'face 'italic
+                     (propertize (concat " [" (projectile-project-name) "] ")
+                                 'face (if (selected-window-active)
+                                           '(:inherit font-lock-string-face :weight bold))
                                  'help-echo "Project Name")
                      ))
-
-            " "
             mode-line-buffer-identification
             (:eval (propertize (if (buffer-modified-p)
-                                   "[+]"
-                                 "")
+                                   " [+]"
+                                 " ")
                                'help-echo "Buffer modified"))
-            " "
             (:eval (when buffer-read-only
-                     (propertize "RO"
+                     (propertize " RO"
+                                 'face (if (selected-window-active)
+                                           '(:inherit error))
                                  'help-echo "Buffer is read-only")))
-            " "
+            " %l:%c"
+            " %p "
             (flycheck-mode flycheck-mode-line)
             ))
     ;; right
     (quote (
-            (:eval (propertize "[%2l:%2c] " 'face 'bold))
-            "%p "
-            mode-name
-            "  %I "
+            (vc-mode (:eval (propertize vc-mode
+                                        'face (if (selected-window-active)
+                                                  '(:inherit font-lock-regexp-grouping-backslash :weight bold))
+                                        'help-echo "Buffer modified")))
+            " "
+            (:eval (propertize mode-name
+                               'face (if (selected-window-active)
+                                         '(:inherit font-lock-function-name-face :slant normal))
+                               ))
+
             my/mode-line-coding-format
             ))
     )
