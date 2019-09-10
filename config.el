@@ -534,6 +534,8 @@ Version 2017-11-01"
   (if (not (display-graphic-p))
       (setq ranger-footer-delay nil)
     )
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired nil))
   )
 
 (defun mu-magit-kill-buffers ()
