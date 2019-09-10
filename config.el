@@ -359,6 +359,8 @@ Version 2017-11-01"
     "gb" 'magit-blame
     "gg" 'magit-status
     "gl" 'magit-log
+    "j" 'avy-goto-char
+    "l" 'avy-goto-line
     "s" 'swiper
     "t" 'eshell
     )
@@ -557,8 +559,6 @@ Version 2017-11-01"
 (use-package display-line-numbers
   :defer t
   :after evil
-  :config
-  (setq display-line-numbers-width-start 100)
   )
 
 (defun my/neotree-project-dir ()
