@@ -353,7 +353,8 @@ Version 2017-11-01"
     "*" 'my/rg-star-search
     "b" 'ivy-switch-buffer
     "C" 'my/calendar
-    "d" 'deer
+    "dd" 'deer
+    "dr" 'ranger
     "f" 'counsel-rg
     "gb" 'magit-blame
     "gg" 'magit-status
@@ -528,11 +529,9 @@ Version 2017-11-01"
   (ranger-override-dired-mode t)
   (setq ranger-cleanup-on-disable t
         ranger-listing-dir-first nil)
-  :config
-  ;; disable ranger-details-message function to fix mode-line jumping
-  ;; TODO find out the reason for mode-line jumping in ranger/deer
-  (defun ranger-details-message (&optional sizes))
-  (add-hook 'ranger-mode-hook (lambda() (setq mode-line-format nil)))
+  (if (not (display-graphic-p))
+      (setq ranger-footer-delay nil)
+    )
   )
 
 (defun mu-magit-kill-buffers ()
