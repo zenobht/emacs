@@ -2,7 +2,7 @@
 
 (if (display-graphic-p)
     (progn
-      (set-frame-font "Meslo LG M DZ for Powerline-13")
+      (set-frame-font "Hasklug Nerd Font-14")
       (menu-bar-mode t)
       )
   (progn
@@ -525,10 +525,12 @@ Version 2017-11-01"
   :bind (:map ranger-normal-mode-map
               ( "+" . dired-create-directory)
               )
-  :init
+  :config
   (ranger-override-dired-mode t)
   (setq ranger-cleanup-on-disable t
-        ranger-listing-dir-first nil)
+        ranger-listing-dir-first t
+        ranger-persistent-sort t
+        )
   (if (not (display-graphic-p))
       (setq ranger-footer-delay nil)
     )
@@ -664,9 +666,9 @@ Don't mess with special buffers."
   '(:eval
     (propertize
      (concat (pcase (coding-system-eol-type buffer-file-coding-system)
-               (0 " LF")
-               (1 " CRLF")
-               (2 " CR"))
+               (0 "  LF")
+               (1 "  CRLF")
+               (2 "  CR"))
              (let ((sys (coding-system-plist buffer-file-coding-system)))
                (cond ((memq (plist-get sys :category)
                             '(coding-category-undecided coding-category-utf-8))
@@ -749,7 +751,7 @@ Don't mess with special buffers."
                                         'face (if (selected-window-active)
                                                   '(:inherit font-lock-regexp-grouping-backslash :weight bold))
                                         'help-echo "Buffer modified")))
-            " "
+            "  "
             (:eval (propertize mode-name
                                'face (if (selected-window-active)
                                          '(:inherit font-lock-function-name-face :slant normal))
