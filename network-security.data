@@ -1,0 +1,6 @@
+(
+ (:id "sha1:5cce342a9a99ff6632dc081a41f5f4a28e8e10fc" :fingerprint "sha1:44:13:49:8e:f9:f7:4c:fe:bb:bd:9a:7a:c4:2d:0c:b2:8c:f3:84:87" :host "raw.githubusercontent.com:443" :conditions (:unknown-ca :invalid))
+ (:id "sha1:24c7a1e6369fef1e50de1deb1a9e5bbc68f80c8b" :fingerprint "sha1:44:13:49:8e:f9:f7:4c:fe:bb:bd:9a:7a:c4:2d:0c:b2:8c:f3:84:87" :host "orgmode.org:443" :conditions (:unknown-ca :invalid))
+ (:id "sha1:ccfd2cc2a08c89a9b10969be8c1e926954d53e28" :fingerprint "sha1:44:13:49:8e:f9:f7:4c:fe:bb:bd:9a:7a:c4:2d:0c:b2:8c:f3:84:87" :host "stable.melpa.org:443" :conditions (:unknown-ca :invalid))
+ (:id "sha1:85b31c268009209a8d3c5387033b219264f7e62b" :fingerprint "sha1:44:13:49:8e:f9:f7:4c:fe:bb:bd:9a:7a:c4:2d:0c:b2:8c:f3:84:87" :host "melpa.org:443" :conditions (:unknown-ca :invalid))
+)

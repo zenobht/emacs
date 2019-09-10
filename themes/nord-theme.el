@@ -175,7 +175,7 @@
     `(font-lock-constant-face ((,class (:foreground ,nord9))))
     `(font-lock-doc-face ((,class (:foreground ,nord-comment :slant ,slantType))))
     `(font-lock-function-name-face ((,class (:foreground ,nord8 :slant ,slantType))))
-    `(font-lock-keyword-face ((,class (:foreground ,nord9 :slant ,slantType))))
+    `(font-lock-keyword-face ((,class (:foreground ,nord9))))
     `(font-lock-negation-char-face ((,class (:foreground ,nord9))))
     `(font-lock-preprocessor-face ((,class (:foreground ,nord10 :weight bold))))
     `(font-lock-reference-face ((,class (:foreground ,nord9))))
