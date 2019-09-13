@@ -631,7 +631,6 @@ Don't mess with special buffers."
             (visual-line-mode -1)
             (display-line-numbers-mode +1)
             (whitespace-mode +1)
-            (highlight-indent-guides-mode +1)
             (modify-syntax-entry ?_ "w")))
 
 (add-hook 'prog-mode-hook
@@ -641,7 +640,6 @@ Don't mess with special buffers."
             (display-line-numbers-mode +1)
             (whitespace-mode +1)
             (my/mode-hook)
-            (highlight-indent-guides-mode +1)
             (modify-syntax-entry ?_ "w")))
 
 (defun simple-mode-line-render (left right)
@@ -720,7 +718,9 @@ Don't mess with special buffers."
                                            '(:inherit font-lock-string-face :weight bold))
                                  'help-echo "Project Name")
                      ))
+            " "
             mode-line-buffer-identification
+            " "
             (:eval (propertize (if (buffer-modified-p)
                                    " [+]"
                                  " ")
@@ -1306,11 +1306,4 @@ inserted. "
         (kbd "M-RET") 'ein:worksheet-execute-cell-and-goto-next)
       )
     )
-  )
-
-(use-package highlight-indent-guides
-  :defer t
-  :config
-  (setq highlight-indent-guides-method 'character
-        highlight-indent-guides-character ?\|)
   )
