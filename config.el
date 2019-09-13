@@ -14,22 +14,6 @@
               evil-shift-width 2
               )
 
-(defun load-directory (directory)
-
-  "Load recursively all `.el' files in DIRECTORY."
-  (dolist (element (directory-files-and-attributes directory nil nil nil))
-    (let* ((path (car element))
-           (fullpath (concat directory "/" path))
-           (isdir (car (cdr element)))
-           (ignore-dir (or (string= path ".") (string= path ".."))))
-      (cond
-       ((and (eq isdir t) (not ignore-dir))
-        (load-directory fullpath))
-       ((and (eq isdir nil) (string= (substring path -3) ".el"))
-        (load (file-name-sans-extension fullpath)))))))
-
-(load-directory "~/.emacs.d/lib")
-
 (setq
  package-quickstart t
  package-enable-at-startup nil
@@ -44,12 +28,7 @@
  scroll-step 1
  scroll-conservatively 10000
  scroll-preserve-screen-position 1
- backup-directory-alist `(("." . "~/.emacs-saves"))
- backup-by-copying t
- delete-old-versions t
- kept-new-versions 6
- kept-old-versions 2
- version-control t
+ make-backup-files nil
  auto-save-file-name-transforms `((".*" "~/.emacs-saves/" t))
  auto-save-interval 50
  large-file-warning-threshold nil
