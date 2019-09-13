@@ -40,6 +40,12 @@
  display-buffer-alist '(("\\`\\*e?shell" display-buffer-pop-up-window))
  )
 
+(defmacro measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "%.06f" (float-time (time-since time)))))
+
 (setq-default indent-tabs-mode nil)
 
 (add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))
@@ -338,7 +344,7 @@ Version 2017-11-01"
     "gb" 'magit-blame
     "gg" 'magit-status
     "gl" 'magit-log
-    "j" 'avy-goto-char
+    "j" 'avy-goto-char-2
     "l" 'avy-goto-line
     "s" 'swiper
     "t" 'eshell
@@ -934,12 +940,6 @@ Don't mess with special buffers."
     (when (and eslint (file-executable-p eslint))
       (setq-local flycheck-javascript-eslint-executable eslint))))
 
-(defmacro measure-time (&rest body)
-  "Measure the time it takes to evaluate BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (message "%.06f" (float-time (time-since time)))))
-
 (defun my/setup-tools-from-node ()
   ;; (my/eslint-setup)
   ;; (my/prettier-setup)
@@ -957,7 +957,9 @@ Don't mess with special buffers."
   )
 
 (use-package typescript-mode
-  :ensure t
+  :defer t
+  :mode(("\\.tsx\\'" . typescript-mode)
+        ("\\.ts\\'" . typescript-mode))
   :config
   (setq typescript-indent-level 2)
   (add-hook 'typescript-mode-hook 'flycheck-mode)
@@ -965,7 +967,7 @@ Don't mess with special buffers."
 
 (use-package tide
   :init
-  :ensure t
+  :defer t
   :after (typescript-mode company flycheck)
   :hook ((typescript-mode . tide-setup)
          (typescript-mode . tide-hl-identifier-mode)
@@ -974,10 +976,7 @@ Don't mess with special buffers."
 (use-package web-mode
   :defer t
   :after flycheck
-  :mode (("\\.html?\\'" . web-mode)
-         ("\\.tsx\\'" . web-mode)
-         ("\\.js\\'" . web-mode)
-         ("\\.jsx\\'" . web-mode))
+  :mode (("\\.html?\\'" . web-mode))
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
@@ -990,15 +989,24 @@ Don't mess with special buffers."
         web-mode-enable-comment-keywords t
         web-mode-enable-current-element-highlight t
         )
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                (setup-tide-mode))))
-  ;; (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (flycheck-add-mode 'typescript-tslint 'web-mode)
-  ;; (add-hook 'web-mode-hook #'my/setup-tools-from-node)
-  (setq web-mode-enable-auto-pairing nil)
+  )
+
+(use-package rjsx-mode
+  :defer t
+  :mode(("\\.js\\'" . rjsx-mode)
+        ("\\.jsx\\'" . rjsx-mode))
+  :config
+  (define-key rjsx-mode-map "<" nil)
+  (define-key rjsx-mode-map (kbd "C-d") nil)
+  (define-key rjsx-mode-map ">" nil)
+  (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  (setq js2-mode-show-strict-warnings nil
+        js2-mode-show-parse-errors nil)
+  (evil-define-key 'insert rjsx-mode-map
+    (kbd ">") 'rjsx-electric-gt
+    (kbd "<") 'rjsx-electric-lt
+    )
   )
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
