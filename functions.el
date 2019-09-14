@@ -82,7 +82,7 @@ Version 2017-11-01"
     (append (if (consp backend) backend (list backend))
             '(:with company-yasnippet))))
 
-(defun mu-magit-kill-buffers ()
+(defun my/magit-kill-buffers ()
   "Restore window configuration and kill all Magit buffers."
   (interactive)
   (let ((buffers (magit-mode-get-buffers)))

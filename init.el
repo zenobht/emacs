@@ -1,4 +1,5 @@
 (setq start-time (current-time))
+(setq mode-line-format nil)
 
 ;; assign high memory to reduce gc during load
 (setq gc-cons-threshold (* 120 1000 1000))
@@ -24,6 +25,7 @@
     (load-file (expand-file-name "functions.el" user-emacs-directory))
     (load-file (expand-file-name "packages.el" user-emacs-directory))
     (load-file (expand-file-name "setup.el" user-emacs-directory))
+    (load-file (expand-file-name "keybindings.el" user-emacs-directory))
     (load-theme 'nord t)
     (when (file-exists-p custom-file)
       (load custom-file))

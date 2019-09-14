@@ -60,8 +60,6 @@
   (evil-mode)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
-  (define-key evil-visual-state-map (kbd ">") 'my/visual-shift-right)
-  (define-key evil-visual-state-map (kbd "<") 'my/visual-shift-left)
   (eval-after-load 'evil-ex
     '(evil-ex-define-cmd "jsf" (lambda ()
                                  (interactive)
@@ -131,10 +129,6 @@
       )
     )
 
-  (define-key evil-normal-state-map (kbd "M-k") 'evil-move-up)
-  (define-key evil-normal-state-map (kbd "M-j") 'evil-move-down)
-  (define-key evil-visual-state-map (kbd "M-k") 'evil-move-up)
-  (define-key evil-visual-state-map (kbd "M-j") 'evil-move-down)
   )
 
 (use-package windmove
@@ -153,20 +147,11 @@
 (use-package evil-numbers
   :defer t
   :after evil
-  :bind (
-         ( "C-c +" . evil-numbers/inc-at-pt )
-         ( "C-c -" . evil-numbers/dec-at-pt )
-         )
   )
 
 (use-package paradox
   :defer t
   :after evil-leader
-  :init
-  (evil-leader/set-key
-    ".l" 'paradox-list-packages
-    ".u" 'paradox-upgrade-packages
-    )
   )
 
 (use-package evil-leader
@@ -305,7 +290,7 @@
   :init
   (evil-magit-init)
   :config
-  (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
+  (bind-key "q" #'my/magit-kill-buffers magit-status-mode-map)
   )
 
 (use-package display-line-numbers
@@ -361,14 +346,6 @@
     :defer t)
   )
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (define-key org-mode-map (kbd "<C-up>") 'my/org-move-up)
-            (define-key org-mode-map (kbd "<C-down>") 'my/org-move-down)
-            (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle)
-            )
-          )
-
 (use-package org-gcal
   :defer t
   :config
@@ -398,14 +375,8 @@
   :defer t
   :after evil-leader
   :init
-  (evil-leader/set-key
-    ";" 'frog-jump-buffer)
-  (setq
-   frog-jump-buffer-default-filter 'frog-jump-buffer-filter-same-project
-   )
+  (setq frog-jump-buffer-default-filter 'frog-jump-buffer-filter-same-project)
   )
-
-
 
 (use-package typescript-mode
   :defer t
@@ -455,7 +426,9 @@
 
 (use-package flycheck
   :defer t
-  :init (global-flycheck-mode))
+  :init
+  (global-flycheck-mode)
+  )
 
 (use-package flycheck-kotlin
   :defer t
@@ -576,11 +549,14 @@
 (use-package elpy
   :defer t
   :init
-  (advice-add 'python-mode :before 'elpy-enable))
+  (advice-add 'python-mode :before 'elpy-enable)
+  )
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init
+  (setq markdown-command "multimarkdown")
+  )
