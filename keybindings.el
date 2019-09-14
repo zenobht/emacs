@@ -43,7 +43,6 @@
  "C-k" 'tabbar-forward-tab
  "M-c" 'my/copy-to-clipboard
  "M-e" 'elfeed
- "M-f" 'find-file
  "M-g i" 'dumb-jump-go-prompt
  "M-g j" 'dumb-jump-go
  "M-g k" 'dumb-jump-back
@@ -79,32 +78,32 @@
   :keymaps 'normal
   ";" '(frog-jump-buffer :which-key "Quick Jump Buffer")
   "." '(:ignore t :which-key "Paradox")
-  ".l" 'paradox-list-packages
-  ".u" 'paradox-upgrade-packages
+  ".l" '(paradox-list-packages :which-key "List Packages")
+  ".u" '(paradox-upgrade-packages :which-key "Update Packages")
   "C" '(my/calendar :which-key "Calendar")
   "b" '(:ignore t :which-key "Buffer")
-  "bb" 'ivy-switch-buffer
+  "bb" '(ivy-switch-buffer :which-key "Switch Buffer")
   "d" '(:ignore t :which-key "Dired")
-  "dd" 'deer
-  "dd" 'deer
-  "dr" 'ranger
+  "dd" '(deer :which-key "Deer")
+  "dr" '(ranger :which-key "Ranger")
+  "f" '(:ignore t :which-key "Find")
+  "f*" '(my/rg-star-search :which-key "Find Current Word")
+  "ff" '(counsel-rg :which-key "Rg")
+  "fF" '(find-file :which-key "Find File")
+  "fs" '(swiper :which-key "Swiper")
   "g" '(:ignore t :which-key "Git")
-  "gb" 'magit-blame
-  "gg" 'magit-status
-  "gl" 'magit-log
+  "gb" '(magit-blame :which-key "Blame")
+  "gg" '(magit-status :which-key "Status")
+  "gl" '(magit-log :which-key "Log")
   "j" '(:ignore t :which-key "Jump")
-  "jj" 'avy-goto-char-2
-  "jl" 'avy-goto-line
+  "jj" '(avy-goto-char-2 :which-key "Jump to char")
+  "jl" '(avy-goto-line :which-key "Jump to line")
   "n" '(my/neotree-project-dir :which-key "Neotree")
   "p" '(:ignore t :which-key "Projectile")
-  "pb" 'counsel-projectile-switch-to-buffer
-  "pf" 'counsel-projectile-find-file
-  "pi" 'projectile-invalidate-cache
-  "pp" 'counsel-projectile-switch-project
-  "s" '(:ignore t :which-key "Search")
-  "s*" 'my/rg-star-search
-  "sf" 'counsel-rg
-  "ss" 'swiper
+  "pb" '(counsel-projectile-switch-to-buffer :which-key "Switch buffer")
+  "pf" '(counsel-projectile-find-file :which-key "Find file")
+  "pi" '(projectile-invalidate-cache :which-key "Invalidate cache")
+  "pp" '(counsel-projectile-switch-project :which-key "Switch project")
   "t" '(eshell :which-key "Terminal")
   )
 
