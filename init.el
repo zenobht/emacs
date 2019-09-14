@@ -2,7 +2,13 @@
 (setq mode-line-format nil)
 
 ;; assign high memory to reduce gc during load
-(setq gc-cons-threshold (* 120 1000 1000))
+;; lifted from doom-emacs. Thanks
+(defvar doom--file-name-handler-alist file-name-handler-alist)
+(setq gc-cons-threshold 402653184
+      gc-cons-percentage 0.6
+      file-name-handler-alist nil
+      )
+
 (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
 
 (defun load-directory (directory)
@@ -24,18 +30,12 @@
     (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
     (load-file (expand-file-name "functions.el" user-emacs-directory))
     (load-file (expand-file-name "packages.el" user-emacs-directory))
-    (load-theme 'nord t)
     (load-file (expand-file-name "setup.el" user-emacs-directory))
     (load-file (expand-file-name "keybindings.el" user-emacs-directory))
+    (load-theme 'nord t)
     (when (file-exists-p custom-file)
       (load custom-file))
   ))
-
-(defun my/start-server ()
-  (require 'server)
-  (unless (server-running-p)
-    (server-start))
-  )
 
 (defun my/after-startup ()
   (message "Emacs ready in %s with %d garbage collections."
@@ -44,15 +44,10 @@
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
-  (my/start-server)
-
   ;; set proper gc values after load
-  (setq gc-cons-threshold (* 20 1000 1000))
-  )
+  (setq gc-cons-threshold 16777216
+        gc-cons-percentage 0.1
+        file-name-handler-alist doom--file-name-handler-alist)
+ )
 
 (add-hook 'emacs-startup-hook #'my/after-startup)
-
-(require 'package)
-(setq package-enable-at-startup nil)
-(package-initialize)
-
