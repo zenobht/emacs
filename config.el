@@ -79,6 +79,18 @@
   (setup-project-paths)
   )
 
+(use-package which-key
+  :defer t
+  :init
+  (which-key-mode)
+  :config
+  (setq which-key-popup-type 'minibuffer
+        which-key-sort-order 'which-key-key-order-alpha
+        which-key-idle-delay 0.5
+        which-key-separator " → "
+        which-key-prefix-prefix "+")
+  )
+
 (defun my/last-used-buffer ()
   (interactive)
   (switch-to-buffer (other-buffer))
@@ -153,8 +165,6 @@
          ( "C-r" . evil-paste-from-register)
          :map evil-normal-state-map
          ( "C-u" . evil-scroll-up )
-         ( "[e" . previous-error)
-         ( "]e" . next-error)
          ( "gc" . evil-ex-nohighlight)
          ( "gs" . my/substitute)
          ( "C-i" . evil-jump-forward)
@@ -322,8 +332,8 @@ Version 2017-11-01"
   :after evil-leader
   :init
   (evil-leader/set-key
-    "pl" 'paradox-list-packages
-    "pu" 'paradox-upgrade-packages
+    ".l" 'paradox-list-packages
+    ".u" 'paradox-upgrade-packages
     )
   )
 
@@ -335,18 +345,18 @@ Version 2017-11-01"
   :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
-    "*" 'my/rg-star-search
-    "b" 'ivy-switch-buffer
+    "s*" 'my/rg-star-search
+    "bb" 'ivy-switch-buffer
     "C" 'my/calendar
     "dd" 'deer
     "dr" 'ranger
-    "f" 'counsel-rg
-    "gb" 'magit-blame
-    "gg" 'magit-status
-    "gl" 'magit-log
-    "j" 'avy-goto-char-2
-    "l" 'avy-goto-line
-    "s" 'swiper
+    "sf" 'counsel-rg
+    "mb" 'magit-blame
+    "mg" 'magit-status
+    "ml" 'magit-log
+    "jj" 'avy-goto-char-2
+    "jl" 'avy-goto-line
+    "ss" 'swiper
     "t" 'eshell
     )
   )
@@ -411,9 +421,6 @@ Version 2017-11-01"
 
   (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
   (setq ivy-wrap t)
-  )
-(use-package ivy-hydra
-  :defer t
   )
 
 (use-package dumb-jump
@@ -617,12 +624,14 @@ Don't mess with special buffers."
 (add-hook 'minibuffer-setup-hook #'my/disable-in-minibuffer)
 (add-hook 'minibuffer-exit-hook #'my/enable-on-minibuffer-exit)
 
-(defun my/mode-hook ()
-  (hs-minor-mode)
-  (local-set-key (kbd "C-c K") 'hs-show-all) ;; ctrl+shift+=
-  (local-set-key (kbd "C-c J") 'hs-hide-all)   ;; ctrl+shift+-
-  (local-set-key (kbd "C-c k") 'hs-show-block)
-  (local-set-key (kbd "C-c j") 'hs-hide-block)
+(with-eval-after-load 'hydra
+  (defhydra hideshow (global-map "C-c")
+    "Fold"
+    ("k" hs-show-block "show block")
+    ("j" hs-hide-block "hide block")
+    ("K" hs-show-all "show all")
+    ("J" hs-hide-all "show all")
+    )
   )
 
 (add-hook 'text-mode-hook
@@ -636,10 +645,10 @@ Don't mess with special buffers."
 (add-hook 'prog-mode-hook
           (lambda ()
             (interactive)
+            (hs-minor-mode +1)
             (visual-line-mode +1)
             (display-line-numbers-mode +1)
             (whitespace-mode +1)
-            (my/mode-hook)
             (modify-syntax-entry ?_ "w")))
 
 (defun simple-mode-line-render (left right)
@@ -795,43 +804,51 @@ Don't mess with special buffers."
     (org-move-item-down))
   )
 
-(use-package evil-org
-  :defer t
-  :after evil evil-leader
-  :init
-  (progn
-    (evil-leader/set-key
-      "oa" 'org-agenda
-      "oc" 'org-capture
-      )
-    (setq org-agenda-files '("~/gdrive/gtd/inbox.org"
-                             "~/gdrive/gtd/gtd.org"
-                             "~/gdrive/gtd/tickler.org"
-                             "~/gdrive/gtd/gcal.org"
-                             ))
+;; (use-package evil-org
+;;   :defer t
+;;   :after evil evil-leader
+;;   :init
+;;   (progn
+;;     (evil-leader/set-key
+;;       "oa" 'org-agenda
+;;       "oc" 'org-capture
+;;       )
+;;     (setq org-agenda-files '("~/gdrive/gtd/inbox.org"
+;;                              "~/gdrive/gtd/gtd.org"
+;;                              "~/gdrive/gtd/tickler.org"
+;;                              "~/gdrive/gtd/gcal.org"
+;;                              ))
 
-    (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                   (file+headline "~/gdrive/gtd/inbox.org" "Tasks")
-                                   "* TODO %i%?")
-                                  ("T" "Tickler" entry
-                                   (file+headline "~/gdrive/gtd/tickler.org" "Tickler")
-                                   "* %i%? \n %U")))
-    (setq org-refile-targets '(("~/gdrive/gtd/gtd.org" :maxlevel . 2)
-                               ("~/gdrive/gtd/someday.org" :level . 1)
-                               ("~/gdrive/gtd/tickler.org" :level . 2)))
-    (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
-    (setq org-hide-leading-stars t)
-    )
+;;     (setq org-capture-templates '(("t" "Todo [inbox]" entry
+;;                                    (file+headline "~/gdrive/gtd/inbox.org" "Tasks")
+;;                                    "* TODO %i%?")
+;;                                   ("T" "Tickler" entry
+;;                                    (file+headline "~/gdrive/gtd/tickler.org" "Tickler")
+;;                                    "* %i%? \n %U")))
+;;     (setq org-refile-targets '(("~/gdrive/gtd/gtd.org" :maxlevel . 2)
+;;                                ("~/gdrive/gtd/someday.org" :level . 1)
+;;                                ("~/gdrive/gtd/tickler.org" :level . 2)))
+;;     (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+;;     (setq org-hide-leading-stars t)
+;;     )
+;;   :config
+;;   (progn
+;;     (add-hook 'org-mode-hook 'evil-org-mode)
+;;     (add-hook 'evil-org-mode-hook
+;;               (lambda ()
+;;                 (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))))
+;;     (require 'evil-org-agenda)
+;;     (evil-org-agenda-set-keys)
+;;     )
+;;   )
+
+(use-package org
+  :defer t
   :config
-  (progn
-    (add-hook 'org-mode-hook 'evil-org-mode)
-    (add-hook 'evil-org-mode-hook
-              (lambda ()
-                (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))))
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys)
-    )
+  (use-package org-plus-contrib
+    :defer t)
   )
+
 
 (add-hook 'org-mode-hook
           (lambda ()
