@@ -29,6 +29,7 @@
   (which-key-mode)
   :config
   (setq which-key-popup-type 'minibuffer
+        which-key-min-display-lines 2
         which-key-sort-order 'which-key-key-order-alpha
         which-key-idle-delay 0.5
         which-key-separator " → "

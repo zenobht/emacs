@@ -15,6 +15,7 @@
  "M-j" 'evil-move-down
  "M-k" 'evil-move-up
  "C-c +" 'evil-numbers/inc-at-pt
+ "gh" 'evil-ex-nohighlight
  "gs" 'my/substitute
  "C-c -" 'evil-numbers/dec-at-pt
  )
@@ -66,7 +67,6 @@
  (my-comment
    :keymaps '(normal visual)
    "c" 'evilnc-comment-or-uncomment-lines
-   "h" 'evil-ex-nohighlight
    )
 
 (unbind-key "C-l" global-map)
@@ -88,13 +88,13 @@
   "dd" 'deer
   "dd" 'deer
   "dr" 'ranger
+  "g" '(:ignore t :which-key "Git")
+  "gb" 'magit-blame
+  "gg" 'magit-status
+  "gl" 'magit-log
   "j" '(:ignore t :which-key "Jump")
   "jj" 'avy-goto-char-2
   "jl" 'avy-goto-line
-  "m" '(:ignore t :which-key "Magit")
-  "mb" 'magit-blame
-  "mg" 'magit-status
-  "ml" 'magit-log
   "n" '(my/neotree-project-dir :which-key "Neotree")
   "p" '(:ignore t :which-key "Projectile")
   "pb" 'counsel-projectile-switch-to-buffer
