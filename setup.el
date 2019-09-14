@@ -66,28 +66,18 @@
 (delete-selection-mode 1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(whitespace-mode +1)
 (visual-line-mode +1)
 (modify-syntax-entry ?_ "w")
 
 (add-hook 'minibuffer-setup-hook #'my/disable-in-minibuffer)
 (add-hook 'minibuffer-exit-hook #'my/enable-on-minibuffer-exit)
 
-(with-eval-after-load 'hydra
-  (defhydra hideshow (global-map "C-c")
-    "Fold"
-    ("k" hs-show-block "show block")
-    ("j" hs-hide-block "hide block")
-    ("K" hs-show-all "show all")
-    ("J" hs-hide-all "show all")
-    )
-  )
-
 (add-hook 'text-mode-hook
           (lambda ()
             (interactive)
             (visual-line-mode -1)
             (display-line-numbers-mode +1)
+            (whitespace-mode +1)
             ))
 
 (add-hook 'prog-mode-hook
@@ -95,6 +85,7 @@
             (interactive)
             (hs-minor-mode +1)
             (display-line-numbers-mode +1)
+            (whitespace-mode +1)
             ;; (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " prog-mode-hookk"))
             ))
 
