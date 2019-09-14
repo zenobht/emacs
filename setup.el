@@ -66,6 +66,9 @@
 (delete-selection-mode 1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(whitespace-mode +1)
+(visual-line-mode +1)
+(modify-syntax-entry ?_ "w")
 
 (add-hook 'minibuffer-setup-hook #'my/disable-in-minibuffer)
 (add-hook 'minibuffer-exit-hook #'my/enable-on-minibuffer-exit)
@@ -85,17 +88,15 @@
             (interactive)
             (visual-line-mode -1)
             (display-line-numbers-mode +1)
-            (whitespace-mode +1)
-            (modify-syntax-entry ?_ "w")))
+            ))
 
 (add-hook 'prog-mode-hook
           (lambda ()
             (interactive)
             (hs-minor-mode +1)
-            (visual-line-mode +1)
             (display-line-numbers-mode +1)
-            (whitespace-mode +1)
-            (modify-syntax-entry ?_ "w")))
+            ;; (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " prog-mode-hookk"))
+            ))
 
 (defvar my/mode-line-coding-format
   '(:eval

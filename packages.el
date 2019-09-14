@@ -418,8 +418,8 @@
   :mode(("\\.js\\'" . rjsx-mode)
         ("\\.jsx\\'" . rjsx-mode))
   :config
+  ;; (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in rjsx-config"))
   (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
-  (flycheck-add-mode 'javascript-eslint 'js2-mode)
   (setq js2-mode-show-strict-warnings nil
         js2-mode-show-parse-errors nil)
   )
@@ -427,6 +427,7 @@
 (use-package flycheck
   :defer t
   :init
+  ;; (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " loading flycheck"))
   (global-flycheck-mode)
   )
 
