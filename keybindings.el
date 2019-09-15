@@ -209,6 +209,12 @@
  "<C-down>" 'my/org-move-down
  )
 
+(general-define-key
+ :states 'normal
+ :keymap 'org-mode-map
+ "TAB" 'org-cycle
+ )
+
 ;; (general-define-key
 ;;  :states 'normal
 ;;  :keymap 'magit-status-mode-map
