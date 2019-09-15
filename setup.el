@@ -131,7 +131,7 @@
                                'face  (if (selected-window-active) 'font-lock-constant-face)
                                'help-echo
                                "Evil mode"))
-            " %I"
+            " %I "
             (:eval (when (projectile-project-p)
                      (propertize (concat " [" (projectile-project-name) "] ")
                                  'face (if (selected-window-active)
@@ -142,17 +142,16 @@
             mode-line-buffer-identification
             " "
             (:eval (propertize (if (buffer-modified-p)
-                                   " [+]"
+                                   " [+] "
                                  " ")
                                'help-echo "Buffer modified"))
             (:eval (when buffer-read-only
-                     (propertize " RO"
+                     (propertize " RO "
                                  'face (if (selected-window-active)
                                            '(:inherit error))
                                  'help-echo "Buffer is read-only")))
-            " %l:%c"
-            " %p "
             (flycheck-mode flycheck-mode-line)
+            "  %p  %l:%c  "
             ))
     ;; right
     (quote (
