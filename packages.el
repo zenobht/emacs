@@ -38,6 +38,7 @@
 
 (use-package whitespace
   :defer t
+  :hook ((prog-mode text-mode) . whitespace-mode)
   :init
   (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
         show-trailing-whitespace t)
@@ -213,7 +214,8 @@
 
 (use-package rainbow-delimiters
   :defer t
-  :hook ((prog-mode) . rainbow-delimiters-mode))
+  :hook ((prog-mode) . rainbow-delimiters-mode)
+  )
 
 (use-package evil-multiedit
   :defer t
@@ -291,6 +293,12 @@
 
 (use-package display-line-numbers
   :defer t
+  :hook ((prog-mode text-mode) . display-line-numbers-mode)
+  )
+
+(use-package hideshow
+  :defer t
+  :hook ((prog-mode) . hs-minor-mode)
   )
 
 (use-package neotree

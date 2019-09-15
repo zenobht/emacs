@@ -76,17 +76,6 @@
           (lambda ()
             (interactive)
             (visual-line-mode -1)
-            (display-line-numbers-mode +1)
-            (whitespace-mode +1)
-            ))
-
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (interactive)
-            (hs-minor-mode +1)
-            (display-line-numbers-mode +1)
-            (whitespace-mode +1)
-            ;; (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " prog-mode-hookk"))
             ))
 
 (defvar my/mode-line-coding-format
@@ -106,15 +95,13 @@
 
 (put 'my/mode-line-coding-format 'risky-local-variable t)
 
-(defvar ml-selected-window (frame-selected-window))
+(defvar ml-selected-window nil)
 
-(add-hook 'window-configuration-change-hook 'set-selected-window)
+(defun set-selected-window (windows)
+  (when (not (minibuffer-window-active-p (frame-selected-window)))
+    (setq ml-selected-window (selected-window))))
 
-(add-hook 'focus-in-hook 'set-selected-window)
-
-(add-hook 'focus-out-hook 'unset-selected-window)
-
-(add-hook 'buffer-list-update-hook #'set-selected-window)
+(add-function :before pre-redisplay-function #'set-selected-window)
 
 (defun selected-window-active ()
   (eq ml-selected-window (selected-window))

@@ -30,14 +30,15 @@
     (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
     (load-file (expand-file-name "functions.el" user-emacs-directory))
     (load-file (expand-file-name "packages.el" user-emacs-directory))
+    (load-theme 'nord t)
     (load-file (expand-file-name "setup.el" user-emacs-directory))
     (load-file (expand-file-name "keybindings.el" user-emacs-directory))
-    (load-theme 'nord t)
     (when (file-exists-p custom-file)
       (load custom-file))
   ))
 
 (defun my/after-startup ()
+  (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))
   (message "Emacs ready in %s with %d garbage collections."
            (format "%.2f seconds"
                    (float-time
@@ -51,4 +52,3 @@
  )
 
 (add-hook 'emacs-startup-hook #'my/after-startup)
-(package-initialize)
