@@ -189,9 +189,10 @@
 (add-hook 'after-change-major-mode-hook #'my/configure)
 (add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
 
-
 (xterm-mouse-mode 1)
 (pixel-scroll-mode)
 (unless window-system
   (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
   (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))
+
+(add-hook 'conf-mode-hook (lambda () (run-hooks 'prog-mode-hook)))

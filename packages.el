@@ -145,11 +145,6 @@
   (global-evil-surround-mode 1)
   )
 
-(use-package evil-numbers
-  :defer t
-  :after evil
-  )
-
 (use-package paradox
   :defer t
   :after evil-leader

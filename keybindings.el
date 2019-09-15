@@ -7,8 +7,6 @@
 
 (general-define-key
  :states 'normal
- "C-c +" 'evil-numbers/inc-at-pt
- "C-c -" 'evil-numbers/dec-at-pt
  "C-i" 'evil-jump-forward
  "C-o" 'evil-jump-backward
  "C-u" 'evil-scroll-up
@@ -16,10 +14,15 @@
  "M-d" 'evil-multiedit-match-and-next
  "M-j" 'evil-move-down
  "M-k" 'evil-move-up
+ "[B" '(hs-show-all :which-key "Open all")
+ "[b" '(hs-show-block :which-key "Open block")
+ "[e" '(my/previous-error :which-key "Previous error")
+ "]B" '(hs-hide-all :which-key "Hide all")
+ "]b" '(hs-hide-block :which-key "Hide block")
+ "]e" '(my/next-error :which-key "Next error")
  "gh" 'evil-ex-nohighlight
  "gs" 'my/substitute
  )
-
 
 (general-define-key
  :states 'visual
@@ -211,14 +214,3 @@
 ;;  :keymap 'magit-status-mode-map
 ;;  "q" 'my/magit-kill-buffers
 ;;  )
-
-(general-create-definer my-alternate-keys
-  :prefix "C-c"
-  )
-
-(my-alternate-keys
- "k" '(hs-show-block :which-key "Open block")
- "j" '(hs-hide-block :which-key "Fold block")
- "K" '(hs-show-all :which-key "Open all blocks")
- "J" '(hs-hide-all :which-key "Fold all blocks")
- )

@@ -51,3 +51,4 @@
  )
 
 (add-hook 'emacs-startup-hook #'my/after-startup)
+(package-initialize)

@@ -324,3 +324,19 @@ inserted. "
 
                finally do (when (< largest-group-size min-group-size)
                             (ov-clear))))))
+
+(defun my/next-error (&optional n reset)
+  (interactive "P")
+  (next-line)
+  (if flycheck-mode
+      (flycheck-next-error n reset)
+    (next-error n reset))
+  )
+
+(defun my/previous-error (&optional n reset)
+  (interactive "P")
+  (previous-line)
+  (if flycheck-mode
+      (flycheck-previous-error n)
+    (previous-error n))
+  )
