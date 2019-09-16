@@ -682,6 +682,13 @@
     `(tabbar-selected-modified ((,class (:inherit tabbar-default :foreground ,nord12 :weight bold :box nil))))
     `(tabbar-unselected ((,class (:inherit tabbar-default :box nil))))
 
+    ;; > Hydra
+    `(hydra-face-red ((,class (:foreground ,nord11 :weight bold))))
+    `(hydra-face-blue ((,class (:foreground ,nord8 :weight bold))))
+    `(hydra-face-pink ((,class (:foreground ,nord15 :weight bold))))
+    `(hydra-face-teal ((,class (:foreground ,nord14 :weight bold))))
+    `(hydra-face-amaranth ((,class (:foreground ,nord12 :weight bold))))
+
     ;; > Org
     `(org-level-1 ((,class (:foreground ,nord13 :weight bold))))
     `(org-level-2 ((,class (:inherit org-level-1 :foreground ,nord14))))

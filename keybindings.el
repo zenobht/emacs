@@ -46,12 +46,6 @@
  "C-k" 'tabbar-forward-tab
  "M-c" 'my/copy-to-clipboard
  "M-e" 'elfeed
- "M-g i" 'dumb-jump-go-prompt
- "M-g j" 'dumb-jump-go
- "M-g k" 'dumb-jump-back
- "M-g o" 'dumb-jump-go-other-window
- "M-g x" 'dumb-jump-go-prefer-external
- "M-g z" 'dumb-jump-go-prefer-external-other-window
  "M-l" 'kill-this-buffer
  "M-n" 'my/new-empty-buffer
  "M-o" 'ace-window
@@ -101,6 +95,9 @@
   "j" '(:ignore t :which-key "Jump")
   "jj" '(avy-goto-char-2 :which-key "Jump to char")
   "jl" '(avy-goto-line :which-key "Jump to line")
+  "jg" 'dumb-jump-go
+  "jb" 'dumb-jump-back
+  "jo" 'dumb-jump-go-other-window
   "n" '(my/neotree-project-dir :which-key "Neotree")
   "p" '(:ignore t :which-key "Projectile")
   "pb" '(counsel-projectile-switch-to-buffer :which-key "Switch buffer")
@@ -150,17 +147,11 @@
  )
 
 (general-define-key
- :keymap 'rjsx-mode-map
- "<" nil
- "C-d" nil
-  ">" nil
- )
-
-(general-define-key
  :states 'insert
  :keymaps 'rjsx-mode-map
  ">" 'rjsx-electric-gt
  "<" 'rjsx-electric-lt
+ "C-d" nil
  )
 
 (general-define-key
@@ -204,19 +195,21 @@
 ;;   :bind (("M-g g" . elpy-goto-definition))
 
 (general-define-key
- :keymap 'org-mode-map
- "<C-up>" 'my/org-move-up
- "<C-down>" 'my/org-move-down
- )
-
-(general-define-key
  :states 'normal
- :keymap 'org-mode-map
+ :keymaps 'org-mode-map
  "TAB" 'org-cycle
+ "C-j" 'tabbar-backward-tab
+ "M-g"  'hydra-org/body
  )
 
-;; (general-define-key
-;;  :states 'normal
-;;  :keymap 'magit-status-mode-map
-;;  "q" 'my/magit-kill-buffers
-;;  )
+(defhydra hydra-org ()
+  "Org"
+  ("f" org-next-visible-heading "Next Heading")
+  ("b" org-previous-visible-heading "Previous Heading")
+  ("h" org-shiftleft "Org Shift Left")
+  ("l" org-shiftright "Org Shift Right")
+  ("J" my/org-move-up "Move up")
+  ("K" my/org-move-down "Move down")
+  ("H" org-shiftmetaleft "Org Shift Meta Left")
+  ("L" org-shiftmetaright "Org Shift Meta Right")
+  )
