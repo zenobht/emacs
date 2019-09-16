@@ -20,7 +20,6 @@
   :init
   (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize)
-  (setup-project-paths)
   )
 
 (use-package which-key
@@ -175,8 +174,6 @@
   (setq projectile-globally-ignored-directories
         '(".git" "node_modules" "__pycache__" ".vs"))
   (setq projectile-globally-ignored-files '("TAGS" "tags" ".DS_Store"))
-  (add-hook 'projectile-after-switch-project-hook
-            (lambda () (setup-project-paths)))
   )
 
 (use-package counsel-projectile
@@ -417,22 +414,27 @@
         )
   )
 
+(use-package add-node-modules-path
+  :defer t)
+
 (use-package rjsx-mode
   :defer t
   :mode(("\\.js\\'" . rjsx-mode)
         ("\\.jsx\\'" . rjsx-mode))
   :config
-  ;; (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in rjsx-config"))
-  (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
   (setq js2-mode-show-strict-warnings nil
         js2-mode-show-parse-errors nil)
+  (add-hook 'rjsx-mode-hook (lambda ()
+                              (add-node-modules-path)
+                              (flycheck-mode +1)
+                              (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+                              ))
   )
 
 (use-package flycheck
   :defer t
-  :init
-  ;; (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " loading flycheck"))
-  (global-flycheck-mode)
+  :config
+  (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))
   )
 
 (use-package flycheck-kotlin
