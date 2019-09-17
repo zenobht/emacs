@@ -689,6 +689,16 @@
     `(hydra-face-teal ((,class (:foreground ,nord14 :weight bold))))
     `(hydra-face-amaranth ((,class (:foreground ,nord12 :weight bold))))
 
+    ;; > Symbol overlay
+    `(symbol-overlay-face-1 ((,class (:background ,nord15 :foreground ,nord1))))
+    `(symbol-overlay-face-2 ((,class (:background ,nord14 :foreground ,nord1))))
+    `(symbol-overlay-face-3 ((,class (:background ,nord13 :foreground ,nord1))))
+    `(symbol-overlay-face-4 ((,class (:background ,nord12 :foreground ,nord1))))
+    `(symbol-overlay-face-5 ((,class (:background ,nord11 :foreground ,nord1))))
+    `(symbol-overlay-face-6 ((,class (:background ,nord10 :foreground ,nord1))))
+    `(symbol-overlay-face-7 ((,class (:background ,nord9 :foreground ,nord1))))
+    `(symbol-overlay-face-8 ((,class (:background ,nord8 :foreground ,nord1))))
+
     ;; > Org
     `(org-level-1 ((,class (:foreground ,nord13 :weight bold))))
     `(org-level-2 ((,class (:inherit org-level-1 :foreground ,nord14))))

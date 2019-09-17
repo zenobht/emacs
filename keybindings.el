@@ -10,6 +10,7 @@
  "C-i" 'evil-jump-forward
  "C-o" 'evil-jump-backward
  "C-u" 'evil-scroll-up
+ "M-." 'symbol-overlay-put
  "M-D" 'evil-multiedit-match-and-prev
  "M-d" 'evil-multiedit-match-and-next
  "M-j" 'evil-move-down
@@ -213,3 +214,9 @@
   ("H" org-shiftmetaleft "Org Shift Meta Left")
   ("L" org-shiftmetaright "Org Shift Meta Right")
   )
+
+(general-define-key
+ :states 'normal
+ :keymaps 'symbol-overlay-map
+ [escape] 'symbol-overlay-remove-all
+ )

@@ -567,3 +567,9 @@
   :init
   (setq markdown-command "multimarkdown")
   )
+
+(use-package symbol-overlay
+  :defer t
+  :init
+  (symbol-overlay-mode +1)
+  )
