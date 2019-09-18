@@ -545,6 +545,8 @@
   :after company
   :init
   (add-to-list 'company-backends #'company-tabnine)
+  :config
+  (setq company-tabnine-auto-balance nil)
   )
 
 
