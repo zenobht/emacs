@@ -381,11 +381,11 @@
 
 (use-package typescript-mode
   :defer t
+  :after flycheck
   :mode(("\\.tsx\\'" . typescript-mode)
         ("\\.ts\\'" . typescript-mode))
   :config
   (setq typescript-indent-level 2)
-  (add-hook 'typescript-mode-hook 'flycheck-mode)
   (add-hook 'typescript-mode #'subword-mode))
 
 (use-package tide
@@ -426,13 +426,13 @@
         js2-mode-show-parse-errors nil)
   (add-hook 'rjsx-mode-hook (lambda ()
                               (add-node-modules-path)
-                              (flycheck-mode +1)
                               (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
                               ))
   )
 
 (use-package flycheck
   :defer t
+  :hook (prog-mode . flycheck-mode)
   :config
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))
   )

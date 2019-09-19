@@ -218,8 +218,6 @@ Don't mess with special buffers."
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
-  (flycheck-mode +1)
-  ;; (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   )
