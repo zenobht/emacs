@@ -2,7 +2,7 @@
 
 (if (display-graphic-p)
     (progn
-      (set-frame-font "Hasklug Nerd Font-13")
+      (set-frame-font "OperatorMono Nerd Font-14")
       (menu-bar-mode t)
       )
   (progn
