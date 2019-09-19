@@ -74,10 +74,11 @@
 
 (my-leader-def
   :keymaps 'normal
-  ";" '(frog-jump-buffer :which-key "Quick Jump Buffer")
+  "*" '(my/rg-star-search :which-key "Find Current Word")
   "." '(:ignore t :which-key "Paradox")
   ".l" '(paradox-list-packages :which-key "List Packages")
   ".u" '(paradox-upgrade-packages :which-key "Update Packages")
+  ";" '(frog-jump-buffer :which-key "Quick Jump Buffer")
   "C" '(my/calendar :which-key "Calendar")
   "b" '(:ignore t :which-key "Buffer")
   "bb" '(ivy-switch-buffer :which-key "Switch Buffer")
@@ -85,19 +86,18 @@
   "dd" '(deer :which-key "Deer")
   "dr" '(ranger :which-key "Ranger")
   "f" '(:ignore t :which-key "Find")
-  "f*" '(my/rg-star-search :which-key "Find Current Word")
-  "ff" '(counsel-rg :which-key "Rg")
   "fF" '(find-file :which-key "Find File")
+  "ff" '(counsel-rg :which-key "Rg")
   "fs" '(swiper :which-key "Swiper")
   "g" '(:ignore t :which-key "Git")
   "gb" '(magit-blame :which-key "Blame")
   "gg" '(magit-status :which-key "Status")
   "gl" '(magit-log :which-key "Log")
   "j" '(:ignore t :which-key "Jump")
+  "jb" 'dumb-jump-back
+  "jg" 'dumb-jump-go
   "jj" '(avy-goto-char-2 :which-key "Jump to char")
   "jl" '(avy-goto-line :which-key "Jump to line")
-  "jg" 'dumb-jump-go
-  "jb" 'dumb-jump-back
   "jo" 'dumb-jump-go-other-window
   "n" '(my/neotree-project-dir :which-key "Neotree")
   "p" '(:ignore t :which-key "Projectile")
