@@ -174,8 +174,8 @@
     `(font-lock-comment-delimiter-face ((,class (:foreground ,nord-comment))))
     `(font-lock-constant-face ((,class (:foreground ,nord9))))
     `(font-lock-doc-face ((,class (:foreground ,nord-comment :slant ,slantType))))
-    `(font-lock-function-name-face ((,class (:foreground ,nord8 :slant ,slantType))))
-    `(font-lock-keyword-face ((,class (:foreground ,nord9))))
+    `(font-lock-function-name-face ((,class (:foreground ,nord8))))
+    `(font-lock-keyword-face ((,class (:foreground ,nord9 :slant ,slantType))))
     `(font-lock-negation-char-face ((,class (:foreground ,nord9))))
     `(font-lock-preprocessor-face ((,class (:foreground ,nord10 :weight bold))))
     `(font-lock-reference-face ((,class (:foreground ,nord9))))
@@ -411,7 +411,7 @@
     `(js2-jsdoc-tag ((,class (:foreground ,nord7))))
     `(js2-jsdoc-type ((,class (:foreground ,nord7))))
     `(js2-private-member ((,class (:foreground ,nord4))))
-    `(js2-object-property ((,class (:foreground ,nord4))))
+    `(js2-object-property ((,class (:foreground ,nord4, :slant ,slantType))))
     `(js2-error ((,class (:foreground ,nord11))))
     `(js2-warning ((,class (:foreground ,nord13))))
     `(js2-instance-member ((,class (:foreground ,nord4))))
@@ -430,6 +430,10 @@
     `(js3-private-function-call-face ((,class (:foreground ,nord8))))
     `(js3-private-member-face ((,class (:foreground ,nord4))))
     `(js3-warning-face ((,class (:foreground ,nord13))))
+
+    ;; > Rjsx
+    `(rjsx-tag ((,class (:foreground ,nord15))))
+    `(rjsx-attr ((,class (:foreground ,nord7 :slant ,slantType))))
 
     ;; > Markdown
     `(markdown-blockquote-face ((,class (:foreground ,nord-comment))))
