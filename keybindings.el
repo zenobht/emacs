@@ -3,6 +3,7 @@
  "C-a" (lambda () (interactive) (evil-paste-from-register ?.))
  "C-r" 'evil-paste-from-register
  "M-/" 'yas-expand
+ "C-l" 'my/trimn-next-char
  )
 
 (general-define-key

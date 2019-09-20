@@ -338,3 +338,9 @@ inserted. "
       (flycheck-previous-error n)
     (previous-error n))
   )
+
+;; delete single quote where required
+(defun my/trimn-next-char ()
+  (interactive)
+  (delete-char 1)
+  )
