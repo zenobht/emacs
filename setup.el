@@ -1,7 +1,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq nord-visual "#EBCB8B"
-      nord-normal "#D8DEE9"
+      nord-normal "#B48EAD"
       nord-insert "#A3BE8C")
 
 (if (display-graphic-p)
