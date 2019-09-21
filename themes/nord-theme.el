@@ -432,8 +432,8 @@
     `(js3-warning-face ((,class (:foreground ,nord13))))
 
     ;; > Rjsx
-    `(rjsx-tag ((,class (:foreground ,nord15))))
-    `(rjsx-attr ((,class (:foreground ,nord7 :slant ,slantType))))
+    `(rjsx-tag ((,class (:foreground ,nord-keyword))))
+    `(rjsx-attr ((,class (:foreground ,nord-attribute :slant ,slantType))))
 
     ;; > Markdown
     `(markdown-blockquote-face ((,class (:foreground ,nord-comment))))

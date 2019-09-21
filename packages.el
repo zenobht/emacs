@@ -298,11 +298,23 @@
   :hook ((prog-mode) . hs-minor-mode)
   )
 
+(use-package all-the-icons
+  :defer t
+  :after neotree
+  :init
+  (setq neo-theme (if (display-graphic-p) 'icons 'nerd))
+  )
+
 (use-package neotree
   :defer t
-  :init
-  (setq neo-window-width 35)
-  (setq neo-window-fixed-size nil)
+  :after projectile
+  :config
+  (setq neo-window-width 35
+        neo-smart-open t
+        neo-show-hidden-files t
+        neo-force-change-root t
+        projectile-switch-project-action 'neotree-projectile-action
+        neo-window-fixed-size nil)
   )
 
 (use-package kotlin-mode
@@ -381,12 +393,11 @@
 
 (use-package typescript-mode
   :defer t
-  :after flycheck
   :mode(("\\.tsx\\'" . typescript-mode)
         ("\\.ts\\'" . typescript-mode))
   :config
   (setq typescript-indent-level 2)
-  (add-hook 'typescript-mode #'subword-mode))
+  )
 
 (use-package tide
   :init
