@@ -59,13 +59,13 @@
  )
 
 (general-create-definer my-comment
-   :prefix "g c"
-   )
+  :prefix "g c"
+  )
 
- (my-comment
-   :keymaps '(normal visual)
-   "c" 'evilnc-comment-or-uncomment-lines
-   )
+(my-comment
+  :keymaps '(normal visual)
+  "c" 'evilnc-comment-or-uncomment-lines
+  )
 
 (unbind-key "C-l" global-map)
 

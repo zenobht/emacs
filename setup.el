@@ -1,9 +1,14 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(setq nord-visual "#EBCB8B"
+      nord-normal "#D8DEE9"
+      nord-insert "#A3BE8C")
+
 (if (display-graphic-p)
     (progn
       (set-frame-font "OperatorMono Nerd Font-15")
       (menu-bar-mode t)
+      (set-frame-parameter nil 'internal-border-width 3)
       )
   (progn
     (menu-bar-mode -1)
@@ -72,6 +77,12 @@
 (add-hook 'minibuffer-setup-hook #'my/disable-in-minibuffer)
 (add-hook 'minibuffer-exit-hook #'my/enable-on-minibuffer-exit)
 
+(with-eval-after-load 'evil
+  (setq evil-visual-state-cursor `((hbar . 3) ,nord-visual)
+        evil-normal-state-cursor `(box ,nord-normal)
+        evil-insert-state-cursor `((bar . 3) ,nord-insert)
+  ))
+
 (add-hook 'text-mode-hook
           (lambda ()
             (interactive)
@@ -127,8 +138,15 @@
    (simple-mode-line-render
     ;; left
     (quote (""
-            (:eval (propertize evil-mode-line-tag
-                               'face  (if (selected-window-active) 'font-lock-constant-face)
+            ;; (:eval (propertize evil-mode-line-tag
+            (:eval (propertize " "
+                               'face  (if (selected-window-active)
+                                          (cond
+                                           ((eq evil-state 'visual) `(:background ,nord-visual))
+                                           ((eq evil-state 'insert) `(:background ,nord-insert))
+                                           (t `(:background ,nord-normal))
+                                           )
+                                        )
                                'help-echo
                                "Evil mode"))
             " %I "
