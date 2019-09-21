@@ -45,12 +45,6 @@
  display-buffer-alist '(("\\`\\*e?shell" display-buffer-pop-up-window))
  )
 
-(defmacro measure-time (&rest body)
-  "Measure the time it takes to evaluate BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (message "%.06f" (float-time (time-since time)))))
-
 (setq-default indent-tabs-mode nil)
 
 (add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))

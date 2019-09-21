@@ -2,8 +2,8 @@
  :states 'insert
  "C-a" (lambda () (interactive) (evil-paste-from-register ?.))
  "C-r" 'evil-paste-from-register
- "M-/" 'yas-expand
  "C-l" 'my/trimn-next-char
+ "M-/" 'hippie-expand
  )
 
 (general-define-key
@@ -11,7 +11,6 @@
  "C-i" 'evil-jump-forward
  "C-o" 'evil-jump-backward
  "C-u" 'evil-scroll-up
- "M-." 'symbol-overlay-put
  "M-D" 'evil-multiedit-match-and-prev
  "M-d" 'evil-multiedit-match-and-next
  "M-j" 'evil-move-down
@@ -76,6 +75,8 @@
 (my-leader-def
   :keymaps 'normal
   "*" '(my/rg-star-search :which-key "Find Current Word")
+  "+" '(make-directory :which-key "Make Directory")
+  "-" '(find-file :which-key "Find File")
   "." '(:ignore t :which-key "Paradox")
   ".l" '(paradox-list-packages :which-key "List Packages")
   ".u" '(paradox-upgrade-packages :which-key "Update Packages")
@@ -87,7 +88,6 @@
   "dd" '(deer :which-key "Deer")
   "dr" '(ranger :which-key "Ranger")
   "f" '(:ignore t :which-key "Find")
-  "fF" '(find-file :which-key "Find File")
   "ff" '(counsel-rg :which-key "Rg")
   "fs" '(swiper :which-key "Swiper")
   "g" '(:ignore t :which-key "Git")

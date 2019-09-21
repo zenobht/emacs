@@ -185,44 +185,6 @@ Don't mess with special buffers."
       (load-file user-init-file)
       (message "All packages are up to date"))))
 
-(defun my/prettier-setup ()
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (prettier (and root
-                        (expand-file-name "node_modules/.bin/prettier"
-                                          root))))
-    ;; (if (not (and prettier (file-executable-p prettier)))
-    ;;     ;; hack to remove formatting for js files if prettier is not installed locally
-    ;;     (advice-remove #'format-all-buffer :override #'+format/buffer)
-    ;;   )
-    ))
-
-(defun my/eslint-setup ()
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/.bin/eslint"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
-(defun my/setup-tools-from-node ()
-  ;; (my/eslint-setup)
-  ;; (my/prettier-setup)
-  (prettier-js-mode +1)
-  )
-
-
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  )
-
-
 (defun my/mousewheel-scroll-up (event)
   "Scroll window under mouse up by five lines."
   (interactive "e")

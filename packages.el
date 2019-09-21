@@ -55,7 +55,7 @@
   :defer t
   :init
   (setq evil-search-module 'evil-search
-        evil-insert-state-message nil
+        ;; evil-insert-state-message nil
         evil-want-C-i-jump nil
         )
   (evil-mode)
@@ -395,6 +395,8 @@
   :defer t
   :mode(("\\.tsx\\'" . typescript-mode)
         ("\\.ts\\'" . typescript-mode))
+  :hook ((typescript-mode . add-node-modules-path)
+         (typescript-mode . prettier-js-mode))
   :config
   (setq typescript-indent-level 2)
   )
@@ -404,13 +406,31 @@
   :defer t
   :after (typescript-mode company flycheck)
   :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
+         ;; (typescript-mode . tide-hl-identifier-mode)
+         ;; (before-save . tide-format-before-save)
+         )
+  :config
+  (push '(?\< . ?\>) electric-pair-pairs)
+  )
+
+(use-package emmet-mode
+  :defer t
+  :after web-mode
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook 'emmet-mode)
+  (setq-default emmet-move-cursor-between-quote t)
+  )
+
+(use-package hippie-exp
+  :defer t
+  :config
+  (setq-default hippie-expand-try-functions-list
+                '(yas-hippie-try-expand emmet-expand-line)))
 
 (use-package web-mode
   :defer t
-  :after flycheck
-  :mode (("\\.html?\\'" . web-mode))
+  :mode (("\\.html\\'" . web-mode))
   :config
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
@@ -438,6 +458,7 @@
   (add-hook 'rjsx-mode-hook (lambda ()
                               (add-node-modules-path)
                               (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+                              (prettier-js-mode)
                               ))
   )
 
@@ -560,7 +581,6 @@
   (setq company-tabnine-auto-balance nil)
   )
 
-
 (use-package evil-nerd-commenter
   :defer t
   :after evil-leader
@@ -581,8 +601,10 @@
   (setq markdown-command "multimarkdown")
   )
 
-(use-package symbol-overlay
+(use-package highlight-thing
   :defer t
-  :init
-  (symbol-overlay-mode +1)
+  :hook (prog-mode . highlight-thing-mode)
+  :config
+  (setq highlight-thing-what-thing 'word
+        highlight-thing-case-sensitive-p t)
   )

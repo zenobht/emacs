@@ -189,7 +189,7 @@
     `(shadow ((,class (:foreground ,nord3))))
     `(underline ((,class (:underline t))))
     `(warning ((,class (:foreground ,nord13 :weight bold))))
-    `(lazy-highlight ((,class (:background: ,nord7 :foreground ,nord3))))
+    `(lazy-highlight ((,class (:background ,nord7 :foreground ,nord3))))
 
     ;; +--- Syntax ---+
     ;; > C
@@ -494,6 +494,7 @@
     `(web-mode-type-face ((,class (:foreground ,nord-class))))
     `(web-mode-warning-face ((,class (:inherit ,font-lock-warning-face))))
     `(web-mode-variable-name-face ((,class (:foreground ,nord-variable))))
+    `(web-mode-current-element-highlight-face ((,class (:underline t))))
 
     ;; +--- UI ---+
     ;; > Anzu
@@ -693,15 +694,8 @@
     `(hydra-face-teal ((,class (:foreground ,nord14 :weight bold))))
     `(hydra-face-amaranth ((,class (:foreground ,nord12 :weight bold))))
 
-    ;; > Symbol overlay
-    `(symbol-overlay-face-1 ((,class (:background ,nord15 :foreground ,nord1))))
-    `(symbol-overlay-face-2 ((,class (:background ,nord14 :foreground ,nord1))))
-    `(symbol-overlay-face-3 ((,class (:background ,nord13 :foreground ,nord1))))
-    `(symbol-overlay-face-4 ((,class (:background ,nord12 :foreground ,nord1))))
-    `(symbol-overlay-face-5 ((,class (:background ,nord11 :foreground ,nord1))))
-    `(symbol-overlay-face-6 ((,class (:background ,nord10 :foreground ,nord1))))
-    `(symbol-overlay-face-7 ((,class (:background ,nord9 :foreground ,nord1))))
-    `(symbol-overlay-face-8 ((,class (:background ,nord8 :foreground ,nord1))))
+    ;; > Highlight-thing
+    `(highlight-thing ((,class (:background ,nord3))))
 
     ;; > Org
     `(org-level-1 ((,class (:foreground ,nord13 :weight bold))))
