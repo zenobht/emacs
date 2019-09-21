@@ -219,6 +219,8 @@
   :after evil
   :config
   (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
+  (add-hook 'evil-multiedit-state-entry-hook (lambda () (highlight-thing-mode -1)))
+  (add-hook 'evil-multiedit-state-exit-hook (lambda () (highlight-thing-mode +1)))
   )
 
 (use-package yasnippet
