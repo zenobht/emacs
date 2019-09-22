@@ -610,12 +610,6 @@
   :defer t
   :hook (prog-mode . highlight-thing-mode)
   :config
-  (setq highlight-thing-case-sensitive-p t)
+  (setq highlight-thing-case-sensitive-p t
+        highlight-thing-prefer-active-region t)
   )
-
-(defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
-  "Create parent directory if not exists while visiting file."
-  (unless (file-exists-p filename)
-    (let ((dir (file-name-directory filename)))
-      (unless (file-exists-p dir)
-        (make-directory dir)))))
