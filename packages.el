@@ -40,8 +40,8 @@
   :hook ((prog-mode text-mode) . whitespace-mode)
   :init
   (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
-        show-trailing-whitespace t)
-  (setq whitespace-display-mappings
+        show-trailing-whitespace t
+        whitespace-display-mappings
         ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
         '(
           (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
@@ -167,13 +167,14 @@
   :defer t
   :init (projectile-global-mode)
   :config
-  (setq projectile-enable-caching t)
-  (setq projectile-indexing-method 'alien)
-  (setq projectile-globally-ignored-file-suffixes
-        '("#" "~" ".swp" ".o" ".so" ".exe" ".dll" ".elc" ".pyc" ".jar" "*.class"))
-  (setq projectile-globally-ignored-directories
-        '(".git" "node_modules" "__pycache__" ".vs"))
-  (setq projectile-globally-ignored-files '("TAGS" "tags" ".DS_Store"))
+  (setq projectile-enable-caching t
+        projectile-indexing-method 'alien
+        projectile-globally-ignored-file-suffixes
+        '("#" "~" ".swp" ".o" ".so" ".exe" ".dll" ".elc" ".pyc" ".jar" "*.class")
+        projectile-globally-ignored-directories
+        '(".git" "node_modules" "__pycache__" ".vs")
+        projectile-globally-ignored-files '("TAGS" "tags" ".DS_Store")
+        )
   )
 
 (use-package counsel-projectile
@@ -189,19 +190,21 @@
   (use-package smex)
   (ivy-mode 1)
   :config
-  (setq ivy-use-virtual-buffers nil)
-  (setq enable-recursive-minibuffers t)
-  (setq ivy-re-builders-alist
+  (setq ivy-use-virtual-buffers nil
+        enable-recursive-minibuffers t
+        ivy-wrap t
+        ivy-use-selectable-prompt t
+        ivy-re-builders-alist
         '(
           (counsel-M-x . ivy--regex-plus)
           (swiper . ivy--regex-plus)
           (counsel-rg . ivy--regex-plus)
+          (counsel-find-file . ivy--regex-plus)
           (t . ivy--regex-fuzzy)))
   (add-to-list 'ivy-highlight-functions-alist
                '(swiper--re-builder . ivy--highlight-ignore-order))
 
   (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
-  (setq ivy-wrap t)
   )
 
 (use-package dumb-jump
@@ -506,17 +509,17 @@
   :after evil-leader evil
   :init
   (add-hook 'elfeed-search-update-hook #'my/elfeed-search-add-separators)
-  (setq elfeed-search-filter "@2-days-ago")
-  (setq elfeed-show-entry-switch #'my/show-elfeed)
+  (setq elfeed-search-filter "@2-days-ago"
+        elfeed-show-entry-switch #'my/show-elfeed)
   (add-hook 'elfeed-show-mode-hook
             (lambda ()
               (let ((inhibit-read-only t)
                     (inhibit-modification-hooks t))
-                (setq-local truncate-lines nil)
-                (setq-local shr-width 85)
+                (setq-local truncate-lines nil
+                            shr-width 85)
                 (set-buffer-modified-p nil))
-              (setq-local left-margin-width 15)
-              (setq-local right-margin-width 15)
+              (setq-local left-margin-width 15
+                          right-margin-width 15)
               ))
   )
 
@@ -607,6 +610,12 @@
   :defer t
   :hook (prog-mode . highlight-thing-mode)
   :config
-  (setq highlight-thing-what-thing 'word
-        highlight-thing-case-sensitive-p t)
+  (setq highlight-thing-case-sensitive-p t)
   )
+
+(defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
+  "Create parent directory if not exists while visiting file."
+  (unless (file-exists-p filename)
+    (let ((dir (file-name-directory filename)))
+      (unless (file-exists-p dir)
+        (make-directory dir)))))

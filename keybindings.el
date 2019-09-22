@@ -76,7 +76,7 @@
   :keymaps 'normal
   "*" '(my/rg-star-search :which-key "Find Current Word")
   "+" '(make-directory :which-key "Make Directory")
-  "-" '(find-file :which-key "Find File")
+  "-" '(counsel-find-file :which-key "Find File")
   "." '(:ignore t :which-key "Paradox")
   ".l" '(paradox-list-packages :which-key "List Packages")
   ".u" '(paradox-upgrade-packages :which-key "Update Packages")
