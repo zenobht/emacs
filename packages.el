@@ -9,7 +9,8 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
 
 (setq use-package-always-ensure t)
 
@@ -66,33 +67,6 @@
                                  (interactive)
                                  (json-mode)
                                  (json-pretty-print-buffer))))
-
-  (defun my/visual-shift-left ()
-    (interactive)
-    ;; (evil-shift-left (region-beginning) (region-end))
-    (call-interactively 'evil-shift-left)
-    (evil-normal-state)
-    (evil-visual-restore))
-
-  (defun my/visual-shift-right ()
-    (interactive)
-    ;; (evil-shift-right (region-beginning) (region-end))
-    (call-interactively 'evil-shift-right)
-    (evil-normal-state)
-    (evil-visual-restore))
-
-  (defun my/substitute()
-    (interactive)
-    (if (eq evil-state 'visual)
-        (evil-ex "`<,`>s!!!g")
-      (evil-ex "%s!!!g")
-      )
-    )
-
-  (defun my/visual-macro ()
-    (interactive)
-    (evil-ex "`<,`>norm @")
-    )
 
   (evil-define-operator evil-move-up (beg end)
     "Move region up by one line."
@@ -550,22 +524,6 @@
   :init
   (tabbar-mode)
   :config
-  (defun tabbar-buffer-groups ()
-    (list
-     (cond
-      ((string-match "elfeed" (buffer-name))
-       "Elfeed"
-       )
-      ((string-equal "*" (substring (buffer-name) 0 1))
-       "Emacs Buffer"
-       )
-      ((eq major-mode 'dired-mode)
-       "Dired"
-       )
-      (t
-       "User Buffer"
-       )
-      )))
   (setq
    tabbar-background-color nil
    tabbar-home-button-value nil
@@ -573,7 +531,7 @@
    tabbar-home-button (quote (("[+]") ""))
    tabbar-scroll-left-button (quote ((" <") ""))
    tabbar-scroll-right-button (quote ((" >") ""))
-   tabbar-buffer-groups-function 'tabbar-buffer-groups
+   tabbar-buffer-groups-function 'my/tabbar-buffer-groups
    tabbar-separator (quote ("  ")))
   )
 

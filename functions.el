@@ -112,6 +112,7 @@ Don't mess with special buffers."
 
 (defun my/disable-in-minibuffer ()
   (electric-pair-mode -1))
+
 (defun my/enable-on-minibuffer-exit ()
   (electric-pair-mode +1))
 
@@ -128,7 +129,6 @@ Don't mess with special buffers."
 
 (defun unset-selected-window ()
   (setq ml-selected-window nil))
-
 
 (defun my/org-move-up ()
   (interactive)
@@ -319,3 +319,62 @@ inserted. "
     (let ((dir (file-name-directory filename)))
       (unless (file-exists-p dir)
         (make-directory dir)))))
+
+(defun my/selected-window-active ()
+  (eq ml-selected-window (selected-window))
+  )
+
+(defun my/shorten-vc-mode-line (string)
+  (cond
+   ((string-prefix-p "Git" string)
+    (concat "\ue0a0 " (magit-get-current-branch)))
+   (t
+    string)))
+
+(defun my/set-selected-window (windows)
+  (when (not (minibuffer-window-active-p (frame-selected-window)))
+    (setq ml-selected-window (selected-window))))
+
+(defun my/visual-shift-left ()
+  (interactive)
+  ;; (evil-shift-left (region-beginning) (region-end))
+  (call-interactively 'evil-shift-left)
+  (evil-normal-state)
+  (evil-visual-restore))
+
+(defun my/visual-shift-right ()
+  (interactive)
+  ;; (evil-shift-right (region-beginning) (region-end))
+  (call-interactively 'evil-shift-right)
+  (evil-normal-state)
+  (evil-visual-restore))
+
+(defun my/substitute()
+  (interactive)
+  (if (eq evil-state 'visual)
+      (evil-ex "`<,`>s!!!g")
+    (evil-ex "%s!!!g")
+    )
+  )
+
+(defun my/visual-macro ()
+  (interactive)
+  (evil-ex "`<,`>norm @")
+  )
+
+(defun my/tabbar-buffer-groups ()
+  (list
+    (cond
+    ((string-match "elfeed" (buffer-name))
+      "Elfeed"
+      )
+    ((string-equal "*" (substring (buffer-name) 0 1))
+      "Emacs Buffer"
+      )
+    ((eq major-mode 'dired-mode)
+      "Dired"
+      )
+    (t
+      "User Buffer"
+      )
+    )))

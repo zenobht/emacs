@@ -102,22 +102,7 @@
 
 (defvar ml-selected-window nil)
 
-(defun set-selected-window (windows)
-  (when (not (minibuffer-window-active-p (frame-selected-window)))
-    (setq ml-selected-window (selected-window))))
-
-(add-function :before pre-redisplay-function #'set-selected-window)
-
-(defun selected-window-active ()
-  (eq ml-selected-window (selected-window))
-  )
-
-(defun my/shorten-vc-mode-line (string)
-  (cond
-   ((string-prefix-p "Git" string)
-    (concat "\ue0a0 " (magit-get-current-branch)))
-   (t
-    string)))
+(add-function :before pre-redisplay-function #'my/set-selected-window)
 
 (advice-add 'vc-git-mode-line-string :filter-return 'my/shorten-vc-mode-line)
 
@@ -134,7 +119,7 @@
     (quote (""
             ;; (:eval (propertize evil-mode-line-tag
             (:eval (propertize " "
-                               'face  (if (selected-window-active)
+                               'face  (if (my/selected-window-active)
                                           (cond
                                            ((eq evil-state 'visual) `(:background ,nord-visual))
                                            ((eq evil-state 'insert) `(:background ,nord-insert))
@@ -146,7 +131,7 @@
             " %I "
             (:eval (when (projectile-project-p)
                      (propertize (concat " [" (projectile-project-name) "] ")
-                                 'face (if (selected-window-active)
+                                 'face (if (my/selected-window-active)
                                            '(:inherit font-lock-string-face :weight bold))
                                  'help-echo "Project Name")
                      ))
@@ -159,7 +144,7 @@
                                'help-echo "Buffer modified"))
             (:eval (when buffer-read-only
                      (propertize " RO "
-                                 'face (if (selected-window-active)
+                                 'face (if (my/selected-window-active)
                                            '(:inherit error))
                                  'help-echo "Buffer is read-only")))
             (flycheck-mode flycheck-mode-line)
@@ -168,12 +153,12 @@
     ;; right
     (quote (
             (vc-mode (:eval (propertize vc-mode
-                                        'face (if (selected-window-active)
+                                        'face (if (my/selected-window-active)
                                                   '(:inherit font-lock-regexp-grouping-backslash :weight bold))
                                         'help-echo "Buffer modified")))
             "  "
             (:eval (propertize mode-name
-                               'face (if (selected-window-active)
+                               'face (if (my/selected-window-active)
                                          '(:inherit font-lock-function-name-face :slant normal))
                                ))
 
