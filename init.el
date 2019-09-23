@@ -53,14 +53,9 @@
 
 ;; (add-hook 'emacs-startup-hook #'my/after-startup)
 
-(defvar emacs-d
-  (file-name-directory
-   (file-chase-links load-file-name))
-  )
+(defvar emacs-d "~/.emacs.d/config")
+(setq package-user-dir "~/.emacs.d/elpa")
 
-(setq ora-startup-time-tic (current-time))
-(setq package-user-dir
-      (expand-file-name "elpa" emacs-d))
 (package-initialize)
 (add-to-list 'load-path emacs-d)
 (add-to-list 'load-path (expand-file-name "modes/" emacs-d))
@@ -71,7 +66,6 @@
       (set-frame-parameter nil 'internal-border-width 3)
       )
   )
-
 
 (setq-default electric-indent-inhibit t
               evil-shift-width 2
@@ -131,16 +125,21 @@
 (scroll-bar-mode -1)
 (visual-line-mode +1)
 (modify-syntax-entry ?_ "w")
-(load (concat emacs-d "loaddefs.el") nil t)
+; (load (concat emacs-d "loaddefs.el") nil t)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (let ((file-name-handler-alist nil))
+  (require 'exec-path-from-shell)
+  (exec-path-from-shell-initialize)
   (require 'nord-theme)
-  (load-theme 'nord-theme t)
+  (load-theme 'nord t)
   (require 'use-package)
-  (require 'smex))
+  (require 'general)
+  (require 'smex)
+  (load "packages")
+  )
 
 (global-auto-revert-mode 1)
 (setq auto-revert-verbose nil)
@@ -151,93 +150,91 @@
         evil-insert-state-cursor `((bar . 3) ,nord-insert)
   ))
 
+; (defvar my/mode-line-coding-format
+;   '(:eval
+;     (propertize
+;      (concat (pcase (coding-system-eol-type buffer-file-coding-system)
+;                (0 "  LF")
+;                (1 "  CRLF")
+;                (2 "  CR"))
+;              (let ((sys (coding-system-plist buffer-file-coding-system)))
+;                (cond ((memq (plist-get sys :category)
+;                             '(coding-category-undecided coding-category-utf-8))
+;                       " UTF-8 ")
+;                      (t (upcase (symbol-name (plist-get sys :name))))))))
+;     )
+;   )
 
+; (put 'my/mode-line-coding-format 'risky-local-variable t)
 
-(defvar my/mode-line-coding-format
-  '(:eval
-    (propertize
-     (concat (pcase (coding-system-eol-type buffer-file-coding-system)
-               (0 "  LF")
-               (1 "  CRLF")
-               (2 "  CR"))
-             (let ((sys (coding-system-plist buffer-file-coding-system)))
-               (cond ((memq (plist-get sys :category)
-                            '(coding-category-undecided coding-category-utf-8))
-                      " UTF-8 ")
-                     (t (upcase (symbol-name (plist-get sys :name))))))))
-    )
-  )
+; (defvar ml-selected-window nil)
 
-(put 'my/mode-line-coding-format 'risky-local-variable t)
+; (add-function :before pre-redisplay-function #'my/set-selected-window)
 
-(defvar ml-selected-window nil)
+; (advice-add 'vc-git-mode-line-string :filter-return 'my/shorten-vc-mode-line)
 
-(add-function :before pre-redisplay-function #'my/set-selected-window)
+; ;; remove mode-line-buffer-identification default width
+; (setq-default mode-line-buffer-identification (propertized-buffer-identification "%b"))
 
-(advice-add 'vc-git-mode-line-string :filter-return 'my/shorten-vc-mode-line)
+; (setq-default
+;  mode-line-format
+;  '
+;  (
+;   (:eval
+;    (simple-mode-line-render
+;     ;; left
+;     (quote (""
+;             ;; (:eval (propertize evil-mode-line-tag
+;             (:eval (propertize " "
+;                                'face  (if (my/selected-window-active)
+;                                           (cond
+;                                            ((eq evil-state 'visual) `(:background ,nord-visual))
+;                                            ((eq evil-state 'insert) `(:background ,nord-insert))
+;                                            (t `(:background ,nord-normal))
+;                                            )
+;                                         )
+;                                'help-echo
+;                                "Evil mode"))
+;             " %I "
+;             (:eval (when (projectile-project-p)
+;                      (propertize (concat " [" (projectile-project-name) "] ")
+;                                  'face (if (my/selected-window-active)
+;                                            '(:inherit font-lock-string-face :weight bold))
+;                                  'help-echo "Project Name")
+;                      ))
+;             " "
+;             mode-line-buffer-identification
+;             " "
+;             (:eval (propertize (if (buffer-modified-p)
+;                                    " [+] "
+;                                  " ")
+;                                'help-echo "Buffer modified"))
+;             (:eval (when buffer-read-only
+;                      (propertize " RO "
+;                                  'face (if (my/selected-window-active)
+;                                            '(:inherit error))
+;                                  'help-echo "Buffer is read-only")))
+;             (flycheck-mode flycheck-mode-line)
+;             "  %p  %l:%c  "
+;             ))
+;     ;; right
+;     (quote (
+;             (vc-mode (:eval (propertize vc-mode
+;                                         'face (if (my/selected-window-active)
+;                                                   '(:inherit font-lock-regexp-grouping-backslash :weight bold))
+;                                         'help-echo "Buffer modified")))
+;             "  "
+;             (:eval (propertize mode-name
+;                                'face (if (my/selected-window-active)
+;                                          '(:inherit font-lock-function-name-face :slant normal))
+;                                ))
 
-;; remove mode-line-buffer-identification default width
-(setq-default mode-line-buffer-identification (propertized-buffer-identification "%b"))
-
-(setq-default
- mode-line-format
- '
- (
-  (:eval
-   (simple-mode-line-render
-    ;; left
-    (quote (""
-            ;; (:eval (propertize evil-mode-line-tag
-            (:eval (propertize " "
-                               'face  (if (my/selected-window-active)
-                                          (cond
-                                           ((eq evil-state 'visual) `(:background ,nord-visual))
-                                           ((eq evil-state 'insert) `(:background ,nord-insert))
-                                           (t `(:background ,nord-normal))
-                                           )
-                                        )
-                               'help-echo
-                               "Evil mode"))
-            " %I "
-            (:eval (when (projectile-project-p)
-                     (propertize (concat " [" (projectile-project-name) "] ")
-                                 'face (if (my/selected-window-active)
-                                           '(:inherit font-lock-string-face :weight bold))
-                                 'help-echo "Project Name")
-                     ))
-            " "
-            mode-line-buffer-identification
-            " "
-            (:eval (propertize (if (buffer-modified-p)
-                                   " [+] "
-                                 " ")
-                               'help-echo "Buffer modified"))
-            (:eval (when buffer-read-only
-                     (propertize " RO "
-                                 'face (if (my/selected-window-active)
-                                           '(:inherit error))
-                                 'help-echo "Buffer is read-only")))
-            (flycheck-mode flycheck-mode-line)
-            "  %p  %l:%c  "
-            ))
-    ;; right
-    (quote (
-            (vc-mode (:eval (propertize vc-mode
-                                        'face (if (my/selected-window-active)
-                                                  '(:inherit font-lock-regexp-grouping-backslash :weight bold))
-                                        'help-echo "Buffer modified")))
-            "  "
-            (:eval (propertize mode-name
-                               'face (if (my/selected-window-active)
-                                         '(:inherit font-lock-function-name-face :slant normal))
-                               ))
-
-            my/mode-line-coding-format
-            ))
-    )
-   )
-  )
- )
+;             my/mode-line-coding-format
+;             ))
+;     )
+;    )
+;   )
+;  )
 
 (xterm-mouse-mode 1)
 (pixel-scroll-mode)

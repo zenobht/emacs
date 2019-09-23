@@ -1,10 +1,4 @@
-(defconst emacs-d
-  (file-name-directory
-   (file-chase-links load-file-name))
-  "The giant turtle on which the world rests.")
-
-(setq package-user-dir
-      (expand-file-name "elpa" emacs-d))
+(setq package-user-dir "~/.emacs.d/elpa")
 (package-initialize)
 (setq package-archives
       '(
@@ -17,9 +11,7 @@
 
 (defconst my/packages
   '(
-
     general
-    exec-path-from-shell
     which-key
     whitespace
     evil
@@ -79,7 +71,7 @@
   )
 
 ; install required
-(dolist (package ora-packages)
+(dolist (package my/packages)
   (unless (package-installed-p package)
     (ignore-errors
       (package-install package))))
@@ -128,59 +120,59 @@
 ;;         )
 ;;   )
 
-;; (use-package evil
-;;   :defer t
-;;   :init
-;;   (setq evil-search-module 'evil-search
-;;         ;; evil-insert-state-message nil
-;;         evil-want-C-i-jump nil
-;;         )
-;;   (evil-mode)
-;;   :config
-;;   (fset 'evil-visual-update-x-selection 'ignore)
-;;   (eval-after-load 'evil-ex
-;;     '(evil-ex-define-cmd "jsf" (lambda ()
-;;                                  (interactive)
-;;                                  (json-mode)
-;;                                  (json-pretty-print-buffer))))
+ (use-package evil
+   :defer t
+   :init
+   (setq evil-search-module 'evil-search
+         ;; evil-insert-state-message nil
+         evil-want-C-i-jump nil
+         )
+   (evil-mode)
+   :config
+   (fset 'evil-visual-update-x-selection 'ignore)
+   (eval-after-load 'evil-ex
+     '(evil-ex-define-cmd "jsf" (lambda ()
+                                  (interactive)
+                                  (json-mode)
+                                  (json-pretty-print-buffer))))
 
-;;   (evil-define-operator evil-move-up (beg end)
-;;     "Move region up by one line."
-;;     :motion evil-line
-;;     (interactive "<r>")
-;;     (if (not (eq evil-state 'normal))
-;;         (evil-visual-line))
-;;     (let ((beg-line (line-number-at-pos beg))
-;;           (end-line (line-number-at-pos end))
-;;           (dest (- (line-number-at-pos beg) 2)))
-;;       (evil-move beg end dest)
-;;       (goto-line (- beg-line 1))
-;;       (exchange-point-and-mark)
-;;       (goto-line (- end-line 2))
-;;       (if (not (eq evil-state 'normal))
-;;           (evil-visual-line))
-;;       )
-;;     )
+   (evil-define-operator evil-move-up (beg end)
+     "Move region up by one line."
+     :motion evil-line
+     (interactive "<r>")
+     (if (not (eq evil-state 'normal))
+         (evil-visual-line))
+     (let ((beg-line (line-number-at-pos beg))
+           (end-line (line-number-at-pos end))
+           (dest (- (line-number-at-pos beg) 2)))
+       (evil-move beg end dest)
+       (goto-line (- beg-line 1))
+       (exchange-point-and-mark)
+       (goto-line (- end-line 2))
+       (if (not (eq evil-state 'normal))
+           (evil-visual-line))
+       )
+     )
 
-;;   (evil-define-operator evil-move-down (beg end)
-;;     "Move region down by one line."
-;;     :motion evil-line
-;;     (interactive "<r>")
-;;     (if (not (eq evil-state 'normal))
-;;         (evil-visual-line))
-;;     (let ((beg-line (line-number-at-pos beg))
-;;           (end-line (line-number-at-pos end))
-;;           (dest (+ (line-number-at-pos end) 0)))
-;;       (evil-move beg end dest)
-;;       (goto-line (+ beg-line 1))
-;;       (exchange-point-and-mark)
-;;       (goto-line (+ end-line 0))
-;;       (if (not (eq evil-state 'normal))
-;;           (evil-visual-line))
-;;       )
-;;     )
+   (evil-define-operator evil-move-down (beg end)
+     "Move region down by one line."
+     :motion evil-line
+     (interactive "<r>")
+     (if (not (eq evil-state 'normal))
+         (evil-visual-line))
+     (let ((beg-line (line-number-at-pos beg))
+           (end-line (line-number-at-pos end))
+           (dest (+ (line-number-at-pos end) 0)))
+       (evil-move beg end dest)
+       (goto-line (+ beg-line 1))
+       (exchange-point-and-mark)
+       (goto-line (+ end-line 0))
+       (if (not (eq evil-state 'normal))
+           (evil-visual-line))
+       )
+     )
 
-;;   )
+ )
 
 ;; (use-package windmove
 ;;   :defer t
