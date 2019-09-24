@@ -205,7 +205,8 @@
  :states 'normal
  :keymaps 'org-mode-map
  "TAB" 'org-cycle
- ;; "C-j" 'tabbar-backward-tab
+ "C-j" 'next-buffer
+ "C-k" 'previous-buffer
  "M-g"  'hydra-org/body
  )
 

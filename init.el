@@ -116,6 +116,7 @@
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|jsx\\)\\'" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 
+(set-frame-parameter nil 'buffer-predicate 'my/buffer-predicate)
 
 (defvar my/mode-line-coding-format
   '(:eval

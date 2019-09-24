@@ -497,3 +497,9 @@ inserted. "
   (setq left-margin-width 15
         right-margin-width 15)
   )
+
+;;;###autoload
+(defun my/buffer-predicate (buffer)
+  (cond ((string-match "^*" (buffer-name buffer)) nil)
+        ((string-match "elfeed.org" (buffer-name buffer)) nil)
+        (t t)))

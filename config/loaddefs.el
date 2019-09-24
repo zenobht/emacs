@@ -243,6 +243,11 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 \(fn)" nil nil)
 
+(autoload 'my/buffer-predicate "functions" "\
+
+
+\(fn BUFFER)" nil nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
