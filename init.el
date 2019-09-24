@@ -1,4 +1,4 @@
-;; (setq start-time (current-time))
+; (setq start-time (current-time))
 ;; (setq mode-line-format nil)
 
 ;; ;; assign high memory to reduce gc during load
@@ -53,8 +53,8 @@
 
 ;; (add-hook 'emacs-startup-hook #'my/after-startup)
 
-(defvar emacs-d "~/.emacs.d/config")
-(setq package-user-dir "~/.emacs.d/elpa")
+(defvar emacs-d "~/.emacs.d/config/")
+(setq package-user-dir "~/.emacs.d/elpa/")
 
 (package-initialize)
 (add-to-list 'load-path emacs-d)
@@ -122,34 +122,34 @@
 (show-paren-mode 1)
 (delete-selection-mode 1)
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 (scroll-bar-mode -1)
 (visual-line-mode +1)
 (modify-syntax-entry ?_ "w")
-; (load (concat emacs-d "loaddefs.el") nil t)
+(load (concat emacs-d "loaddefs.el") nil t)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (let ((file-name-handler-alist nil))
   (require 'exec-path-from-shell)
+  (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize)
   (require 'nord-theme)
   (load-theme 'nord t)
   (require 'use-package)
   (require 'general)
   (require 'smex)
-  (load "packages")
   )
 
 (global-auto-revert-mode 1)
 (setq auto-revert-verbose nil)
 
-(with-eval-after-load 'evil
-  (setq evil-visual-state-cursor `((hbar . 3) ,nord-visual)
-        evil-normal-state-cursor `(box ,nord-normal)
-        evil-insert-state-cursor `((bar . 3) ,nord-insert)
-  ))
+(require 'b-evil)
+(require 'b-ivy)
 
+; (require 'hooks)
+; (require 'keybindigs)
 ; (defvar my/mode-line-coding-format
 ;   '(:eval
 ;     (propertize

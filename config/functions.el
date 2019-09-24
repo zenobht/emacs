@@ -1,8 +1,10 @@
+;;;###autoload
 (defun my/last-used-buffer ()
   (interactive)
   (switch-to-buffer (other-buffer))
   )
 
+;;;###autoload
 (defun my/setup-indent (n)
   (setq c-basic-offset n)
   (setq tab-width n)
@@ -16,10 +18,12 @@
   (setq css-indent-offset n)
   )
 
+;;;###autoload
 (defun my/configure ()
   (my/setup-indent 2)
   )
 
+;;;###autoload
 (defun my/copy-to-clipboard ()
   "Copies selection to x-clipboard."
   (interactive)
@@ -36,6 +40,7 @@
       (message "No region active; can't yank to clipboard!")))
   )
 
+;;;###autoload
 (defun my/paste-from-clipboard ()
   "Pastes from x-clipboard."
   (interactive)
@@ -48,6 +53,7 @@
     )
   )
 
+;;;###autoload
 (defun my/new-empty-buffer ()
   "Create a new empty buffer.
 New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
@@ -64,6 +70,7 @@ Version 2017-11-01"
     $buf
     ))
 
+;;;###autoload
 (defun my/rg-star-search ()
   (interactive)
   (if (evil-visual-state-p)
@@ -76,12 +83,14 @@ Version 2017-11-01"
     )
   )
 
+;;;###autoload
 (defun company-mode/backend-with-yas (backend)
   (if (and (listp backend) (member 'company-yasnippet backend))
       backend
     (append (if (consp backend) backend (list backend))
             '(:with company-yasnippet))))
 
+;;;###autoload
 (defun my/magit-kill-buffers ()
   "Restore window configuration and kill all Magit buffers."
   (interactive)
@@ -89,6 +98,7 @@ Version 2017-11-01"
     (magit-restore-window-configuration)
     (mapc #'kill-buffer buffers)))
 
+;;;###autoload
 (defun my/neotree-project-dir ()
   "Open NeoTree using the git root."
   (interactive)
@@ -102,6 +112,7 @@ Version 2017-11-01"
               (neotree-find file-name)))
       (message "Could not find git project root."))))
 
+;;;###autoload
 (defun kill-other-buffers ()
   "Kill all buffers but the current one.
 Don't mess with special buffers."
@@ -110,12 +121,15 @@ Don't mess with special buffers."
     (unless (or (eql buffer (current-buffer)) (not (buffer-file-name buffer)))
       (kill-buffer buffer))))
 
+;;;###autoload
 (defun my/disable-in-minibuffer ()
   (electric-pair-mode -1))
 
+;;;###autoload
 (defun my/enable-on-minibuffer-exit ()
   (electric-pair-mode +1))
 
+;;;###autoload
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length containing LEFT, and RIGHT aligned respectively."
   (let* ((available-width (- (window-total-width) (+ (length (format-mode-line left)) (length (format-mode-line right))))))
@@ -123,13 +137,16 @@ Don't mess with special buffers."
     )
   )
 
+;;;###autoload
 (defun set-selected-window ()
   (when (not (minibuffer-window-active-p (frame-selected-window)))
     (setq ml-selected-window (frame-selected-window))))
 
+;;;###autoload
 (defun unset-selected-window ()
   (setq ml-selected-window nil))
 
+;;;###autoload
 (defun my/org-move-up ()
   (interactive)
   (if (string-prefix-p "*" (thing-at-point 'line))
@@ -137,6 +154,7 @@ Don't mess with special buffers."
     (org-move-item-up))
   )
 
+;;;###autoload
 (defun my/org-move-down ()
   (interactive)
   ;; in org-mode move subtree if its heading else move item
@@ -145,6 +163,7 @@ Don't mess with special buffers."
     (org-move-item-down))
   )
 
+;;;###autoload
 (defun my/calendar ()
   (interactive)
   (cfw:open-calendar-buffer
@@ -154,6 +173,7 @@ Don't mess with special buffers."
     ))
   )
 
+;;;###autoload
 (defun package-upgrade-all ()
   "Upgrade all packages automatically without showing *Packages* buffer."
   (interactive)
@@ -185,6 +205,7 @@ Don't mess with special buffers."
       (load-file user-init-file)
       (message "All packages are up to date"))))
 
+;;;###autoload
 (defun my/mousewheel-scroll-up (event)
   "Scroll window under mouse up by five lines."
   (interactive "e")
@@ -195,6 +216,7 @@ Don't mess with special buffers."
           (scroll-up 5))
       (select-window current-window))))
 
+;;;###autoload
 (defun my/mousewheel-scroll-down (event)
   "Scroll window under mouse down by five lines."
   (interactive "e")
@@ -205,11 +227,13 @@ Don't mess with special buffers."
           (scroll-down 5))
       (select-window current-window))))
 
+;;;###autoload
 (defun my/elfeed-mark-all-read ()
   (interactive)
   (elfeed-untag elfeed-search-entries 'unread)
   (elfeed-search-update :force)) ; redraw
 
+;;;###autoload
 (defun my/elfeed-star ()
   "Apply starred to all selected entries."
   (interactive )
@@ -221,6 +245,7 @@ Don't mess with special buffers."
     (unless (use-region-p) (forward-line))))
 
 ;; remove a start
+;;;###autoload
 (defun my/elfeed-unstar ()
   "Remove starred tag from all selected entries."
   (interactive )
@@ -231,6 +256,7 @@ Don't mess with special buffers."
     (mapc #'elfeed-search-update-entry entries)
     (unless (use-region-p) (forward-line))))
 
+;;;###autoload
 (defun my/show-elfeed (buffer)
   (with-current-buffer buffer
     (setq buffer-read-only nil)
@@ -285,6 +311,7 @@ inserted. "
                finally do (when (< largest-group-size min-group-size)
                             (ov-clear))))))
 
+;;;###autoload
 (defun my/next-error (&optional n reset)
   (interactive "P")
   (next-line)
@@ -293,6 +320,7 @@ inserted. "
     (next-error n reset))
   )
 
+;;;###autoload
 (defun my/previous-error (&optional n reset)
   (interactive "P")
   (previous-line)
@@ -302,6 +330,7 @@ inserted. "
   )
 
 ;; delete single quote where required
+;;;###autoload
 (defun my/trimn-next-char ()
   (interactive)
   (delete-char 1)
@@ -320,10 +349,12 @@ inserted. "
       (unless (file-exists-p dir)
         (make-directory dir)))))
 
+;;;###autoload
 (defun my/selected-window-active ()
   (eq ml-selected-window (selected-window))
   )
 
+;;;###autoload
 (defun my/shorten-vc-mode-line (string)
   (cond
    ((string-prefix-p "Git" string)
@@ -331,10 +362,12 @@ inserted. "
    (t
     string)))
 
+;;;###autoload
 (defun my/set-selected-window (windows)
   (when (not (minibuffer-window-active-p (frame-selected-window)))
     (setq ml-selected-window (selected-window))))
 
+;;;###autoload
 (defun my/visual-shift-left ()
   (interactive)
   ;; (evil-shift-left (region-beginning) (region-end))
@@ -342,6 +375,7 @@ inserted. "
   (evil-normal-state)
   (evil-visual-restore))
 
+;;;###autoload
 (defun my/visual-shift-right ()
   (interactive)
   ;; (evil-shift-right (region-beginning) (region-end))
@@ -349,6 +383,7 @@ inserted. "
   (evil-normal-state)
   (evil-visual-restore))
 
+;;;###autoload
 (defun my/substitute()
   (interactive)
   (if (eq evil-state 'visual)
@@ -357,11 +392,13 @@ inserted. "
     )
   )
 
+;;;###autoload
 (defun my/visual-macro ()
   (interactive)
   (evil-ex "`<,`>norm @")
   )
 
+;;;###autoload
 (defun my/tabbar-buffer-groups ()
   (list
     (cond

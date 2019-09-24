@@ -11,62 +11,61 @@
 
 (defconst my/packages
   '(
-    general
-    which-key
-    whitespace
-    evil
-    windmove
-    evil-surround
-    paradox
-    evil-leader
-    evil-visualstar
-    projectile
-    counsel-projectile
-    ivy
-    dumb-jump
-    rainbow-delimiters
-    evil-multiedit
-    yasnippet
-    yasnippet-snippets
-    company
-    git-gutter
-    ranger
-    evil-magit
-    display-line-numbers
-    hideshow
-    all-the-icons
-    neotree
-    kotlin-mode
-    electric
-    expand-region
-    yaml-mode
-    hl-line
-    rainbow-mode
-    org
-    esup
-    frog-jump-buffer
-    typescript-mode
-    tide
-    emmet-mode
-    hippie-expand
-    web-mode
-    add-node-modules-path
-    rjsx-mode
-    flycheck
-    flycheck-kotlin
-    json-mode
     ace-window
-    wgrep
+    add-node-modules-path
+    all-the-icons
+    company
+    company-tabnine
+    counsel-projectile
+    display-line-numbers
+    dumb-jump
+    electric
     elfeed
-    ov
     elfeed-goodies
     elfeed-org
-    tabbar
-    company-tabnine
-    evil-nerd-commenter
     elpy
-    markdown-mode
+    emmet-mode
+    esup
+    evil
+    evil-leader
+    evil-magit
+    evil-multiedit
+    evil-nerd-commenter
+    evil-surround
+    evil-visualstar
+    expand-region
+    flycheck
+    flycheck-kotlin
+    frog-jump-buffer
+    general
+    git-gutter
+    hideshow
     highlight-thing
+    hippie-expand
+    hl-line
+    ivy
+    json-mode
+    kotlin-mode
+    markdown-mode
+    neotree
+    org
+    ov
+    paradox
+    projectile
+    rainbow-delimiters
+    rainbow-mode
+    ranger
+    rjsx-mode
+    tabbar
+    tide
+    typescript-mode
+    web-mode
+    wgrep
+    which-key
+    whitespace
+    yaml-mode
+    yasnippet
+    yasnippet-snippets
     )
   )
 
@@ -85,13 +84,7 @@
     (error
      (package-menu-execute))))
 
-;; (use-package exec-path-from-shell
-;;   :init
-;;   (setq exec-path-from-shell-arguments '("-l"))
-;;   (exec-path-from-shell-initialize)
-;;   )
-
-;; (use-package which-key
+; (use-package which-key
 ;;   :defer t
 ;;   :init
 ;;   (which-key-mode)
@@ -120,133 +113,11 @@
 ;;         )
 ;;   )
 
- (use-package evil
-   :defer t
-   :init
-   (setq evil-search-module 'evil-search
-         ;; evil-insert-state-message nil
-         evil-want-C-i-jump nil
-         )
-   (evil-mode)
-   :config
-   (fset 'evil-visual-update-x-selection 'ignore)
-   (eval-after-load 'evil-ex
-     '(evil-ex-define-cmd "jsf" (lambda ()
-                                  (interactive)
-                                  (json-mode)
-                                  (json-pretty-print-buffer))))
-
-   (evil-define-operator evil-move-up (beg end)
-     "Move region up by one line."
-     :motion evil-line
-     (interactive "<r>")
-     (if (not (eq evil-state 'normal))
-         (evil-visual-line))
-     (let ((beg-line (line-number-at-pos beg))
-           (end-line (line-number-at-pos end))
-           (dest (- (line-number-at-pos beg) 2)))
-       (evil-move beg end dest)
-       (goto-line (- beg-line 1))
-       (exchange-point-and-mark)
-       (goto-line (- end-line 2))
-       (if (not (eq evil-state 'normal))
-           (evil-visual-line))
-       )
-     )
-
-   (evil-define-operator evil-move-down (beg end)
-     "Move region down by one line."
-     :motion evil-line
-     (interactive "<r>")
-     (if (not (eq evil-state 'normal))
-         (evil-visual-line))
-     (let ((beg-line (line-number-at-pos beg))
-           (end-line (line-number-at-pos end))
-           (dest (+ (line-number-at-pos end) 0)))
-       (evil-move beg end dest)
-       (goto-line (+ beg-line 1))
-       (exchange-point-and-mark)
-       (goto-line (+ end-line 0))
-       (if (not (eq evil-state 'normal))
-           (evil-visual-line))
-       )
-     )
-
- )
-
-;; (use-package windmove
-;;   :defer t
-;;   :config
-;;   (windmove-default-keybindings)
-;;   )
-
-;; (use-package evil-surround
-;;   :defer t
-;;   :after evil
-;;   :init
-;;   (global-evil-surround-mode 1)
-;;   )
-
 ;; (use-package paradox
 ;;   :defer t
 ;;   :after evil-leader
 ;;   )
 
-;; (use-package evil-leader
-;;   :after evil ivy
-;;   :defer t
-;;   :init
-;;   (global-evil-leader-mode)
-;;   )
-
-;; (use-package evil-visualstar
-;;   :defer t
-;;   :after evil
-;;   :init
-;;   (global-evil-visualstar-mode t))
-
-;; (use-package projectile
-;;   :defer t
-;;   :init (projectile-global-mode)
-;;   :config
-;;   (setq projectile-enable-caching t
-;;         projectile-indexing-method 'alien
-;;         projectile-globally-ignored-file-suffixes
-;;         '("#" "~" ".swp" ".o" ".so" ".exe" ".dll" ".elc" ".pyc" ".jar" "*.class")
-;;         projectile-globally-ignored-directories
-;;         '(".git" "node_modules" "__pycache__" ".vs")
-;;         projectile-globally-ignored-files '("TAGS" "tags" ".DS_Store")
-;;         )
-;;   )
-
-;; (use-package counsel-projectile
-;;   :defer t
-;;   :after projectile evil evil-leader
-;;   :init
-;;   (setq counsel-projectile-remove-current-buffer t)
-;;   )
-
-;; (use-package ivy
-;;   :defer t
-;;   :init
-;;   (ivy-mode 1)
-;;   :config
-;;   (setq ivy-use-virtual-buffers nil
-;;         enable-recursive-minibuffers t
-;;         ivy-wrap t
-;;         ivy-use-selectable-prompt t
-;;         ivy-re-builders-alist
-;;         '(
-;;           (counsel-M-x . ivy--regex-plus)
-;;           (swiper . ivy--regex-plus)
-;;           (counsel-rg . ivy--regex-plus)
-;;           (counsel-find-file . ivy--regex-plus)
-;;           (t . ivy--regex-fuzzy)))
-;;   (add-to-list 'ivy-highlight-functions-alist
-;;                '(swiper--re-builder . ivy--highlight-ignore-order))
-
-;;   (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
-;;   )
 
 ;; (use-package dumb-jump
 ;;   :defer t
@@ -258,14 +129,6 @@
 ;;   :hook ((prog-mode) . rainbow-delimiters-mode)
 ;;   )
 
-;; (use-package evil-multiedit
-;;   :defer t
-;;   :after evil
-;;   :config
-;;   (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
-;;   (add-hook 'evil-multiedit-state-entry-hook (lambda () (highlight-thing-mode -1)))
-;;   (add-hook 'evil-multiedit-state-exit-hook (lambda () (highlight-thing-mode +1)))
-;;   )
 
 ;; (use-package yasnippet
 ;;   :defer t
@@ -588,11 +451,6 @@
 ;;   (add-to-list 'company-backends #'company-tabnine)
 ;;   :config
 ;;   (setq company-tabnine-auto-balance nil)
-;;   )
-
-;; (use-package evil-nerd-commenter
-;;   :defer t
-;;   :after evil-leader
 ;;   )
 
 ;; (use-package elpy
