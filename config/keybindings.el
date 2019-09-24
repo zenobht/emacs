@@ -1,3 +1,7 @@
+(require 'which-key)
+(require 'general)
+(which-key-mode)
+
 (general-define-key
  :states 'insert
  "C-a" (lambda () (interactive) (evil-paste-from-register ?.))
@@ -82,8 +86,7 @@
   ".u" '(paradox-upgrade-packages :which-key "Update Packages")
   ";" '(frog-jump-buffer :which-key "Quick Jump Buffer")
   "C" '(my/calendar :which-key "Calendar")
-  "b" '(:ignore t :which-key "Buffer")
-  "bb" '(ivy-switch-buffer :which-key "Switch Buffer")
+  "b" '(ivy-switch-buffer :which-key "Switch Buffer")
   "d" '(:ignore t :which-key "Dired")
   "dd" '(deer :which-key "Deer")
   "dr" '(ranger :which-key "Ranger")
@@ -221,3 +224,9 @@
  :keymaps 'symbol-overlay-map
  [escape] 'symbol-overlay-remove-all
  )
+
+(unless window-system
+  (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
+  (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))
+
+(provide 'keybindings)

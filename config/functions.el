@@ -268,6 +268,7 @@ Don't mess with special buffers."
   ;; (setq fill-column 80)
   (switch-to-buffer buffer))
 
+;;;###autoload
 (cl-defun my/elfeed-search-add-separators (&key (min-group-size 2))
   "Insert overlay spacers where the current date changes.
 If no group has at least MIN-GROUP-SIZE items, no spacers will be
@@ -336,12 +337,14 @@ inserted. "
   (delete-char 1)
   )
 
+;;;###autoload
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
      ,@body
      (message "%.06f" (float-time (time-since time)))))
 
+;;;###autoload
 (defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
   "Create parent directory if not exists while visiting file."
   (unless (file-exists-p filename)
@@ -415,3 +418,32 @@ inserted. "
       "User Buffer"
       )
     )))
+
+;;;###autoload
+(defun update-all-autoloads ()
+  (interactive)
+  (cd emacs-d)
+  (let ((generated-autoload-file
+         (expand-file-name "loaddefs.el")))
+    (when (not (file-exists-p generated-autoload-file))
+      (with-current-buffer (find-file-noselect generated-autoload-file)
+        (insert ";;") ;; create the file with non-zero size to appease autoload
+        (save-buffer)))
+    (mapcar #'update-directory-autoloads
+            '("" "modes"))
+   ))
+
+;;;###autoload
+(defun my/after-startup ()
+  (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))
+  (message "Emacs ready in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract (current-time) start-time)))
+           gcs-done)
+
+  ;; set proper gc values after load
+  (setq gc-cons-threshold 16777216
+        gc-cons-percentage 0.1
+        file-name-handler-alist b--file-name-handler-alist)
+ )

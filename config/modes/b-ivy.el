@@ -20,4 +20,14 @@
   (add-to-list 'ivy-ignore-buffers "\\*Messages\\*")
   )
 
+(use-package wgrep
+  :defer t
+  :after ivy
+  :init
+  (ivy-set-occur 'counsel-rg 'counsel-rg-occur)
+  :config
+  (setq wgrep-auto-save-buffer t)
+  )
+
+
 (provide 'b-ivy)

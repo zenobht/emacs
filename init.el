@@ -1,57 +1,13 @@
-; (setq start-time (current-time))
-;; (setq mode-line-format nil)
+(setq start-time (current-time))
+(setq mode-line-format nil)
 
-;; ;; assign high memory to reduce gc during load
-;; ;; lifted from doom-emacs. Thanks
-;; (defvar doom--file-name-handler-alist file-name-handler-alist)
-;; (setq gc-cons-threshold 402653184
-;;       gc-cons-percentage 0.6
-;;       file-name-handler-alist nil
-;;       )
+(setq b--file-name-handler-alist file-name-handler-alist
+      gc-cons-threshold 402653184
+      gc-cons-percentage 0.6
+      file-name-handler-alist nil
+      )
 
-;; (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
-
-;; (defun load-directory (directory)
-
-;;   "Load recursively all `.el' files in DIRECTORY."
-;;   (dolist (element (directory-files-and-attributes directory nil nil nil))
-;;     (let* ((path (car element))
-;;            (fullpath (concat directory "/" path))
-;;            (isdir (car (cdr element)))
-;;            (ignore-dir (or (string= path ".") (string= path ".."))))
-;;       (cond
-;;        ((and (eq isdir t) (not ignore-dir))
-;;         (load-directory fullpath))
-;;        ((and (eq isdir nil) (string= (substring path -3) ".el"))
-;;         (load (file-name-sans-extension fullpath)))))))
-
-;; (add-hook 'after-init-hook (lambda ()
-;;     (load-directory "~/.emacs.d/lib")
-;;     (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;;     (load-file (expand-file-name "functions.el" user-emacs-directory))
-;;     (load-file (expand-file-name "packages.el" user-emacs-directory))
-;;     (load-theme 'nord t)
-;;     (load-file (expand-file-name "setup.el" user-emacs-directory))
-;;     (load-file (expand-file-name "keybindings.el" user-emacs-directory))
-;;     (when (file-exists-p custom-file)
-;;       (load custom-file))
-;;   ))
-
-;; (defun my/after-startup ()
-;;   (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))
-;;   (message "Emacs ready in %s with %d garbage collections."
-;;            (format "%.2f seconds"
-;;                    (float-time
-;;                     (time-subtract (current-time) start-time)))
-;;            gcs-done)
-
-;;   ;; set proper gc values after load
-;;   (setq gc-cons-threshold 16777216
-;;         gc-cons-percentage 0.1
-;;         file-name-handler-alist doom--file-name-handler-alist)
-;;  )
-
-;; (add-hook 'emacs-startup-hook #'my/after-startup)
+(setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory))
 
 (defvar emacs-d "~/.emacs.d/config/")
 (setq package-user-dir "~/.emacs.d/elpa/")
@@ -125,7 +81,11 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (visual-line-mode +1)
+(xterm-mouse-mode +1)
+(pixel-scroll-mode +1)
+
 (modify-syntax-entry ?_ "w")
+
 (load (concat emacs-d "loaddefs.el") nil t)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
@@ -147,97 +107,7 @@
 
 (require 'b-evil)
 (require 'b-ivy)
+(require 'hooks)
+(require 'keybindings)
+(require 'b-modeline)
 
-; (require 'hooks)
-; (require 'keybindigs)
-; (defvar my/mode-line-coding-format
-;   '(:eval
-;     (propertize
-;      (concat (pcase (coding-system-eol-type buffer-file-coding-system)
-;                (0 "  LF")
-;                (1 "  CRLF")
-;                (2 "  CR"))
-;              (let ((sys (coding-system-plist buffer-file-coding-system)))
-;                (cond ((memq (plist-get sys :category)
-;                             '(coding-category-undecided coding-category-utf-8))
-;                       " UTF-8 ")
-;                      (t (upcase (symbol-name (plist-get sys :name))))))))
-;     )
-;   )
-
-; (put 'my/mode-line-coding-format 'risky-local-variable t)
-
-; (defvar ml-selected-window nil)
-
-; (add-function :before pre-redisplay-function #'my/set-selected-window)
-
-; (advice-add 'vc-git-mode-line-string :filter-return 'my/shorten-vc-mode-line)
-
-; ;; remove mode-line-buffer-identification default width
-; (setq-default mode-line-buffer-identification (propertized-buffer-identification "%b"))
-
-; (setq-default
-;  mode-line-format
-;  '
-;  (
-;   (:eval
-;    (simple-mode-line-render
-;     ;; left
-;     (quote (""
-;             ;; (:eval (propertize evil-mode-line-tag
-;             (:eval (propertize " "
-;                                'face  (if (my/selected-window-active)
-;                                           (cond
-;                                            ((eq evil-state 'visual) `(:background ,nord-visual))
-;                                            ((eq evil-state 'insert) `(:background ,nord-insert))
-;                                            (t `(:background ,nord-normal))
-;                                            )
-;                                         )
-;                                'help-echo
-;                                "Evil mode"))
-;             " %I "
-;             (:eval (when (projectile-project-p)
-;                      (propertize (concat " [" (projectile-project-name) "] ")
-;                                  'face (if (my/selected-window-active)
-;                                            '(:inherit font-lock-string-face :weight bold))
-;                                  'help-echo "Project Name")
-;                      ))
-;             " "
-;             mode-line-buffer-identification
-;             " "
-;             (:eval (propertize (if (buffer-modified-p)
-;                                    " [+] "
-;                                  " ")
-;                                'help-echo "Buffer modified"))
-;             (:eval (when buffer-read-only
-;                      (propertize " RO "
-;                                  'face (if (my/selected-window-active)
-;                                            '(:inherit error))
-;                                  'help-echo "Buffer is read-only")))
-;             (flycheck-mode flycheck-mode-line)
-;             "  %p  %l:%c  "
-;             ))
-;     ;; right
-;     (quote (
-;             (vc-mode (:eval (propertize vc-mode
-;                                         'face (if (my/selected-window-active)
-;                                                   '(:inherit font-lock-regexp-grouping-backslash :weight bold))
-;                                         'help-echo "Buffer modified")))
-;             "  "
-;             (:eval (propertize mode-name
-;                                'face (if (my/selected-window-active)
-;                                          '(:inherit font-lock-function-name-face :slant normal))
-;                                ))
-
-;             my/mode-line-coding-format
-;             ))
-;     )
-;    )
-;   )
-;  )
-
-(xterm-mouse-mode 1)
-(pixel-scroll-mode)
-(unless window-system
-  (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
-  (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))

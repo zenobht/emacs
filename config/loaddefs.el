@@ -143,6 +143,13 @@ Remove starred tag from all selected entries.
 
 \(fn BUFFER)" nil nil)
 
+(autoload 'my/elfeed-search-add-separators "functions" "\
+Insert overlay spacers where the current date changes.
+If no group has at least MIN-GROUP-SIZE items, no spacers will be
+inserted. 
+
+\(fn &key (MIN-GROUP-SIZE 2))" nil nil)
+
 (autoload 'my/next-error "functions" "\
 
 
@@ -157,6 +164,14 @@ Remove starred tag from all selected entries.
 
 
 \(fn)" t nil)
+
+(autoload 'measure-time "functions" "\
+Measure the time it takes to evaluate BODY.
+
+\(fn &rest BODY)" nil t)
+
+(defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate) "\
+Create parent directory if not exists while visiting file." (unless (file-exists-p filename) (let ((dir (file-name-directory filename))) (unless (file-exists-p dir) (make-directory dir)))))
 
 (autoload 'my/selected-window-active "functions" "\
 
@@ -198,7 +213,15 @@ Remove starred tag from all selected entries.
 
 \(fn)" nil nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "functions" '("measure-time")))
+(autoload 'update-all-autoloads "functions" "\
+
+
+\(fn)" t nil)
+
+(autoload 'my/after-startup "functions" "\
+
+
+\(fn)" nil nil)
 
 ;;;***
 
@@ -206,6 +229,30 @@ Remove starred tag from all selected entries.
 ;;; Generated autoloads from keybindings.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
+
+;;;***
+
+;;;### (autoloads nil "modes/b-editor" "modes/b-editor.el" (0 0 0
+;;;;;;  0))
+;;; Generated autoloads from modes/b-editor.el
+
+(autoload 'my/editor-text-config "modes/b-editor" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'my/editor-prog-config "modes/b-editor" "\
+
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil "modes/b-modeline" "modes/b-modeline.el" (0
+;;;;;;  0 0 0))
+;;; Generated autoloads from modes/b-modeline.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "modes/b-modeline" '("my/mode-line-coding-format" "ml-selected-window")))
 
 ;;;***
 
@@ -238,7 +285,9 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil nil ("hooks.el") (0 0 0 0))
+;;;### (autoloads nil nil ("hooks.el" "modes/b-essentials.el" "modes/b-evil.el"
+;;;;;;  "modes/b-git.el" "modes/b-ivy.el" "modes/b-lang.el" "modes/b-org.el"
+;;;;;;  "modes/b-projectile.el") (0 0 0 0))
 
 ;;;***
 
