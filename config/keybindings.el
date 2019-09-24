@@ -47,20 +47,18 @@
  )
 
 (general-define-key
- ;; "C-j" 'tabbar-backward-tab
- ;; "C-k" 'tabbar-forward-tab
- "C-j" 'next-buffer
- "C-k" 'previous-buffer
+ "C-j" 'tabbar-backward-tab
+ "C-k" 'tabbar-forward-tab
  "M-c" 'my/copy-to-clipboard
  "M-e" 'elfeed
+ "M-f" 'tabbar-forward-group
  "M-l" 'kill-this-buffer
  "M-n" 'my/new-empty-buffer
  "M-o" 'ace-window
  "M-r" 'my/last-used-buffer
- ;; "M-t" 'tabbar-backward-group
+ "M-t" 'delete-window
  "M-v" (lambda () (interactive) (message "Pasted from clipboard"))
  "M-x" 'counsel-M-x
- "M-z" 'delete-window
  )
 
 (general-create-definer my-comment
@@ -205,8 +203,8 @@
  :states 'normal
  :keymaps 'org-mode-map
  "TAB" 'org-cycle
- "C-j" 'next-buffer
- "C-k" 'previous-buffer
+ "C-j" 'tabbar-backward-tab
+ "C-k" 'tabbar-forward-tab
  "M-g"  'hydra-org/body
  )
 

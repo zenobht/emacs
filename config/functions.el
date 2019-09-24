@@ -446,6 +446,8 @@ inserted. "
   (require 'nord-theme)
   (load-theme 'nord t)
   (evil-magit-init)
+  (require 'b-essentials)
+
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1
