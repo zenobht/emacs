@@ -107,7 +107,7 @@
   (setq highlight-thing-case-sensitive-p t
         highlight-thing-limit-to-region-in-large-buffers-p nil
         highlight-thing-narrow-region-lines 15
-        highlight-thing-large-buffer-limit 5000
+        highlight-thing-large-buffer-limit 1000
         highlight-thing-prefer-active-region t)
   )
 

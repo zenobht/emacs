@@ -491,22 +491,9 @@ inserted. "
 (defun my/elfeed-show ()
   (let ((inhibit-read-only t)
         (inhibit-modification-hooks t))
-    (setq-local truncate-lines nil
-                shr-width 85)
+    (setq truncate-lines nil
+          shr-width 85)
     (set-buffer-modified-p nil))
-  (setq-local left-margin-width 15
-              right-margin-width 15)
+  (setq left-margin-width 15
+        right-margin-width 15)
   )
-
-;; ;;;###autoload
-;; (defun my/elfeed ()
-;;   (interactive)
-;;   (elfeed-goodies/setup)
-;;   (setq elfeed-goodies/feed-source-column-width 35
-;;         elfeed-goodies/tag-column-width 25)
-;;   (setq elfeed-search-filter "@2-days-ago"
-;;         elfeed-show-entry-switch #'my/show-elfeed)
-;;   (setq rmh-elfeed-org-files (list "~/gdrive/feed/elfeed.org"))
-;;   (elfeed-org)
-;;   (elfeed)
-;;   )
