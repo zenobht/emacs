@@ -445,11 +445,12 @@ inserted. "
 
   (require 'nord-theme)
   (load-theme 'nord t)
+  (evil-magit-init)
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1
         )
- )
+  )
 
 ;;;###autoload
 (defun my/rjsx-config ()
@@ -497,22 +498,15 @@ inserted. "
               right-margin-width 15)
   )
 
-;;;###autoload
-(defun my/elfeed ()
-  (interactive)
-  (elfeed-goodies/setup)
-  (setq elfeed-goodies/feed-source-column-width 35
-        elfeed-goodies/tag-column-width 25)
-  (setq elfeed-search-filter "@2-days-ago"
-        elfeed-show-entry-switch #'my/show-elfeed)
-  (setq rmh-elfeed-org-files (list "~/gdrive/feed/elfeed.org"))
-  (elfeed-org)
-  (elfeed)
-  )
-
-;;;###autoload
-(defun my/magit ()
-  (interactive)
-  (evil-magit-init)
-  (magit)
-  )
+;; ;;;###autoload
+;; (defun my/elfeed ()
+;;   (interactive)
+;;   (elfeed-goodies/setup)
+;;   (setq elfeed-goodies/feed-source-column-width 35
+;;         elfeed-goodies/tag-column-width 25)
+;;   (setq elfeed-search-filter "@2-days-ago"
+;;         elfeed-show-entry-switch #'my/show-elfeed)
+;;   (setq rmh-elfeed-org-files (list "~/gdrive/feed/elfeed.org"))
+;;   (elfeed-org)
+;;   (elfeed)
+;;   )

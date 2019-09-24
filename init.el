@@ -106,7 +106,8 @@
 (require 'hooks)
 (require 'keybindings)
 (require 'b-files)
-;; (require 'b-modeline)
+(require 'b-projectile)
+(require 'b-elfeed)
 
 (add-to-list 'auto-mode-alist '("\\.kt$" . kotlin-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))

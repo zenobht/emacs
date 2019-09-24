@@ -52,7 +52,7 @@
  "C-j" 'next-buffer
  "C-k" 'previous-buffer
  "M-c" 'my/copy-to-clipboard
- "M-e" 'my/elfeed
+ "M-e" 'elfeed
  "M-l" 'kill-this-buffer
  "M-n" 'my/new-empty-buffer
  "M-o" 'ace-window
@@ -97,7 +97,7 @@
   "fs" '(swiper :which-key "Swiper")
   "g" '(:ignore t :which-key "Git")
   "gb" '(magit-blame :which-key "Blame")
-  "gg" 'my/magit
+  "gg" '(magit-status :which-key "Git Status")
   "gl" '(magit-log :which-key "Log")
   "j" '(:ignore t :which-key "Jump")
   "jb" 'dumb-jump-back

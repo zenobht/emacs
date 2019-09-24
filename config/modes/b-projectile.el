@@ -20,4 +20,4 @@
   (setq counsel-projectile-remove-current-buffer t)
   )
 
-
+(provide 'b-projectile)

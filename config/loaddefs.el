@@ -243,16 +243,6 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 \(fn)" nil nil)
 
-(autoload 'my/elfeed "functions" "\
-
-
-\(fn)" t nil)
-
-(autoload 'my/magit "functions" "\
-
-
-\(fn)" t nil)
-
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
@@ -275,14 +265,6 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 
 \(fn)" nil nil)
-
-;;;***
-
-;;;### (autoloads nil "modes/b-modeline" "modes/b-modeline.el" (0
-;;;;;;  0 0 0))
-;;; Generated autoloads from modes/b-modeline.el
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "modes/b-modeline" '("my/mode-line-coding-format" "ml-selected-window")))
 
 ;;;***
 
@@ -315,8 +297,8 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil nil ("hooks.el" "modes/b-ivy.el" "modes/b-org.el"
-;;;;;;  "modes/b-projectile.el") (0 0 0 0))
+;;;### (autoloads nil nil ("hooks.el" "modes/b-ivy.el" "modes/b-org.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 
