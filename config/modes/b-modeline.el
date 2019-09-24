@@ -28,7 +28,7 @@
 ;; remove mode-line-buffer-identification default width
 (setq-default mode-line-buffer-identification (propertized-buffer-identification "%b"))
 
-(setq-default
+(setq
  mode-line-format
  '
  (

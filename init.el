@@ -1,7 +1,5 @@
-(setq start-time (current-time))
-(setq mode-line-format nil)
-
-(setq gc-cons-threshold 402653184
+(setq start-time (current-time)
+      gc-cons-threshold 402653184
       gc-cons-percentage 0.6
       file-name-handler-alist nil
       )
@@ -24,6 +22,7 @@
 
 (setq-default electric-indent-inhibit t
               evil-shift-width 2
+              mode-line-format nil
               )
 
 (setq
@@ -95,8 +94,6 @@
   (require 'exec-path-from-shell)
   (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize)
-  (require 'nord-theme)
-  (load-theme 'nord t)
   (require 'use-package)
   (require 'general)
   (require 'smex)

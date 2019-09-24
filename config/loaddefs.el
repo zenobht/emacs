@@ -251,14 +251,14 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 (autoload 'my/magit "functions" "\
 
 
-\(fn)" nil nil)
+\(fn)" t nil)
 
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
 
 ;;;***
 
@@ -315,9 +315,8 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil nil ("hooks.el" "modes/b-essentials.el" "modes/b-evil.el"
-;;;;;;  "modes/b-ivy.el" "modes/b-org.el" "modes/b-projectile.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("hooks.el" "modes/b-ivy.el" "modes/b-org.el"
+;;;;;;  "modes/b-projectile.el") (0 0 0 0))
 
 ;;;***
 

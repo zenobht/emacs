@@ -443,6 +443,9 @@ inserted. "
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
+  (require 'b-modeline)
+  (require 'nord-theme)
+  (load-theme 'nord t)
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1

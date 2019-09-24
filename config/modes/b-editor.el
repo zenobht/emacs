@@ -1,4 +1,3 @@
-
 (use-package whitespace
   :defer t
   :init
