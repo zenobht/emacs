@@ -51,6 +51,7 @@
  mouse-wheel-progressive-speed nil
  display-buffer-alist '(("\\`\\*e?shell" display-buffer-pop-up-window))
  create-lockfiles nil
+ column-number-mode t
  )
 
 (setq-default indent-tabs-mode nil)
