@@ -47,15 +47,17 @@
  )
 
 (general-define-key
- "C-j" 'tabbar-backward-tab
- "C-k" 'tabbar-forward-tab
+ ;; "C-j" 'tabbar-backward-tab
+ ;; "C-k" 'tabbar-forward-tab
+ "C-j" 'next-buffer
+ "C-k" 'previous-buffer
  "M-c" 'my/copy-to-clipboard
- "M-e" 'elfeed
+ "M-e" 'my/elfeed
  "M-l" 'kill-this-buffer
  "M-n" 'my/new-empty-buffer
  "M-o" 'ace-window
  "M-r" 'my/last-used-buffer
- "M-t" 'tabbar-backward-group
+ ;; "M-t" 'tabbar-backward-group
  "M-v" (lambda () (interactive) (message "Pasted from clipboard"))
  "M-x" 'counsel-M-x
  "M-z" 'delete-window
@@ -95,7 +97,7 @@
   "fs" '(swiper :which-key "Swiper")
   "g" '(:ignore t :which-key "Git")
   "gb" '(magit-blame :which-key "Blame")
-  "gg" '(magit-status :which-key "Status")
+  "gg" 'my/magit
   "gl" '(magit-log :which-key "Log")
   "j" '(:ignore t :which-key "Jump")
   "jb" 'dumb-jump-back
@@ -203,7 +205,7 @@
  :states 'normal
  :keymaps 'org-mode-map
  "TAB" 'org-cycle
- "C-j" 'tabbar-backward-tab
+ ;; "C-j" 'tabbar-backward-tab
  "M-g"  'hydra-org/body
  )
 

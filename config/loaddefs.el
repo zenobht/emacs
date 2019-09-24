@@ -223,12 +223,42 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 \(fn)" nil nil)
 
+(autoload 'my/rjsx-config "functions" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'my/typescript-config "functions" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'my/web-config "functions" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'my/elfeed-show "functions" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'my/elfeed "functions" "\
+
+
+\(fn)" t nil)
+
+(autoload 'my/magit "functions" "\
+
+
+\(fn)" nil nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
 
 ;;;***
 
@@ -286,8 +316,8 @@ Runs prettier on file save when this mode is turned on
 ;;;***
 
 ;;;### (autoloads nil nil ("hooks.el" "modes/b-essentials.el" "modes/b-evil.el"
-;;;;;;  "modes/b-git.el" "modes/b-ivy.el" "modes/b-lang.el" "modes/b-org.el"
-;;;;;;  "modes/b-projectile.el") (0 0 0 0))
+;;;;;;  "modes/b-ivy.el" "modes/b-org.el" "modes/b-projectile.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

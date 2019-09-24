@@ -1,8 +1,7 @@
 (setq start-time (current-time))
 (setq mode-line-format nil)
 
-(setq b--file-name-handler-alist file-name-handler-alist
-      gc-cons-threshold 402653184
+(setq gc-cons-threshold 402653184
       gc-cons-percentage 0.6
       file-name-handler-alist nil
       )
@@ -109,5 +108,13 @@
 (require 'b-ivy)
 (require 'hooks)
 (require 'keybindings)
-(require 'b-modeline)
+(require 'b-files)
+;; (require 'b-modeline)
+
+(add-to-list 'auto-mode-alist '("\\.kt$" . kotlin-mode))
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(tsx\\|ts\\)\\'" . typescript-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(js\\|jsx\\)\\'" . rjsx-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 

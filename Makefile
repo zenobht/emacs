@@ -3,7 +3,7 @@ emacs ?= emacs
 BASEDIR := $(shell pwd)
 
 profile:
-	$(emacs) -Q -l profile-dotemacs/profile-dotemacs.el \
+	$(emacs) -nw -Q -l profile-dotemacs/profile-dotemacs.el \
 	--eval "(setq profile-dotemacs-file \
         (setq load-file-name \"$(abspath init.el)\"))" \
 	-f profile-dotemacs

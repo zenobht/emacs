@@ -102,6 +102,7 @@ Version 2017-11-01"
 (defun my/neotree-project-dir ()
   "Open NeoTree using the git root."
   (interactive)
+  (require 'projectile)
   (let ((project-dir (projectile-project-root))
         (file-name (buffer-file-name)))
     (neotree-toggle)
@@ -445,5 +446,71 @@ inserted. "
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1
-        file-name-handler-alist b--file-name-handler-alist)
+        )
  )
+
+;;;###autoload
+(defun my/rjsx-config ()
+  (setq js2-mode-show-strict-warnings nil
+        js2-mode-show-parse-errors nil)
+  (add-node-modules-path)
+  (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+  (prettier-js-mode)
+  )
+
+;;;###autoload
+(defun my/typescript-config ()
+  (setq typescript-indent-level 2)
+  (add-node-modules-path)
+  (prettier-js-mode)
+  (tide-setup)
+  (push '(?\< . ?\>) electric-pair-pairs)
+;; (typescript-mode . tide-hl-identifier-mode)
+;; (before-save . tide-format-before-save)
+  )
+
+;;;###autoload
+(defun my/web-config ()
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-block-padding 2
+        web-mode-comment-style 2
+
+        web-mode-enable-css-colorization t
+        web-mode-enable-auto-pairing t
+        web-mode-enable-comment-keywords t
+        web-mode-enable-current-element-highlight t
+        )
+  )
+
+;;;###autoload
+(defun my/elfeed-show ()
+  (let ((inhibit-read-only t)
+        (inhibit-modification-hooks t))
+    (setq-local truncate-lines nil
+                shr-width 85)
+    (set-buffer-modified-p nil))
+  (setq-local left-margin-width 15
+              right-margin-width 15)
+  )
+
+;;;###autoload
+(defun my/elfeed ()
+  (interactive)
+  (elfeed-goodies/setup)
+  (setq elfeed-goodies/feed-source-column-width 35
+        elfeed-goodies/tag-column-width 25)
+  (setq elfeed-search-filter "@2-days-ago"
+        elfeed-show-entry-switch #'my/show-elfeed)
+  (setq rmh-elfeed-org-files (list "~/gdrive/feed/elfeed.org"))
+  (elfeed-org)
+  (elfeed)
+  )
+
+;;;###autoload
+(defun my/magit ()
+  (interactive)
+  (evil-magit-init)
+  (magit)
+  )

@@ -118,6 +118,21 @@
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))
   )
 
+(use-package git-gutter
+  :defer t
+  :init
+  (global-git-gutter-mode 1)
+  )
+
+;; (use-package evil-magit
+;;   :defer 2
+;;   :after evil
+;;   :init
+;;   (evil-magit-init)
+;;   :config
+;;   (bind-key "q" #'my/magit-kill-buffers magit-status-mode-map)
+;;   )
+
 ;;;###autoload
 (defun my/editor-text-config ()
   (whitespace-mode +1)
