@@ -11,7 +11,7 @@
 (add-hook 'emacs-startup-hook #'my/after-startup)
 
 (add-hook 'rjsx-mode-hook #'my/rjsx-config)
-(add-hook 'typscript-mode-hook #'my/typescript-config)
+(add-hook 'typescript-mode-hook #'my/typescript-config)
 (add-hook 'web-mode-hook #'my/web-config)
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)

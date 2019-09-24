@@ -164,7 +164,7 @@
  :keymaps 'elfeed-search-mode-map
  "RET" 'elfeed-search-show-entry
  "!" 'elfeed-update
- "q" 'quit-window
+ "q" 'kill-this-buffer
  "n" 'elfeed-unjam
  "w" 'elfeed-web-start
  "W" 'elfeed-web-stop
