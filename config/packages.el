@@ -33,6 +33,7 @@
     evil-nerd-commenter
     evil-surround
     evil-visualstar
+    exec-path-from-shell
     expand-region
     flycheck
     flycheck-kotlin
@@ -56,9 +57,11 @@
     rainbow-mode
     ranger
     rjsx-mode
+    smex
     tabbar
     tide
     typescript-mode
+    use-package
     web-mode
     wgrep
     which-key

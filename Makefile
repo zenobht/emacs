@@ -18,8 +18,8 @@ pull:
 	echo "-*- mode: compilation -*-"
 	git pull 2>&1
 
-upgrade: pull
-	cd $(BASEDIR) && $(emacs) -batch -l packages.el 2>&1
+upgrade:
+	cd $(BASEDIR) && $(emacs) -batch -l config/packages.el 2>&1 | tee -a ~/Library/Logs/emacs.log
 
 up: upgrade
 	$(emacs) -Q -l init.el

@@ -362,7 +362,7 @@ inserted. "
 (defun my/shorten-vc-mode-line (string)
   (cond
    ((string-prefix-p "Git" string)
-    (concat "\ue0a0 " (magit-get-current-branch)))
+    (concat "\ue0a0 " (substring string 4)))
    (t
     string)))
 
@@ -443,7 +443,6 @@ inserted. "
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
-  (require 'b-modeline)
   (require 'nord-theme)
   (load-theme 'nord t)
   ;; set proper gc values after load
