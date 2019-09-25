@@ -99,13 +99,7 @@
 (global-auto-revert-mode 1)
 (setq auto-revert-verbose nil)
 
-(require 'b-evil)
-(require 'b-ivy)
 (require 'hooks)
-(require 'keybindings)
-(require 'b-files)
-(require 'b-projectile)
-(require 'b-elfeed)
 
 (add-to-list 'auto-mode-alist '("\\.kt$" . kotlin-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
@@ -162,12 +156,12 @@
                                'help-echo
                                "Evil mode"))
             " %I "
-            (:eval (when (projectile-project-p)
-                     (propertize (concat " [" (projectile-project-name) "] ")
-                                 'face (if (my/selected-window-active)
-                                           '(:inherit font-lock-string-face :weight bold))
-                                 'help-echo "Project Name")
-                     ))
+            (:eval (projectile-mode (when (projectile-project-p)
+                                      (propertize (concat " [" (projectile-project-name) "] ")
+                                                  'face (if (my/selected-window-active)
+                                                            '(:inherit font-lock-string-face :weight bold))
+                                                  'help-echo "Project Name")
+                                      )))
             " "
             mode-line-buffer-identification
             " "

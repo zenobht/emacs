@@ -238,6 +238,11 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 \(fn BUFFER)" nil nil)
 
+(autoload 'my/emacs-lisp-config "functions" "\
+
+
+\(fn)" nil nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))

@@ -435,6 +435,12 @@ inserted. "
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
+  (require 'b-evil)
+  (require 'b-ivy)
+  (require 'keybindings)
+  (require 'b-files)
+  (require 'b-projectile)
+  (require 'b-elfeed)
   (require 'nord-theme)
   (load-theme 'nord t)
   (evil-magit-init)
@@ -497,3 +503,9 @@ inserted. "
   (cond ((string-match "^*" (buffer-name buffer)) nil)
         ((string-match "elfeed.org" (buffer-name buffer)) nil)
         (t t)))
+
+;;;###autoload
+(defun my/emacs-lisp-config ()
+  (flycheck-mode -1)
+  (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+  )

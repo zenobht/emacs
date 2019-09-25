@@ -2,7 +2,7 @@
 (add-hook 'prog-mode-hook #'my/editor-prog-config)
 
 (add-hook 'after-change-major-mode-hook #'my/configure)
-(add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
+(add-hook 'emacs-lisp-mode-hook #'my/emacs-lisp-config)
 (add-hook 'conf-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
 
 (add-hook 'emacs-startup-hook #'my/after-startup)
