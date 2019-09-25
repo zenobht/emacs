@@ -20,9 +20,7 @@
       )
   )
 
-(setq-default electric-indent-inhibit t
-              evil-shift-width 2
-              )
+(setq-default evil-shift-width 2)
 
 (setq
  package-quickstart t

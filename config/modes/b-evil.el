@@ -88,4 +88,15 @@
   :after evil-leader
   )
 
+(use-package evil-smartparens
+  :defer t
+  :ensure smartparens
+  )
+
+;;;###autoload
+(defun my/evil-smartparens ()
+  (setq sp-highlight-pair-overlay nil)
+  (evil-smartparens-mode)
+  )
+
 (provide 'b-evil)

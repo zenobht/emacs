@@ -19,7 +19,6 @@
     counsel-projectile
     display-line-numbers
     dumb-jump
-    electric
     elfeed
     elfeed-goodies
     elfeed-org
@@ -31,6 +30,7 @@
     evil-magit
     evil-multiedit
     evil-nerd-commenter
+    evil-smartparens
     evil-surround
     evil-visualstar
     exec-path-from-shell
@@ -57,6 +57,7 @@
     rainbow-mode
     ranger
     rjsx-mode
+    smartparens
     smex
     tabbar
     tide

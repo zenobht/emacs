@@ -64,14 +64,6 @@
 (use-package hideshow
   :defer t)
 
-(use-package electric
-  :defer t
-  :init
-  (electric-pair-mode 1)
-  :config
-  (push '(?\' . ?\') electric-pair-pairs)
-  )
-
 (use-package expand-region
   :defer t
   :after evil
@@ -135,6 +127,7 @@
   (whitespace-mode +1)
   (display-line-numbers-mode +1)
   (visual-line-mode -1)
+  (smartparens-mode +1)
   )
 
 ;;;###autoload
@@ -146,6 +139,7 @@
   (rainbow-mode +1)
   (highlight-thing-mode +1)
   (flycheck-mode +1)
+  (smartparens-mode +1)
   )
 
 (provide 'b-editor)

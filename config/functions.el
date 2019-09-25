@@ -123,14 +123,6 @@ Don't mess with special buffers."
       (kill-buffer buffer))))
 
 ;;;###autoload
-(defun my/disable-in-minibuffer ()
-  (electric-pair-mode -1))
-
-;;;###autoload
-(defun my/enable-on-minibuffer-exit ()
-  (electric-pair-mode +1))
-
-;;;###autoload
 (defun simple-mode-line-render (left right)
   "Return a string of `window-width' length containing LEFT, and RIGHT aligned respectively."
   (let* ((available-width (- (window-total-width) (+ (length (format-mode-line left)) (length (format-mode-line right))))))
@@ -469,7 +461,7 @@ inserted. "
   (add-node-modules-path)
   (prettier-js-mode)
   (tide-setup)
-  (push '(?\< . ?\>) electric-pair-pairs)
+  (sp-local-pair 'typescript-mode "\<" "\>")
 ;; (typescript-mode . tide-hl-identifier-mode)
 ;; (before-save . tide-format-before-save)
   )

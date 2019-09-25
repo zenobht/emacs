@@ -68,16 +68,6 @@ Don't mess with special buffers.
 
 \(fn)" t nil)
 
-(autoload 'my/disable-in-minibuffer "functions" "\
-
-
-\(fn)" nil nil)
-
-(autoload 'my/enable-on-minibuffer-exit "functions" "\
-
-
-\(fn)" nil nil)
-
 (autoload 'simple-mode-line-render "functions" "\
 Return a string of `window-width' length containing LEFT, and RIGHT aligned respectively.
 
@@ -253,7 +243,7 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
 
 ;;;***
 
@@ -267,6 +257,16 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 \(fn)" nil nil)
 
 (autoload 'my/editor-prog-config "modes/b-editor" "\
+
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads nil "modes/b-evil" "modes/b-evil.el" (0 0 0 0))
+;;; Generated autoloads from modes/b-evil.el
+
+(autoload 'my/evil-smartparens "modes/b-evil" "\
 
 
 \(fn)" nil nil)
@@ -302,8 +302,10 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil nil ("hooks.el" "modes/b-ivy.el" "modes/b-org.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
+;;;;;;  "modes/b-files.el" "modes/b-ivy.el" "modes/b-js.el" "modes/b-kotlin.el"
+;;;;;;  "modes/b-markdown.el" "modes/b-org.el" "modes/b-projectile.el"
+;;;;;;  "modes/b-python.el" "modes/b-yaml.el") (0 0 0 0))
 
 ;;;***
 

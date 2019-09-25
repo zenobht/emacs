@@ -1,6 +1,3 @@
-(add-hook 'minibuffer-setup-hook #'my/disable-in-minibuffer)
-(add-hook 'minibuffer-exit-hook #'my/enable-on-minibuffer-exit)
-
 (add-hook 'text-mode-hook #'my/editor-text-config)
 (add-hook 'prog-mode-hook #'my/editor-prog-config)
 
@@ -19,5 +16,7 @@
 
 (add-hook 'elfeed-search-update-hook #'my/elfeed-search-add-separators)
 (add-hook 'elfeed-show-mode-hook #'my/elfeed-show)
+
+(add-hook 'smartparens-enabled-hook #'my/evil-smartparens)
 
 (provide 'hooks)
