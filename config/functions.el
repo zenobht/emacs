@@ -512,7 +512,9 @@ inserted. "
 
 ;;;###autoload
 (defun my/python-config ()
+  (add-to-list 'exec-path "/usr/local/anaconda3/bin")
   (setq python-shell-interpreter "ipython3"
+        python-indent-offset 4
         elpy-rpc-python-command "python3"
         python-shell-interpreter-args "-i --simple-prompt"
         )
