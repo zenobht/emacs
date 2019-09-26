@@ -18,5 +18,6 @@
 (add-hook 'elfeed-show-mode-hook #'my/elfeed-show)
 
 (add-hook 'smartparens-enabled-hook #'my/evil-smartparens)
+(add-hook 'python-mode-hook #'my/python-config)
 
 (provide 'hooks)

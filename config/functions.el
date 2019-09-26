@@ -509,3 +509,13 @@ inserted. "
   (flycheck-mode -1)
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
   )
+
+;;;###autoload
+(defun my/python-config ()
+  (setq python-shell-interpreter "ipython3"
+        elpy-rpc-python-command "python3"
+        python-shell-interpreter-args "-i --simple-prompt"
+        )
+  (pyvenv-mode)
+  (elpy-enable)
+  )

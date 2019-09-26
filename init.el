@@ -54,6 +54,7 @@
 
 (add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))
 
+(set-default-coding-systems 'utf-8)
 (set-terminal-coding-system  'utf-8)
 (set-keyboard-coding-system  'utf-8)
 (set-language-environment    'utf-8)
@@ -107,6 +108,7 @@
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|jsx\\)\\'" . rjsx-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
 
 (set-frame-parameter nil 'buffer-predicate 'my/buffer-predicate)
 

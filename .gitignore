@@ -3,6 +3,7 @@
 .custom.el
 .git
 .projectile
+elpy
 auto-save-list
 bookmarks
 elpa
