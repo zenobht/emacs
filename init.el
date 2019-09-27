@@ -52,8 +52,6 @@
 
 (setq-default indent-tabs-mode nil)
 
-(add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))
-
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system  'utf-8)
 (set-keyboard-coding-system  'utf-8)
@@ -93,8 +91,7 @@
   (setq exec-path-from-shell-arguments '("-l"))
   (exec-path-from-shell-initialize)
   (require 'use-package)
-  (require 'general)
-  (require 'smex)
+  (require 'b-projectile)
   )
 
 (global-auto-revert-mode 1)
@@ -158,12 +155,12 @@
                                'help-echo
                                "Evil mode"))
             " %I "
-            (:eval (projectile-mode (when (projectile-project-p)
+            (:eval (when (projectile-project-p)
                                       (propertize (concat " [" (projectile-project-name) "] ")
                                                   'face (if (my/selected-window-active)
                                                             '(:inherit font-lock-string-face :weight bold))
                                                   'help-echo "Project Name")
-                                      )))
+                                      ))
             " "
             mode-line-buffer-identification
             " "

@@ -435,11 +435,12 @@ inserted. "
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
+  (require 'general)
+  (require 'smex)
   (require 'b-evil)
   (require 'b-ivy)
   (require 'keybindings)
   (require 'b-files)
-  (require 'b-projectile)
   (require 'b-elfeed)
   (require 'nord-theme)
   (load-theme 'nord t)

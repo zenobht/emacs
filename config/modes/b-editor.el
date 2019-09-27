@@ -47,7 +47,7 @@
   (setq
    company-idle-delay 0 ; Delay to complete
    company-dabbrev-downcase 0
-   company-minimum-prefix-length 2
+   company-minimum-prefix-length 0
    company-selection-wrap-around t ; Loops around suggestions
    company-show-numbers t
    company-frontends '(
