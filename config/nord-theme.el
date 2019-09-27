@@ -66,6 +66,12 @@
   :group 'nord
   )
 
+(defcustom nord-theme-inactive-color "#8d94a1"
+  "Nord inactive color for comments, inactive modeline and unselected tabbar item"
+  :type 'string
+  :group 'nord
+  )
+
 (defun isTrueColor()
   (if (or (display-graphic-p) (string= (exec-path-from-shell-getenv "TERM") "xterm-24bit"))
      t
@@ -102,7 +108,7 @@
   (nord-annotation (if true-color-p "#D08770" "brightyellow"))
   (nord-attribute (if true-color-p "#8FBCBB" "cyan"))
   (nord-class (if true-color-p "#8FBCBB" "cyan"))
-  (nord-comment (if true-color-p "#7b88a1" "color-244"))
+  (nord-comment (if true-color-p nord-theme-inactive-color "color-244"))
   (nord-escape (if true-color-p "#D08770" "brightyellow"))
   (nord-method (if true-color-p "#88C0D0" "brightcyan"))
   (nord-keyword (if true-color-p "#81A1C1" "blue"))
@@ -121,8 +127,8 @@
     (string= nord-region-highlight "frost") "#88C0D0"
       (if (string= nord-region-highlight "snowstorm") "#D8DEE9" "#434C5E")))
   (nord-uniform-mode-lines-background (if nord-uniform-mode-lines "#4C566A" "black"))
-  (nord-inactive-modeline-foreground "#6c6c6c")
-  (nord-tabbar-foreground "#8d94a1")
+  (nord-inactive-modeline-foreground nord-theme-inactive-color)
+  (nord-tabbar-foreground nord-theme-inactive-color)
   )
 
 ;;;; +------------+

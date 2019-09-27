@@ -151,6 +151,7 @@
  "TAB" 'neotree-enter
  "g" 'neotree-refresh
  "h" 'neotree-select-up-node
+ "l" 'neotree-enter
  "n" 'neotree-next-line
  "p" 'neotree-previous-line
  "r" 'neotree-refresh
