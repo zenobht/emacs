@@ -140,15 +140,21 @@
 (general-define-key
  :states 'normal
  :keymaps 'neotree-mode-map
- "TAB" 'neotree-enter
- "SPC" 'neotree-quick-look
- "q" 'neotree-hide
+ "+" 'make-directory
+ "-" 'find-file
+ "A" 'neotree-stretch-toggle
+ "D" 'neotree-delete-node
+ "H" 'neotree-hidden-file-toggle
+ "R" 'neotree-rename-node
  "RET" 'neotree-enter
+ "SPC" 'neotree-quick-look
+ "TAB" 'neotree-enter
  "g" 'neotree-refresh
+ "h" 'neotree-select-up-node
  "n" 'neotree-next-line
  "p" 'neotree-previous-line
- "A" 'neotree-stretch-toggle
- "H" 'neotree-hidden-file-toggle
+ "r" 'neotree-refresh
+ "q" 'neotree-hide
  )
 
 (general-define-key
