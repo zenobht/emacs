@@ -520,4 +520,7 @@ inserted. "
         )
   (pyvenv-mode)
   (elpy-enable)
+  (mapcar (lambda (x) (setq elpy-modules (delq x elpy-modules)))
+          '(elpy-module-flymake elpy-module-company))
+  (highlight-indentation-mode -1)
   )

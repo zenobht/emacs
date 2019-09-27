@@ -1,5 +1,7 @@
 (use-package elpy
+  :ensure python-mode
+  :defer t)
+
+(use-package python-mode
   :defer t
-  :init
-  (advice-add 'python-mode :before 'elpy-enable)
   )
