@@ -47,21 +47,6 @@
   The theme has to be reloaded after changing anything in this group."
   :group 'faces)
 
-(defcustom nord-comment-brightness 10
-  "Allows to define a custom comment color brightness with percentage adjustments from 0% - 20%.
-  As of version 0.4.0, this variable is obsolete/deprecated and has no effect anymore and will be removed in version 1.0.0!
-  The comment color brightness has been increased by 10% by default.
-  Please see https://github.com/arcticicestudio/nord-emacs/issues/73 for more details."
-  :type 'integer
-  :group 'nord)
-
-(make-obsolete-variable
-  'nord-comment-brightness
-  "The custom color brightness feature has been deprecated and will be removed in version 1.0.0!
-  The comment color brightness has been increased by 10% by default.
-  Please see https://github.com/arcticicestudio/nord-emacs/issues/73 for more details."
-  "0.4.0")
-
 (defcustom nord-region-highlight "snowstorm"
   "Allows to set a region highlight style based on the Nord components.
   Valid styles are
@@ -80,24 +65,6 @@
   :type 'boolean
   :group 'nord
   )
-
-(setq nord-theme--brightened-comments '("#4c566a" "#4e586d" "#505b70" "#525d73" "#556076" "#576279" "#59647c" "#5b677f" "#5d6982" "#5f6c85" "#616e88" "#63718b" "#66738e" "#687591" "#6a7894" "#6d7a96" "#6f7d98" "#72809a" "#75829c" "#78859e" "#7b88a1"))
-
-(defun nord-theme--brightened-comment-color (percent)
-  "Returns the brightened comment color for the given percent.
-  The value must be greater or equal to 0 and less or equal to 20, otherwise the default 'nord3' color is used.
-  As of version 0.4.0, this function is obsolete/deprecated and has no effect anymore and will be removed in version 1.0.0!
-  The comment color brightness has been increased by 10% by default.
-  Please see https://github.com/arcticicestudio/nord-emacs/issues/73 for more details."
-  (nth 10 nord-theme--brightened-comments))
-
-(make-obsolete
-  'nord-theme--brightened-comment-color
-  "The custom color brightness feature has been deprecated and will be removed in version 1.0.0!\
-  The comment color brightness has been increased by 10% by default.\
-  Please see https://github.com/arcticicestudio/nord-emacs/issues/73 for more details."
-  "0.4.0")
-
 
 (defun isTrueColor()
   (if (or (display-graphic-p) (string= (exec-path-from-shell-getenv "TERM") "xterm-24bit"))
@@ -135,7 +102,7 @@
   (nord-annotation (if true-color-p "#D08770" "brightyellow"))
   (nord-attribute (if true-color-p "#8FBCBB" "cyan"))
   (nord-class (if true-color-p "#8FBCBB" "cyan"))
-  (nord-comment (if true-color-p (nord-theme--brightened-comment-color nord-comment-brightness) "color-244"))
+  (nord-comment (if true-color-p "#7b88a1" "color-244"))
   (nord-escape (if true-color-p "#D08770" "brightyellow"))
   (nord-method (if true-color-p "#88C0D0" "brightcyan"))
   (nord-keyword (if true-color-p "#81A1C1" "blue"))
