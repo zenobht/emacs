@@ -3,15 +3,16 @@
 .custom.el
 .git
 .projectile
-elpy
 auto-save-list
 bookmarks
 elpa
+elpy
 eshell
 network-security.data
 org-gcal
 projectile*
 recentf*
+request
 smex-items
 transient
 vimish-fold
