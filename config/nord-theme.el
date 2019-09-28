@@ -668,7 +668,7 @@
     `(hydra-face-amaranth ((,class (:foreground ,nord12 :weight bold))))
 
     ;; > Highlight-thing
-    `(highlight-thing ((,class (:background ,nord3))))
+    `(highlight-thing ((,class (:background ,nord-theme-inactive-color :foreground ,nord0))))
 
     ;; > Org
     `(org-level-1 ((,class (:foreground ,nord13 :weight bold))))
