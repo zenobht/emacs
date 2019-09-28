@@ -253,7 +253,7 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
 
 ;;;***
 
@@ -283,6 +283,51 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 ;;;***
 
+;;;### (autoloads nil "modes/highlight-thing" "modes/highlight-thing.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from modes/highlight-thing.el
+
+(autoload 'highlight-thing-mode "modes/highlight-thing" "\
+Minor mode that highlights things at point
+
+\(fn &optional ARG)" t nil)
+
+(defvar global-highlight-thing-mode nil "\
+Non-nil if Global highlight-thing mode is enabled.
+See the `global-highlight-thing-mode' command
+for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `global-highlight-thing-mode'.")
+
+(custom-autoload 'global-highlight-thing-mode "modes/highlight-thing" nil)
+
+(autoload 'global-highlight-thing-mode "modes/highlight-thing" "\
+Toggle Highlight-thing mode in all buffers.
+With prefix ARG, enable Global highlight-thing mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
+
+Highlight-thing mode is enabled in all buffers where
+`highlight-thing-mode-maybe-activate' would do it.
+See `highlight-thing-mode' for more information on Highlight-thing mode.
+
+\(fn &optional ARG)" t nil)
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "modes/highlight-thing" '("highlight-thing-")))
+
+;;;***
+
+;;;### (autoloads nil "modes/nord-theme" "modes/nord-theme.el" (0
+;;;;;;  0 0 0))
+;;; Generated autoloads from modes/nord-theme.el
+
+(when (and (boundp 'custom-theme-load-path) load-file-name) (add-to-list 'custom-theme-load-path (file-name-as-directory (file-name-directory load-file-name))))
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "modes/nord-theme" '("nord")))
+
+;;;***
+
 ;;;### (autoloads nil "modes/prettier-js" "modes/prettier-js.el"
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from modes/prettier-js.el
@@ -296,15 +341,6 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil "nord-theme" "nord-theme.el" (0 0 0 0))
-;;; Generated autoloads from nord-theme.el
-
-(when (and (boundp 'custom-theme-load-path) load-file-name) (add-to-list 'custom-theme-load-path (file-name-as-directory (file-name-directory load-file-name))))
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nord-theme" '("nord")))
-
-;;;***
-
 ;;;### (autoloads nil "packages" "packages.el" (0 0 0 0))
 ;;; Generated autoloads from packages.el
 
@@ -313,9 +349,9 @@ Runs prettier on file save when this mode is turned on
 ;;;***
 
 ;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
-;;;;;;  "modes/b-ivy.el" "modes/b-js.el" "modes/b-kotlin.el" "modes/b-markdown.el"
-;;;;;;  "modes/b-org.el" "modes/b-projectile.el" "modes/b-yaml.el")
-;;;;;;  (0 0 0 0))
+;;;;;;  "modes/b-files.el" "modes/b-ivy.el" "modes/b-js.el" "modes/b-kotlin.el"
+;;;;;;  "modes/b-markdown.el" "modes/b-org.el" "modes/b-projectile.el"
+;;;;;;  "modes/b-python.el" "modes/b-yaml.el") (0 0 0 0))
 
 ;;;***
 

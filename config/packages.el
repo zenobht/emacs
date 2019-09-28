@@ -41,7 +41,6 @@
     general
     git-gutter
     hideshow
-    highlight-thing
     hippie-expand
     hl-line
     ivy

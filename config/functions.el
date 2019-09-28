@@ -436,6 +436,7 @@ inserted. "
            gcs-done)
 
   (require 'general)
+  (require 'highlight-thing)
   (require 'smex)
   (require 'b-evil)
   (require 'b-ivy)
@@ -446,6 +447,7 @@ inserted. "
   (load-theme 'nord t)
   (evil-magit-init)
   (require 'b-essentials)
+  (require 'b-editor)
 
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
