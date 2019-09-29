@@ -438,21 +438,21 @@ inserted. "
   (require 'general)
   (require 'highlight-thing)
   (require 'smex)
-  (require 'b-evil)
   (require 'b-ivy)
-  (require 'keybindings)
   (require 'b-files)
   (require 'b-elfeed)
   (require 'nord-theme)
-  (load-theme 'nord t)
-  (evil-magit-init)
   (require 'b-essentials)
   (require 'b-editor)
+  (require 'keybindings)
+  (load-theme 'nord t)
+  (evil-magit-init)
 
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1
         )
+
   )
 
 ;;;###autoload
@@ -526,4 +526,11 @@ inserted. "
   (mapcar (lambda (x) (setq elpy-modules (delq x elpy-modules)))
           '(elpy-module-flymake elpy-module-company))
   (highlight-indentation-mode -1)
+  )
+
+;;;###autoload
+(defun my/json-format ()
+  (interactive)
+  (json-mode)
+  (json-pretty-print-buffer)
   )

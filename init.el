@@ -43,7 +43,7 @@
  vc-follow-symlinks t
  auto-revert-check-vc-info t
  backward-delete-char-untabify-method 'hungry
- initial-major-mode (quote text-mode)
+ initial-major-mode (quote fundamental-mode)
  mouse-wheel-progressive-speed nil
  display-buffer-alist '(("\\`\\*e?shell" display-buffer-pop-up-window))
  create-lockfiles nil
@@ -98,6 +98,7 @@
 (setq auto-revert-verbose nil)
 
 (require 'hooks)
+(require 'b-evil)
 
 (add-to-list 'auto-mode-alist '("\\.kt$" . kotlin-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))

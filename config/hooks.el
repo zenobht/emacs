@@ -19,7 +19,6 @@
 
 (add-hook 'smartparens-enabled-hook #'my/evil-smartparens)
 (add-hook 'python-mode-hook #'my/python-config)
-(add-hook 'eshell-exit-hook (lambda () (interactive) (delete-window)))
-
+(add-hook 'eshell-exit-hook 'delete-window)
 
 (provide 'hooks)

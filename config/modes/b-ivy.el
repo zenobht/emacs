@@ -6,6 +6,7 @@
   (setq ivy-use-virtual-buffers nil
         enable-recursive-minibuffers t
         ivy-wrap t
+        ivy-magic-slash-non-match-action nil
         ivy-use-selectable-prompt t
         ivy-re-builders-alist
         '(

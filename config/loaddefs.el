@@ -248,6 +248,11 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 \(fn)" nil nil)
 
+(autoload 'my/json-format "functions" "\
+
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
@@ -349,9 +354,9 @@ Runs prettier on file save when this mode is turned on
 ;;;***
 
 ;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
-;;;;;;  "modes/b-files.el" "modes/b-ivy.el" "modes/b-js.el" "modes/b-kotlin.el"
-;;;;;;  "modes/b-markdown.el" "modes/b-org.el" "modes/b-projectile.el"
-;;;;;;  "modes/b-python.el" "modes/b-yaml.el") (0 0 0 0))
+;;;;;;  "modes/b-files.el" "modes/b-js.el" "modes/b-kotlin.el" "modes/b-markdown.el"
+;;;;;;  "modes/b-org.el" "modes/b-projectile.el" "modes/b-python.el"
+;;;;;;  "modes/b-yaml.el") (0 0 0 0))
 
 ;;;***
 

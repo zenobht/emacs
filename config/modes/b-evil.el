@@ -8,11 +8,8 @@
   (evil-mode)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
-  (eval-after-load 'evil-ex
-    '(evil-ex-define-cmd "jsf" (lambda ()
-                                 (interactive)
-                                 (json-mode)
-                                 (json-pretty-print-buffer))))
+  (with-eval-after-load 'evil-ex
+    (evil-ex-define-cmd "jsf" 'my/json-format))
 
   (evil-define-operator evil-move-up (beg end)
     "Move region up by one line."
