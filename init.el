@@ -97,8 +97,22 @@
 (global-auto-revert-mode 1)
 (setq auto-revert-verbose nil)
 
-(require 'hooks)
 (require 'b-evil)
+(use-package ranger
+  :config
+  (ranger-override-dired-mode t)
+  (setq ranger-cleanup-on-disable t
+        ranger-listing-dir-first t
+        ranger-persistent-sort t
+        )
+  (if (not (display-graphic-p))
+      (setq ranger-footer-delay nil)
+    )
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired nil))
+  )
+
+(require 'hooks)
 
 (add-to-list 'auto-mode-alist '("\\.kt$" . kotlin-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
