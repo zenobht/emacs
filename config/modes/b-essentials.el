@@ -20,13 +20,6 @@
   :defer t
   )
 
-(use-package frog-jump-buffer
-  :defer t
-  :after evil-leader
-  :init
-  (setq frog-jump-buffer-default-filter 'frog-jump-buffer-filter-same-project)
-  )
-
  (use-package ace-window
    :init
    (setq
@@ -35,21 +28,5 @@
     aw-background nil
     )
    )
-
-(use-package tabbar
-  :hook ((special-mode) . tabbar-local-mode)
-  :init
-  (tabbar-mode)
-  :config
-  (setq
-   tabbar-background-color nil
-   tabbar-home-button-value nil
-   tabbar-buffer-home-button (quote (("[+]") ""))
-   tabbar-home-button (quote (("[+]") ""))
-   tabbar-scroll-left-button (quote ((" <") ""))
-   tabbar-scroll-right-button (quote ((" >") ""))
-   tabbar-buffer-groups-function 'my/tabbar-buffer-groups
-   tabbar-separator (quote ("  ")))
-  )
 
 (provide 'b-essentials)

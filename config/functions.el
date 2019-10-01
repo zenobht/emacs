@@ -428,6 +428,12 @@ inserted. "
 
 ;;;###autoload
 (defun my/after-startup ()
+  (require 'b-ivy)
+  (require 'keybindings)
+  (require 'b-tabbar)
+  (require 'nord-theme)
+  (require 'b-modeline)
+
   (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))
   (message "Emacs ready in %s with %d garbage collections."
            (format "%.2f seconds"
@@ -435,23 +441,11 @@ inserted. "
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
-  (require 'general)
-  (require 'highlight-thing)
-  (require 'smex)
-  (require 'b-ivy)
-  (require 'b-files)
-  (require 'b-elfeed)
-  (require 'nord-theme)
-  (require 'b-essentials)
-  (require 'b-editor)
-  (require 'keybindings)
-  (evil-magit-init)
-
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1
         )
-
+  (evil-magit-init)
   )
 
 ;;;###autoload

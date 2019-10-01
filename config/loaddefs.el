@@ -298,6 +298,14 @@ If you're saving an Emacs Lisp file, likely the .elc is no longer valid.
 
 ;;;***
 
+;;;### (autoloads nil "modes/b-modeline" "modes/b-modeline.el" (0
+;;;;;;  0 0 0))
+;;; Generated autoloads from modes/b-modeline.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "modes/b-modeline" '("my/mode-line-coding-format" "ml-selected-window")))
+
+;;;***
+
 ;;;### (autoloads nil "modes/highlight-thing" "modes/highlight-thing.el"
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from modes/highlight-thing.el
@@ -363,8 +371,8 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
-;;;;;;  "modes/b-files.el" "modes/b-js.el" "modes/b-kotlin.el" "modes/b-markdown.el"
+;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-ivy.el"
+;;;;;;  "modes/b-js.el" "modes/b-kotlin.el" "modes/b-markdown.el"
 ;;;;;;  "modes/b-org.el" "modes/b-projectile.el" "modes/b-python.el"
 ;;;;;;  "modes/b-yaml.el") (0 0 0 0))
 

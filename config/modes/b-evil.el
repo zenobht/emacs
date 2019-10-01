@@ -4,6 +4,7 @@
   (setq evil-search-module 'evil-search
         ;; evil-insert-state-message nil
         evil-want-C-i-jump nil
+        evil-shift-width 2
         )
   (evil-mode)
   :config

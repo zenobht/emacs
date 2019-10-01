@@ -733,10 +733,4 @@
     (file-name-as-directory (file-name-directory load-file-name))))
 
 (provide-theme 'nord)
-
-;; Local Variables:
-;; no-byte-compile: t
-;; indent-tabs-mode: nil
-;; End:
-
 ;;; nord-theme.el ends here
