@@ -1,4 +1,5 @@
 **/.DS_Store
+*.elc
 .cache
 .custom.el
 .git

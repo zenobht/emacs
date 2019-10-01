@@ -233,11 +233,6 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 \(fn)" nil nil)
 
-(autoload 'my/buffer-predicate "functions" "\
-
-
-\(fn BUFFER)" nil nil)
-
 (autoload 'my/emacs-lisp-config "functions" "\
 
 
@@ -252,6 +247,21 @@ Create parent directory if not exists while visiting file." (unless (file-exists
 
 
 \(fn)" t nil)
+
+(autoload 'my/byte-compile-init-dir "functions" "\
+Byte-compile all your dotfiles.
+
+\(fn)" t nil)
+
+(autoload 'my/clear-old-byte-compile-file "functions" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'my/remove-elc-on-save "functions" "\
+If you're saving an Emacs Lisp file, likely the .elc is no longer valid.
+
+\(fn)" nil nil)
 
 ;;;***
 

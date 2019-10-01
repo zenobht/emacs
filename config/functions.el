@@ -445,7 +445,6 @@ inserted. "
   (require 'b-essentials)
   (require 'b-editor)
   (require 'keybindings)
-  (load-theme 'nord t)
   (evil-magit-init)
 
   ;; set proper gc values after load
@@ -502,15 +501,10 @@ inserted. "
   )
 
 ;;;###autoload
-(defun my/buffer-predicate (buffer)
-  (cond ((string-match "^*" (buffer-name buffer)) nil)
-        ((string-match "elfeed.org" (buffer-name buffer)) nil)
-        (t t)))
-
-;;;###autoload
 (defun my/emacs-lisp-config ()
   (flycheck-mode -1)
   (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
+  (my/remove-elc-on-save)
   )
 
 ;;;###autoload
@@ -533,4 +527,24 @@ inserted. "
   (interactive)
   (json-mode)
   (json-pretty-print-buffer)
+  )
+
+;;;###autoload
+(defun my/byte-compile-init-dir ()
+  "Byte-compile all your dotfiles."
+  (interactive)
+  (byte-recompile-directory user-emacs-directory 0)
+  )
+
+;;;###autoload
+(defun my/clear-old-byte-compile-file ()
+  (if (file-exists-p (concat buffer-file-name "c"))
+      (delete-file (concat buffer-file-name "c")))
+  (byte-compile-file (buffer-file-name))
+  )
+
+;;;###autoload
+(defun my/remove-elc-on-save ()
+  "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
+  (add-hook 'after-save-hook #'my/clear-old-byte-compile-file nil t)
   )
