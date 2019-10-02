@@ -33,7 +33,6 @@
     evil-smartparens
     evil-surround
     evil-visualstar
-    exec-path-from-shell
     expand-region
     flycheck
     flycheck-kotlin

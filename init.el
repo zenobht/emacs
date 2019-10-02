@@ -2,6 +2,7 @@
       gc-cons-threshold 402653184
       gc-cons-percentage 0.6
       file-name-handler-alist nil
+      TERM (getenv-internal "TERM" initial-environment)
       )
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -80,16 +81,7 @@
       '(("melpa" . "https://melpa.org/packages/")
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
-(let ((file-name-handler-alist nil))
-  (require 'exec-path-from-shell)
-  (setq exec-path-from-shell-arguments '("-l"))
-  (exec-path-from-shell-initialize)
-  (require 'use-package)
-  )
-
-;; (global-auto-revert-mode 1)
-;; (setq auto-revert-verbose nil)
-
+(require 'use-package)
 (use-package ranger
   :config
   (ranger-override-dired-mode t)
@@ -104,6 +96,9 @@
     (setq dired-use-ls-dired nil))
   )
 (require 'hooks)
+
+;; (global-auto-revert-mode 1)
+;; (setq auto-revert-verbose nil)
 
 (add-to-list 'auto-mode-alist '("\\.kt$" . kotlin-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))

@@ -429,10 +429,10 @@ inserted. "
 ;;;###autoload
 (defun my/after-startup ()
   (require 'b-ivy)
-  (require 'keybindings)
   (require 'b-tabbar)
   (require 'nord-theme)
   (require 'b-modeline)
+  (require 'keybindings)
 
   (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))
   (message "Emacs ready in %s with %d garbage collections."

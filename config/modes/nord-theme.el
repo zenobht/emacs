@@ -73,7 +73,7 @@
   )
 
 (defun isTrueColor()
-  (if (or (display-graphic-p) (string= (exec-path-from-shell-getenv "TERM") "xterm-24bit"))
+  (if (or (display-graphic-p) (string= TERM "xterm-24bit"))
      t
      nil
     )
