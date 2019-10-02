@@ -105,6 +105,7 @@
 (use-package flycheck
   :defer t
   :config
+  (setq flycheck-checker-error-threshold 2000)
   (advice-add 'flycheck-eslint-config-exists-p :override (lambda() t))
   )
 

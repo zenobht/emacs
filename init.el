@@ -14,6 +14,7 @@
 (add-to-list 'load-path (expand-file-name "modes/" emacs-d))
 (package-initialize)
 (setq-default custom-file (expand-file-name ".custom.el" user-emacs-directory)
+              mode-line-format nil
               indent-tabs-mode nil)
 
 (if (display-graphic-p)
