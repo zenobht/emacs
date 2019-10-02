@@ -3,6 +3,7 @@
       gc-cons-percentage 0.6
       file-name-handler-alist nil
       TERM (getenv-internal "TERM" initial-environment)
+      PATH (getenv-internal "PATH" initial-environment)
       )
 
 (fset 'yes-or-no-p 'y-or-n-p)

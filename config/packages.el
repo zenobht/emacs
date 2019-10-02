@@ -14,15 +14,16 @@
     ace-window
     add-node-modules-path
     all-the-icons
+    anaconda-mode
     company
     company-tabnine
     counsel-projectile
     display-line-numbers
     dumb-jump
+    eglot
     elfeed
     elfeed-goodies
     elfeed-org
-    elpy
     emmet-mode
     esup
     evil
@@ -51,6 +52,7 @@
     ov
     paradox
     projectile
+    py-autopep8
     rainbow-delimiters
     rainbow-mode
     ranger

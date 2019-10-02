@@ -4,10 +4,10 @@
 .custom.el
 .git
 .projectile
+anaconda-mode
 auto-save-list
 bookmarks
 elpa
-elpy
 eshell
 network-security.data
 org-gcal

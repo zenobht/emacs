@@ -504,16 +504,17 @@ inserted. "
 ;;;###autoload
 (defun my/python-config ()
   (add-to-list 'exec-path "/usr/local/anaconda3/bin")
-  (setq python-shell-interpreter "ipython3"
+  (setq python-shell-interpreter "ipython"
         python-indent-offset 4
-        elpy-rpc-python-command "python3"
-        python-shell-interpreter-args "-i --simple-prompt"
+        python-shell-interpreter-args "-i"
+        flycheck-python-flake8-executable "flake8"
         )
-  (pyvenv-mode)
-  (elpy-enable)
-  (mapcar (lambda (x) (setq elpy-modules (delq x elpy-modules)))
-          '(elpy-module-flymake elpy-module-company))
-  (highlight-indentation-mode -1)
+  (add-to-list 'elgot-ignored-server-capabilities ':documentHighlightProvider)
+  (eglot-ensure)
+  (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
+  (py-autopep8-enable-on-save)
+  (anaconda-mode)
+  (anaconda-eldoc-mode)
   )
 
 ;;;###autoload
