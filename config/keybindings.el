@@ -203,8 +203,11 @@
  "q" 'quit-window
  )
 
-;; elpy
-;;   :bind (("M-g g" . elpy-goto-definition))
+(my-leader-def
+  :states 'normal
+  :keymaps 'anaconda-mode-map
+  "jg" 'anaconda-mode-find-definitions
+  )
 
 (general-define-key
  :states 'normal
