@@ -83,19 +83,6 @@
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (require 'use-package)
-(use-package ranger
-  :config
-  (ranger-override-dired-mode t)
-  (setq ranger-cleanup-on-disable t
-        ranger-listing-dir-first t
-        ranger-persistent-sort t
-        )
-  (if (not (display-graphic-p))
-      (setq ranger-footer-delay nil)
-    )
-  (when (string= system-type "darwin")
-    (setq dired-use-ls-dired nil))
-  )
 (require 'hooks)
 
 ;; (global-auto-revert-mode 1)
