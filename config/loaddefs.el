@@ -374,8 +374,7 @@ Runs prettier on file save when this mode is turned on
 ;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
 ;;;;;;  "modes/b-files.el" "modes/b-ivy.el" "modes/b-js.el" "modes/b-kotlin.el"
 ;;;;;;  "modes/b-markdown.el" "modes/b-org.el" "modes/b-projectile.el"
-;;;;;;  "modes/b-python.el" "modes/b-tabbar.el" "modes/b-yaml.el")
-;;;;;;  (0 0 0 0))
+;;;;;;  "modes/b-tabbar.el" "modes/b-yaml.el") (0 0 0 0))
 
 ;;;***
 

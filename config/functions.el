@@ -432,6 +432,7 @@ inserted. "
   (require 'b-tabbar)
   (require 'nord-theme)
   (require 'b-modeline)
+  (require 'b-essentials)
   (require 'keybindings)
 
   (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))
@@ -509,12 +510,10 @@ inserted. "
         python-shell-interpreter-args "-i"
         flycheck-python-flake8-executable "flake8"
         )
-  (add-to-list 'elgot-ignored-server-capabilities ':documentHighlightProvider)
-  (eglot-ensure)
-  (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
   (py-autopep8-enable-on-save)
   (anaconda-mode)
   (anaconda-eldoc-mode)
+  (require 'b-python)
   )
 
 ;;;###autoload
