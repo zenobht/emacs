@@ -84,7 +84,6 @@
   "." '(:ignore t :which-key "Paradox")
   ".l" '(paradox-list-packages :which-key "List Packages")
   ".u" '(paradox-upgrade-packages :which-key "Update Packages")
-  ";" '(frog-jump-buffer :which-key "Quick Jump Buffer")
   "C" '(my/calendar :which-key "Calendar")
   "b" '(ivy-switch-buffer :which-key "Switch Buffer")
   "d" '(:ignore t :which-key "Dired")
@@ -110,6 +109,8 @@
   "pi" '(projectile-invalidate-cache :which-key "Invalidate cache")
   "pp" '(counsel-projectile-switch-project :which-key "Switch project")
   "t" '(eshell :which-key "Terminal")
+  "u" '(:ignore t :which-key "Utility")
+  "uu" '(my/generate-uuid :which-key "Generate UUID")
   )
 
 (general-define-key

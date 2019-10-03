@@ -543,3 +543,9 @@ inserted. "
   "If you're saving an Emacs Lisp file, likely the .elc is no longer valid."
   (add-hook 'after-save-hook #'my/clear-old-byte-compile-file nil t)
   )
+
+;;;###autoload
+(defun my/generate-uuid ()
+  (interactive)
+  (insert (shell-command-to-string "uuidgen"))
+  )

@@ -37,7 +37,6 @@
     expand-region
     flycheck
     flycheck-kotlin
-    frog-jump-buffer
     general
     git-gutter
     hideshow
