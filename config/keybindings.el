@@ -208,6 +208,14 @@
   :states 'normal
   :keymaps 'anaconda-mode-map
   "jg" 'anaconda-mode-find-definitions
+  "uf" 'eglot-format
+  )
+
+(my-leader-def
+  :states 'normal
+  :keymaps 'kotlin-mode-map
+  "jg" 'eglot-help-at-point
+  "uf" 'eglot-format
   )
 
 (general-define-key

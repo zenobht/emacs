@@ -514,7 +514,7 @@ inserted. "
   (py-autopep8-enable-on-save)
   (anaconda-mode)
   (anaconda-eldoc-mode)
-  (require 'b-python)
+  (require 'b-eglot)
   )
 
 ;;;###autoload
@@ -548,4 +548,11 @@ inserted. "
 (defun my/generate-uuid ()
   (interactive)
   (insert (shell-command-to-string "uuidgen"))
+  )
+
+;;;###autoload
+(defun my/kotlin-config ()
+  (setq-default kotlin-tab-width 4)
+  (flycheck-kotlin-setup)
+  (require 'b-eglot)
   )

@@ -268,12 +268,17 @@ If you're saving an Emacs Lisp file, likely the .elc is no longer valid.
 
 \(fn)" t nil)
 
+(autoload 'my/kotlin-config "functions" "\
+
+
+\(fn)" nil nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
 
 ;;;***
 
@@ -377,9 +382,9 @@ Runs prettier on file save when this mode is turned on
 ;;;***
 
 ;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
-;;;;;;  "modes/b-ivy.el" "modes/b-js.el" "modes/b-kotlin.el" "modes/b-markdown.el"
-;;;;;;  "modes/b-org.el" "modes/b-projectile.el" "modes/b-tabbar.el"
-;;;;;;  "modes/b-yaml.el") (0 0 0 0))
+;;;;;;  "modes/b-ivy.el" "modes/b-js.el" "modes/b-markdown.el" "modes/b-org.el"
+;;;;;;  "modes/b-projectile.el" "modes/b-tabbar.el" "modes/b-yaml.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 
