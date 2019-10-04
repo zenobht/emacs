@@ -424,7 +424,13 @@ inserted. "
         (save-buffer)))
     (mapcar #'update-directory-autoloads
             '("" "modes"))
-   ))
+    (with-current-buffer (find-file-noselect generated-autoload-file)
+      (while (search-forward ";; no-byte-compile: t\n" nil t)
+        (replace-match "")
+        (save-buffer))
+      )
+    )
+  )
 
 ;;;###autoload
 (defun my/after-startup ()
@@ -434,6 +440,7 @@ inserted. "
   (require 'b-modeline)
   (require 'b-essentials)
   (require 'b-files)
+  (require 'b-editor)
   (require 'keybindings)
 
   (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))

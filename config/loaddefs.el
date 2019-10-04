@@ -278,7 +278,7 @@ If you're saving an Emacs Lisp file, likely the .elc is no longer valid.
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
 
 ;;;***
 
@@ -381,17 +381,16 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
-;;;;;;  "modes/b-ivy.el" "modes/b-js.el" "modes/b-markdown.el" "modes/b-org.el"
-;;;;;;  "modes/b-projectile.el" "modes/b-tabbar.el" "modes/b-yaml.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("hooks.el" "modes/b-eglot.el" "modes/b-elfeed.el"
+;;;;;;  "modes/b-essentials.el" "modes/b-files.el" "modes/b-ivy.el"
+;;;;;;  "modes/b-js.el" "modes/b-markdown.el" "modes/b-org.el" "modes/b-projectile.el"
+;;;;;;  "modes/b-tabbar.el") (0 0 0 0))
 
 ;;;***
 
 (provide 'loaddefs)
 ;; Local Variables:
 ;; version-control: never
-;; no-byte-compile: t
 ;; no-update-autoloads: t
 ;; coding: utf-8
 ;; End:

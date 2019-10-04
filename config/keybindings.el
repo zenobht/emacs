@@ -78,20 +78,19 @@
 
 (my-leader-def
   :keymaps 'normal
+  "#" '(swiper :which-key "Swiper")
   "*" '(my/rg-star-search :which-key "Find Current Word")
   "+" '(make-directory :which-key "Make Directory")
   "-" '(counsel-find-file :which-key "Find File")
   "." '(:ignore t :which-key "Paradox")
   ".l" '(paradox-list-packages :which-key "List Packages")
   ".u" '(paradox-upgrade-packages :which-key "Update Packages")
+  "/" '(counsel-rg :which-key "Rg")
   "C" '(my/calendar :which-key "Calendar")
   "b" '(ivy-switch-buffer :which-key "Switch Buffer")
   "d" '(:ignore t :which-key "Dired")
   "dd" '(deer :which-key "Deer")
   "dr" '(ranger :which-key "Ranger")
-  "f" '(:ignore t :which-key "Find")
-  "ff" '(counsel-rg :which-key "Rg")
-  "fs" '(swiper :which-key "Swiper")
   "g" '(:ignore t :which-key "Git")
   "gb" '(magit-blame :which-key "Blame")
   "gg" '(magit-status :which-key "Git Status")
