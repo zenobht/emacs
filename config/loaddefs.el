@@ -273,6 +273,11 @@ If you're saving an Emacs Lisp file, likely the .elc is no longer valid.
 
 \(fn)" nil nil)
 
+(autoload 'my/magit-automated-commit "functions" "\
+
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
@@ -377,14 +382,14 @@ Runs prettier on file save when this mode is turned on
 ;;;### (autoloads nil "packages" "packages.el" (0 0 0 0))
 ;;; Generated autoloads from packages.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "packages" '(#("my/packages" 0 11 (face font-lock-variable-name-face fontified nil)))))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "packages" '("my/packages")))
 
 ;;;***
 
 ;;;### (autoloads nil nil ("hooks.el" "modes/b-eglot.el" "modes/b-elfeed.el"
 ;;;;;;  "modes/b-essentials.el" "modes/b-files.el" "modes/b-ivy.el"
-;;;;;;  "modes/b-js.el" "modes/b-markdown.el" "modes/b-org.el" "modes/b-projectile.el"
-;;;;;;  "modes/b-tabbar.el") (0 0 0 0))
+;;;;;;  "modes/b-js.el" "modes/b-markdown.el" "modes/b-org.el" "modes/b-projectile.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

@@ -563,3 +563,13 @@ inserted. "
   (flycheck-kotlin-setup)
   (require 'b-eglot)
   )
+
+;;;###autoload
+(defun my/magit-automated-commit ()
+  (interactive)
+  (magit-with-toplevel
+    (magit-stage-modified 'all)
+    (magit-run-git "commit" "-m" (concat "\"" (string-trim (shell-command-to-string "uuidgen")) "\""))
+    (magit-push-current-to-upstream)
+    )
+  )
