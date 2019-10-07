@@ -442,7 +442,6 @@ inserted. "
   (require 'b-files)
   (require 'b-editor)
   (require 'keybindings)
-
   (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))
   (message "Emacs ready in %s with %d garbage collections."
            (format "%.2f seconds"
@@ -455,6 +454,7 @@ inserted. "
         gc-cons-percentage 0.1
         )
   (evil-magit-init)
+  (unless (server-running-p) (server-start))
   )
 
 ;;;###autoload
@@ -572,4 +572,15 @@ inserted. "
     (magit-run-git "commit" "-m" (concat "\"" (string-trim (shell-command-to-string "uuidgen")) "\""))
     (magit-push-current-to-upstream)
     )
+  )
+
+;;;###autoload
+(defun my/newline-and-indent ()
+  "inserts a newline between the brackets"
+  (interactive)
+  (newline)
+  (save-excursion
+    (newline)
+    (indent-for-tab-command))
+  (indent-for-tab-command)
   )

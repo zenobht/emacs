@@ -7,7 +7,8 @@
  "C-a" (lambda () (interactive) (evil-paste-from-register ?.))
  "C-r" 'evil-paste-from-register
  "C-l" 'my/trimn-next-char
- "M-/" 'hippie-expand
+ "M-/" 'yas-expand
+ "M-i" 'my/newline-and-indent
  )
 
 (general-define-key
@@ -56,8 +57,8 @@
  "M-n" 'my/new-empty-buffer
  "M-o" 'ace-window
  "M-r" 'my/last-used-buffer
- "M-t" 'delete-window
  "M-v" (lambda () (interactive) (message "Pasted from clipboard"))
+ "M-w" 'delete-window
  "M-x" 'counsel-M-x
  )
 

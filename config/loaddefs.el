@@ -278,12 +278,17 @@ If you're saving an Emacs Lisp file, likely the .elc is no longer valid.
 
 \(fn)" t nil)
 
+(autoload 'my/newline-and-indent "functions" "\
+inserts a newline between the brackets
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
 
 ;;;***
 
