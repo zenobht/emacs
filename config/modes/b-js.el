@@ -28,3 +28,5 @@
 (use-package json-mode
   :defer t
   )
+
+(provide 'b-js)

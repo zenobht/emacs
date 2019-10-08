@@ -434,14 +434,6 @@ inserted. "
 
 ;;;###autoload
 (defun my/after-startup ()
-  (require 'b-ivy)
-  (require 'b-tabbar)
-  (require 'nord-theme)
-  (require 'b-modeline)
-  (require 'b-essentials)
-  (require 'b-files)
-  (require 'b-editor)
-  (require 'keybindings)
   (message (concat (format-time-string "%Y-%m-%dT%H:%M:%S") " in emacs-startup-hook"))
   (message "Emacs ready in %s with %d garbage collections."
            (format "%.2f seconds"
@@ -454,6 +446,8 @@ inserted. "
         gc-cons-percentage 0.1
         )
   (evil-magit-init)
+  (require 'b-org)
+  (require 'b-js)
   (unless (server-running-p) (server-start))
   )
 

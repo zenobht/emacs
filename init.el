@@ -34,6 +34,7 @@
  inhibit-startup-screen t
  inhibit-startup-message t
  initial-scratch-message ""
+ inhibit-default-init t
  scroll-margin 0
  scroll-step 1
  scroll-conservatively 10000
@@ -84,6 +85,14 @@
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (require 'use-package)
+(require 'b-ivy)
+(require 'b-tabbar)
+(require 'nord-theme)
+(require 'b-modeline)
+(require 'b-essentials)
+(require 'b-files)
+(require 'b-editor)
+(require 'keybindings)
 (require 'hooks)
 
 ;; (global-auto-revert-mode 1)
