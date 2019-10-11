@@ -39,8 +39,7 @@
     flycheck-kotlin
     general
     git-gutter
-    hideshow
-    hippie-expand
+    hippie-exp
     hl-line
     ivy
     json-mode
@@ -52,7 +51,6 @@
     paradox
     projectile
     py-autopep8
-    rainbow-delimiters
     rainbow-mode
     ranger
     rjsx-mode

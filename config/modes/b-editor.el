@@ -19,9 +19,6 @@
   :config
   (setq dumb-jump-selector 'ivy))
 
-(use-package rainbow-delimiters
-  :defer t)
-
 (use-package yasnippet
   :defer t
   :after company
@@ -61,9 +58,6 @@
 (use-package display-line-numbers
   :defer t)
 
-(use-package hideshow
-  :defer t)
-
 (use-package expand-region
   :defer t
   :after evil
@@ -88,9 +82,9 @@
   :defer t
   :after company
   :init
+  (setq company-tabnine-auto-balance nil)
   (add-to-list 'company-backends #'company-tabnine)
   :config
-  (setq company-tabnine-auto-balance nil)
   )
 
 (use-package highlight-thing
@@ -134,9 +128,7 @@
 ;;;###autoload
 (defun my/editor-prog-config ()
   (whitespace-mode +1)
-  (rainbow-delimiters-mode +1)
   (display-line-numbers-mode +1)
-  (hs-minor-mode +1)
   (rainbow-mode +1)
   (highlight-thing-mode +1)
   (flycheck-mode +1)
