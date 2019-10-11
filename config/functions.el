@@ -578,3 +578,19 @@ inserted. "
     (indent-for-tab-command))
   (indent-for-tab-command)
   )
+
+(defvar smartparens-mode-original-value)
+
+;;;###autoload
+(defun disable-sp-hippie-advice (&rest _)
+  (setq smartparens-mode-original-value smartparens-mode)
+  (setq smartparens-mode nil)
+  t) ; We should still return t.
+;; This advice could be added to other functions that usually insert
+;; balanced parens, like `try-expand-list'.
+
+;;;###autoload
+(defun reenable-sp-hippie-advice (&rest _)
+  (when (boundp 'smartparens-mode-original-value)
+    (setq smartparens-mode smartparens-mode-original-value)
+    (makunbound 'smartparens-mode-original-value)))

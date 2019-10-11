@@ -12,6 +12,7 @@
 (add-hook 'web-mode-hook #'my/web-config)
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
+(add-hook 'rjsx-mode-hook 'emmet-mode)
 (add-hook 'emmet-mode-hook (lambda () (setq-default emmet-move-cursor-between-quote t)))
 
 (add-hook 'elfeed-search-update-hook #'my/elfeed-search-add-separators)
@@ -22,4 +23,9 @@
 (add-hook 'kotlin-mode-hook #'my/kotlin-config)
 (add-hook 'eshell-exit-hook 'delete-window)
 
+(advice-add 'yas-hippie-try-expand :after-while #'disable-sp-hippie-advice)
+(advice-add 'hippie-expand :after #'reenable-sp-hippie-advice
+            ;; Set negative depth to make sure we go after
+            ;; `sp-auto-complete-advice'.
+            '((depth . -100)))
 (provide 'hooks)

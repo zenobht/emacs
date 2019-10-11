@@ -26,7 +26,6 @@
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
   (yas-global-mode +1)
   :config
-  ;; (add-to-list 'company-backends #'company-mode/backend-with-yas)
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
   )
 
@@ -40,7 +39,6 @@
   :init
   (global-company-mode)
   :config
-  (company-tng-configure-default)
   (setq
    company-idle-delay 0 ; Delay to complete
    company-dabbrev-downcase 0

@@ -7,7 +7,7 @@
  "C-a" (lambda () (interactive) (evil-paste-from-register ?.))
  "C-r" 'evil-paste-from-register
  "C-l" 'my/trimn-next-char
- "M-/" 'yas-expand
+ "M-/" 'hippie-expand
  "M-i" 'my/newline-and-indent
  )
 
@@ -20,11 +20,7 @@
  "M-d" 'evil-multiedit-match-and-next
  "M-j" 'evil-move-down
  "M-k" 'evil-move-up
- "[B" '(hs-show-all :which-key "Open all")
- "[b" '(hs-show-block :which-key "Open block")
  "[e" '(my/previous-error :which-key "Previous error")
- "]B" '(hs-hide-all :which-key "Hide all")
- "]b" '(hs-hide-block :which-key "Hide block")
  "]e" '(my/next-error :which-key "Next error")
  "gh" 'evil-ex-nohighlight
  "gs" 'my/substitute
@@ -245,8 +241,19 @@
  [escape] 'symbol-overlay-remove-all
  )
 
+(general-define-key
+ :keymaps 'company-active-map
+ "TAB" 'company-select-next
+ (kbd "<backtab>") 'company-select-previous
+ )
+
 (unless window-system
   (global-set-key (kbd "<mouse-4>") 'my/mousewheel-scroll-down)
   (global-set-key (kbd "<mouse-5>") 'my/mousewheel-scroll-up))
+
+(general-define-key
+ :keymaps 'emmet-mode-keymap
+ "C-j" nil
+ )
 
 (provide 'keybindings)

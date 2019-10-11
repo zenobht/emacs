@@ -283,12 +283,22 @@ inserts a newline between the brackets
 
 \(fn)" t nil)
 
+(autoload 'disable-sp-hippie-advice "functions" "\
+
+
+\(fn &rest _)" nil nil)
+
+(autoload 'reenable-sp-hippie-advice "functions" "\
+
+
+\(fn &rest _)" nil nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
 
 ;;;***
 
