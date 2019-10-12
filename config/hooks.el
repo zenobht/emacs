@@ -11,7 +11,7 @@
 (add-hook 'typescript-mode-hook #'my/typescript-config)
 (add-hook 'web-mode-hook #'my/web-config)
 (add-hook 'sgml-mode-hook 'emmet-mode)
-(add-hook 'css-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook #'my/css-config)
 (add-hook 'rjsx-mode-hook 'emmet-mode)
 (add-hook 'emmet-mode-hook (lambda () (setq-default emmet-move-cursor-between-quote t)))
 

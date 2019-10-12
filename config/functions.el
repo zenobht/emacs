@@ -401,6 +401,9 @@ inserted. "
     ((string-match "elfeed" (buffer-name))
       "Elfeed"
       )
+    ((string-match "magit" (buffer-name))
+      "Magit"
+      )
     ((string-equal "*" (substring (buffer-name) 0 1))
       "Emacs Buffer"
       )
@@ -594,3 +597,10 @@ inserted. "
   (when (boundp 'smartparens-mode-original-value)
     (setq smartparens-mode smartparens-mode-original-value)
     (makunbound 'smartparens-mode-original-value)))
+
+;;;###autoload
+(defun my/css-config ()
+  "inserts a newline between the brackets"
+  (emmet-mode)
+  (prettier-js-mode)
+  )
