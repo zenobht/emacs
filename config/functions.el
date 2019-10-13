@@ -602,5 +602,6 @@ inserted. "
 (defun my/css-config ()
   "inserts a newline between the brackets"
   (emmet-mode)
+  (add-node-modules-path)
   (prettier-js-mode)
   )
