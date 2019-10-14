@@ -28,4 +28,8 @@
             ;; Set negative depth to make sure we go after
             ;; `sp-auto-complete-advice'.
             '((depth . -100)))
+
+(add-hook 'evil-multiedit-state-entry-hook (lambda () (highlight-thing-mode -1)))
+(add-hook 'evil-multiedit-state-exit-hook (lambda () (highlight-thing-mode +1)))
+
 (provide 'hooks)
