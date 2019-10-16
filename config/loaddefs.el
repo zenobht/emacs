@@ -401,10 +401,9 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil nil ("hooks.el" "modes/b-eglot.el" "modes/b-elfeed.el"
-;;;;;;  "modes/b-essentials.el" "modes/b-files.el" "modes/b-ivy.el"
-;;;;;;  "modes/b-markdown.el" "modes/b-org.el" "modes/b-projectile.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
+;;;;;;  "modes/b-files.el" "modes/b-ivy.el" "modes/b-markdown.el"
+;;;;;;  "modes/b-org.el") (0 0 0 0))
 
 ;;;***
 

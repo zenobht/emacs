@@ -128,6 +128,7 @@
  :keymaps 'company-active-map
  "C-j" 'company-select-next
  "C-k" 'company-select-previous
+ "RET" nil
  )
 
 (general-define-key

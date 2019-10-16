@@ -88,6 +88,7 @@
 (use-package highlight-thing
   :config
   (setq highlight-thing-case-sensitive-p t
+        highlight-thing-delay-seconds 0.5
         highlight-thing-limit-to-region-in-large-buffers-p nil
         highlight-thing-narrow-region-lines 15
         highlight-thing-large-buffer-limit 1000
