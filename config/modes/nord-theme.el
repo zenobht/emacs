@@ -72,6 +72,12 @@
   :group 'nord
   )
 
+(defcustom nord-highlight-thing-color "#666678"
+  "Nord highlight-thing color"
+  :type 'string
+  :group 'nord
+  )
+
 (defun isTrueColor()
   (if (or (display-graphic-p) (string= TERM "xterm-24bit"))
      t
@@ -668,7 +674,7 @@
     `(hydra-face-amaranth ((,class (:foreground ,nord12 :weight bold))))
 
     ;; > Highlight-thing
-    `(highlight-thing ((,class (:background ,nord3))))
+    `(highlight-thing ((,class (:background ,nord-highlight-thing-color))))
 
     ;; > Org
     `(org-level-1 ((,class (:foreground ,nord13 :weight bold))))
