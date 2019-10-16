@@ -86,6 +86,7 @@
 
 (require 'use-package)
 (require 'b-ivy)
+(require 'b-projectile)
 (require 'b-tabbar)
 (require 'nord-theme)
 (require 'b-modeline)
