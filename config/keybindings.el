@@ -8,7 +8,7 @@
  "C-d" 'my/trimn-next-char
  "C-r" 'evil-paste-from-register
  "M-/" 'hippie-expand
- "M-i" 'my/newline-and-indent
+ "M-i" 'my/smart-open-line-above
  )
 
 (general-define-key
@@ -20,6 +20,7 @@
  "M-d" 'evil-multiedit-match-and-next
  "M-j" 'evil-move-down
  "M-k" 'evil-move-up
+ "M-r" 'evil-multiedit-match-all
  "[e" '(my/previous-error :which-key "Previous error")
  "]e" '(my/next-error :which-key "Next error")
  "gh" 'evil-ex-nohighlight
@@ -37,7 +38,7 @@
  "M-j" 'evil-move-down
  "M-k" 'evil-move-up
  "M-v" 'my/paste-from-clipboard
- "R" 'evil-multiedit-match-all
+ "M-r" 'evil-multiedit-match-all
  "gM" 'my/visual-macro
  "gs" 'my/substitute
  "v" 'er/expand-region
@@ -48,11 +49,10 @@
  "C-k" 'tabbar-forward-tab
  "M-c" 'my/copy-to-clipboard
  "M-e" 'elfeed
- "M-f" 'tabbar-forward-group
  "M-l" 'kill-this-buffer
  "M-n" 'my/new-empty-buffer
  "M-o" 'ace-window
- "M-r" 'my/last-used-buffer
+ "M-p" 'tabbar-forward-group
  "M-v" (lambda () (interactive) (message "Pasted from clipboard"))
  "M-w" 'delete-window
  "M-x" 'counsel-M-x

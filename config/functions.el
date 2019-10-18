@@ -1,9 +1,4 @@
-;;;###autoload
-(defun my/last-used-buffer ()
-  (interactive)
-  (switch-to-buffer (other-buffer))
-  )
-
+(require 'cl)
 ;;;###autoload
 (defun my/setup-indent (n)
   (setq c-basic-offset n)
@@ -604,4 +599,13 @@ inserted. "
   (emmet-mode)
   (add-node-modules-path)
   (prettier-js-mode)
+  )
+
+;;;###autoload
+(defun my/smart-open-line-above ()
+  (interactive)
+  (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode)
   )

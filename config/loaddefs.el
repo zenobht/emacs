@@ -6,11 +6,6 @@
 ;;;### (autoloads nil "functions" "functions.el" (0 0 0 0))
 ;;; Generated autoloads from functions.el
 
-(autoload 'my/last-used-buffer "functions" "\
-
-
-\(fn)" t nil)
-
 (autoload 'my/setup-indent "functions" "\
 
 
@@ -293,12 +288,22 @@ inserts a newline between the brackets
 
 \(fn &rest _)" nil nil)
 
+(autoload 'my/css-config "functions" "\
+inserts a newline between the brackets
+
+\(fn)" nil nil)
+
+(autoload 'my/smart-open-line-above "functions" "\
+
+
+\(fn)" t nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
 
 ;;;***
 
