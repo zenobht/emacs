@@ -85,15 +85,6 @@
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (require 'use-package)
-(require 'b-ivy)
-(require 'b-projectile)
-(require 'b-tabbar)
-(require 'nord-theme)
-(require 'b-modeline)
-(require 'b-essentials)
-(require 'b-files)
-(require 'b-editor)
-(require 'keybindings)
 (require 'hooks)
 
 ;; (global-auto-revert-mode 1)

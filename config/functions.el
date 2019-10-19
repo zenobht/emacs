@@ -439,13 +439,22 @@ inserted. "
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
+  (require 'b-ivy)
+  (require 'b-projectile)
+  (require 'b-tabbar)
+  (require 'nord-theme)
+  (require 'b-modeline)
+  (require 'b-essentials)
+  (require 'b-files)
+  (require 'b-editor)
+  (require 'keybindings)
+  (require 'b-org)
+  (require 'b-js)
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1
         )
   (evil-magit-init)
-  (require 'b-org)
-  (require 'b-js)
   (unless (server-running-p) (server-start))
   )
 
