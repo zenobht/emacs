@@ -52,7 +52,7 @@
  "M-l" 'kill-this-buffer
  "M-n" 'my/new-empty-buffer
  "M-o" 'ace-window
- "M-p" 'tabbar-forward-group
+ "M-t" 'tabbar-forward-group
  "M-v" (lambda () (interactive) (message "Pasted from clipboard"))
  "M-w" 'delete-window
  "M-x" 'counsel-M-x

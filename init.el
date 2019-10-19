@@ -87,9 +87,6 @@
 (require 'use-package)
 (require 'hooks)
 
-;; (global-auto-revert-mode 1)
-;; (setq auto-revert-verbose nil)
-
 (add-to-list 'auto-mode-alist '("\\.kt$" . kotlin-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(tsx\\|ts\\)\\'" . typescript-mode))

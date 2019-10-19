@@ -20,6 +20,7 @@
     counsel-projectile
     display-line-numbers
     dumb-jump
+    editorconfig
     eglot
     elfeed
     elfeed-goodies

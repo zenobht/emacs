@@ -134,4 +134,10 @@
   (smartparens-mode +1)
   )
 
+(use-package editorconfig
+  :defer t
+  :config
+  (editorconfig-mode 1)
+  )
+
 (provide 'b-editor)
