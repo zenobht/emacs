@@ -18,6 +18,7 @@
  "C-u" 'evil-scroll-up
  "M-D" 'evil-multiedit-match-and-prev
  "M-d" 'evil-multiedit-match-and-next
+ "M-i" 'my/smart-open-line-above
  "M-j" 'evil-move-down
  "M-k" 'evil-move-up
  "M-r" 'evil-multiedit-match-all
