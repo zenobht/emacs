@@ -1,4 +1,5 @@
 (require 'cl)
+
 ;;;###autoload
 (defun my/setup-indent (n)
   (setq c-basic-offset n)
@@ -17,6 +18,18 @@
 (defun my/configure ()
   (my/setup-indent 2)
   )
+
+;;;###autoload
+(defun my/clipboard-yank ()
+  "Copies selection to x-clipboard."
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (shell-command-on-region (region-beginning) (region-end) "pbcopy")
+        (call-interactively 'evil-yank)
+        (message nil)
+        )
+    ))
 
 ;;;###autoload
 (defun my/copy-to-clipboard ()

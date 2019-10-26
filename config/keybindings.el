@@ -32,6 +32,7 @@
  :states 'visual
  "<" 'my/visual-shift-left
  ">" 'my/visual-shift-right
+ "y" 'my/clipboard-yank
  "C-M-D" 'evil-multiedit-restore
  "M-D" 'evil-multiedit-match-and-prev
  "M-c" 'my/copy-to-clipboard
