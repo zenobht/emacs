@@ -450,11 +450,14 @@ inserted. "
   (require 'keybindings)
   (require 'b-org)
   (require 'b-js)
+
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1
         )
+
   (evil-magit-init)
+  (global-auto-revert-mode t)
   (unless (server-running-p) (server-start))
   )
 

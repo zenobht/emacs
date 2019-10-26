@@ -8,6 +8,7 @@
         )
   (evil-mode)
   :config
+  (evil-set-initial-state 'ivy-occur-grep-mode 'normal)
   (fset 'evil-visual-update-x-selection 'ignore)
   (with-eval-after-load 'evil-ex
     (evil-ex-define-cmd "jsf" 'my/json-format))
