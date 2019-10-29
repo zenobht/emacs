@@ -16,6 +16,11 @@
 
 \(fn)" nil nil)
 
+(autoload 'my/clipboard-yank "functions" "\
+Copies selection to x-clipboard.
+
+\(fn)" t nil)
+
 (autoload 'my/copy-to-clipboard "functions" "\
 Copies selection to x-clipboard.
 
@@ -303,7 +308,7 @@ inserts a newline between the brackets
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
 
 ;;;***
 
@@ -382,7 +387,7 @@ See `highlight-thing-mode' for more information on Highlight-thing mode.
 
 (when (and (boundp 'custom-theme-load-path) load-file-name) (add-to-list 'custom-theme-load-path (file-name-as-directory (file-name-directory load-file-name))))
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "modes/nord-theme" '("nord")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "modes/nord-theme" '(#("nord" 0 4 (face font-lock-variable-name-face fontified nil)))))
 
 ;;;***
 

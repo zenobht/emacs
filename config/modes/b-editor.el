@@ -121,6 +121,7 @@
   (whitespace-mode +1)
   (display-line-numbers-mode +1)
   (visual-line-mode -1)
+  (highlight-thing-mode +1)
   (smartparens-mode +1)
   )
 

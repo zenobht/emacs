@@ -326,7 +326,8 @@
     `(window-divider ((,class (:background ,nord3))))
     `(window-divider-first-pixel ((,class (:background ,nord3))))
     `(window-divider-last-pixel ((,class (:background ,nord3))))
-    `(line-number-current-line ((,class (:foreground ,nord9))))
+    `(line-number ((,class (:foreground ,nord-theme-inactive-color))))
+    `(line-number-current-line ((,class (:foreground ,nord13 :weight bold))))
 
     ;;;; +-----------------+
     ;;;; + Package Support +
