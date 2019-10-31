@@ -49,6 +49,7 @@
 (general-define-key
  "C-j" 'tabbar-backward-tab
  "C-k" 'tabbar-forward-tab
+ "M-a" 'mark-whole-buffer
  "M-c" 'my/copy-to-clipboard
  "M-e" 'elfeed
  "M-l" 'kill-this-buffer
