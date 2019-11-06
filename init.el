@@ -85,6 +85,18 @@
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 (require 'use-package)
+(require 'b-evil)
+(require 'b-ivy)
+(require 'b-projectile)
+(require 'b-tabbar)
+(require 'nord-theme)
+(require 'b-modeline)
+(require 'b-essentials)
+(require 'b-files)
+(require 'b-editor)
+(require 'keybindings)
+(require 'b-org)
+(require 'b-js)
 (require 'hooks)
 
 (add-to-list 'auto-mode-alist '("\\.kt$" . kotlin-mode))

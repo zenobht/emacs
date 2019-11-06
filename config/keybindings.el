@@ -225,7 +225,7 @@
  "TAB" 'org-cycle
  "C-j" 'tabbar-backward-tab
  "C-k" 'tabbar-forward-tab
- "M-g"  'hydra-org/body
+ "M-g" 'hydra-org/body
  )
 
 (defhydra hydra-org ()
