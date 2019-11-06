@@ -111,6 +111,8 @@
 (use-package evil-magit
   :defer t
   :after evil
+  :init
+  (evil-magit-init)
   :config
   (add-to-list 'magit-no-confirm 'stage-all-changes)
   (bind-key "q" #'my/magit-kill-buffers magit-status-mode-map)

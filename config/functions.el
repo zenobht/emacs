@@ -452,14 +452,11 @@ inserted. "
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
-  (evil-magit-init)
-  (global-auto-revert-mode t)
-  (unless (server-running-p) (server-start))
-
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
         gc-cons-percentage 0.1
         )
+  (unless (server-running-p) (server-start))
   )
 
 ;;;###autoload

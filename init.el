@@ -76,7 +76,7 @@
 (visual-line-mode +1)
 (xterm-mouse-mode +1)
 (pixel-scroll-mode +1)
-
+(global-auto-revert-mode t)
 (modify-syntax-entry ?_ "w")
 
 (load (concat emacs-d "loaddefs.el") nil t)
