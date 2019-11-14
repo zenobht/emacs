@@ -308,7 +308,7 @@ inserts a newline between the brackets
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '(#("hydra-org" 0 9 (fontified nil)))))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
 
 ;;;***
 
@@ -407,7 +407,7 @@ Runs prettier on file save when this mode is turned on
 ;;;### (autoloads nil "packages" "packages.el" (0 0 0 0))
 ;;; Generated autoloads from packages.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "packages" '("my/packages")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "packages" '(#("my/packages" 0 11 (face font-lock-variable-name-face fontified nil)))))
 
 ;;;***
 

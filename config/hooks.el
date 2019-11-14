@@ -24,5 +24,6 @@
             '((depth . -100)))
 (add-hook 'evil-multiedit-state-entry-hook (lambda () (highlight-thing-mode -1)))
 (add-hook 'evil-multiedit-state-exit-hook (lambda () (highlight-thing-mode +1)))
+(add-hook 'elixir-mode-hook (lambda () (require 'b-eglot)))
 
 (provide 'hooks)

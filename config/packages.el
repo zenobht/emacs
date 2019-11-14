@@ -25,6 +25,7 @@
     elfeed
     elfeed-goodies
     elfeed-org
+    elixir-mode
     emmet-mode
     esup
     evil

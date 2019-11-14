@@ -47,6 +47,11 @@
  )
 
 (general-define-key
+ :states 'motion
+ "C-e" nil
+ )
+
+(general-define-key
  "C-j" 'tabbar-backward-tab
  "C-k" 'tabbar-forward-tab
  "M-a" 'mark-whole-buffer
