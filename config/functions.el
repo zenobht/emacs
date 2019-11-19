@@ -156,6 +156,11 @@ Don't mess with special buffers."
   )
 
 ;;;###autoload
+(defun my/org-config ()
+  (require 'b-org)
+  )
+
+;;;###autoload
 (defun my/org-move-down ()
   (interactive)
   ;; in org-mode move subtree if its heading else move item
@@ -452,18 +457,7 @@ inserted. "
                     (time-subtract (current-time) start-time)))
            gcs-done)
 
-  (require 'b-evil)
-  (require 'b-ivy)
-  (require 'b-projectile)
-  (require 'b-tabbar)
-  (require 'nord-theme)
-  (require 'b-modeline)
-  (require 'b-essentials)
-  (require 'b-files)
-  (require 'b-editor)
-  (require 'keybindings)
-  (require 'b-org)
-  (require 'b-js)
+  (my/load-files)
 
   ;; set proper gc values after load
   (setq gc-cons-threshold 16777216
@@ -475,6 +469,7 @@ inserted. "
 
 ;;;###autoload
 (defun my/rjsx-config ()
+  (require 'b-js)
   (setq js2-mode-show-strict-warnings nil
         js2-mode-show-parse-errors nil)
   (add-node-modules-path)
@@ -484,6 +479,7 @@ inserted. "
 
 ;;;###autoload
 (defun my/typescript-config ()
+  (require 'b-js)
   (setq typescript-indent-level 2)
   (add-node-modules-path)
   (prettier-js-mode)
@@ -632,4 +628,52 @@ inserted. "
   (newline-and-indent)
   (forward-line -1)
   (indent-according-to-mode)
+  )
+
+;;;###autoload
+(defun my/load-files ()
+  (require 'b-evil)
+  (require 'b-ivy)
+  (require 'b-projectile)
+  (require 'b-tabbar)
+  (require 'nord-theme)
+  (require 'b-modeline)
+  (require 'b-essentials)
+  (require 'b-files)
+  (require 'b-editor)
+  (require 'keybindings)
+)
+
+;;;###autoload
+(defun my/whitespace ()
+  (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
+        show-trailing-whitespace t
+        whitespace-display-mappings
+        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+        '(
+          (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+          (newline-mark 10 [172 10]) ; LINE FEED,
+          (tab-mark 9 [9655 9] [92 9]) ; tab
+          )
+        )
+  )
+
+;;;###autoload
+(defun my/editor-text-config ()
+  (my/whitespace)
+  (whitespace-mode +1)
+  (display-line-numbers-mode +1)
+  (visual-line-mode -1)
+  (smartparens-mode +1)
+  )
+
+;;;###autoload
+(defun my/editor-prog-config ()
+  (my/whitespace)
+  (whitespace-mode +1)
+  (display-line-numbers-mode +1)
+  (rainbow-mode +1)
+  (highlight-thing-mode +1)
+  (flycheck-mode +1)
+  (smartparens-mode +1)
   )

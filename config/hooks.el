@@ -4,6 +4,7 @@
 (add-hook 'emacs-lisp-mode-hook #'my/emacs-lisp-config)
 (add-hook 'conf-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
 (add-hook 'emacs-startup-hook #'my/after-startup)
+(add-hook 'org-mode-hook #'my/org-config)
 (add-hook 'rjsx-mode-hook #'my/rjsx-config)
 (add-hook 'typescript-mode-hook #'my/typescript-config)
 (add-hook 'web-mode-hook #'my/web-config)

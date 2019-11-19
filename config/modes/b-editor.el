@@ -1,16 +1,5 @@
 (use-package whitespace
   :defer t
-  :init
-  (setq whitespace-style '(face trailing spaces tabs newline tab-mark newline-mark)
-        show-trailing-whitespace t
-        whitespace-display-mappings
-        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-        '(
-          (space-mark 32 [183] [46]) ; SPACE 32 「 」, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-          (newline-mark 10 [172 10]) ; LINE FEED,
-          (tab-mark 9 [9655 9] [92 9]) ; tab
-          )
-        )
   )
 
 (use-package dumb-jump
@@ -116,24 +105,6 @@
   :config
   (add-to-list 'magit-no-confirm 'stage-all-changes)
   (bind-key "q" #'my/magit-kill-buffers magit-status-mode-map)
-  )
-
-;;;###autoload
-(defun my/editor-text-config ()
-  (whitespace-mode +1)
-  (display-line-numbers-mode +1)
-  (visual-line-mode -1)
-  (smartparens-mode +1)
-  )
-
-;;;###autoload
-(defun my/editor-prog-config ()
-  (whitespace-mode +1)
-  (display-line-numbers-mode +1)
-  (rainbow-mode +1)
-  (highlight-thing-mode +1)
-  (flycheck-mode +1)
-  (smartparens-mode +1)
   )
 
 (use-package editorconfig

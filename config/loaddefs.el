@@ -88,6 +88,11 @@ Return a string of `window-width' length containing LEFT, and RIGHT aligned resp
 
 \(fn)" t nil)
 
+(autoload 'my/org-config "functions" "\
+
+
+\(fn)" nil nil)
+
 (autoload 'my/org-move-down "functions" "\
 
 
@@ -303,28 +308,27 @@ inserts a newline between the brackets
 
 \(fn)" t nil)
 
+(autoload 'my/load-files "functions" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'my/editor-text-config "functions" "\
+
+
+\(fn)" nil nil)
+
+(autoload 'my/editor-prog-config "functions" "\
+
+
+\(fn)" nil nil)
+
 ;;;***
 
 ;;;### (autoloads nil "keybindings" "keybindings.el" (0 0 0 0))
 ;;; Generated autoloads from keybindings.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "keybindings" '("hydra-org")))
-
-;;;***
-
-;;;### (autoloads nil "modes/b-editor" "modes/b-editor.el" (0 0 0
-;;;;;;  0))
-;;; Generated autoloads from modes/b-editor.el
-
-(autoload 'my/editor-text-config "modes/b-editor" "\
-
-
-\(fn)" nil nil)
-
-(autoload 'my/editor-prog-config "modes/b-editor" "\
-
-
-\(fn)" nil nil)
 
 ;;;***
 
@@ -411,9 +415,9 @@ Runs prettier on file save when this mode is turned on
 
 ;;;***
 
-;;;### (autoloads nil nil ("hooks.el" "modes/b-elfeed.el" "modes/b-essentials.el"
-;;;;;;  "modes/b-files.el" "modes/b-ivy.el" "modes/b-markdown.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("hooks.el" "modes/b-editor.el" "modes/b-elfeed.el"
+;;;;;;  "modes/b-essentials.el" "modes/b-files.el" "modes/b-ivy.el"
+;;;;;;  "modes/b-markdown.el") (0 0 0 0))
 
 ;;;***
 
