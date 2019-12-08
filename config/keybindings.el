@@ -5,10 +5,11 @@
 (general-define-key
  :states 'insert
  "C-a" (lambda () (interactive) (evil-paste-from-register ?.))
- "C-d" 'my/trimn-next-char
+ "C-d" 'my/trim-next-char
  "C-r" 'evil-paste-from-register
  "M-/" 'hippie-expand
  "M-i" 'my/smart-open-line-above
+ "M-p" 'my/smart-open-line-below
  )
 
 (general-define-key
@@ -17,7 +18,7 @@
  "C-o" 'evil-jump-backward
  "C-u" 'evil-scroll-up
  "M-D" 'evil-multiedit-match-and-prev
- "M-d" 'evil-multiedit-match-and-next
+ "M-:" 'evil-multiedit-match-and-next
  "M-i" 'my/smart-open-line-above
  "M-j" 'evil-move-down
  "M-k" 'evil-move-up

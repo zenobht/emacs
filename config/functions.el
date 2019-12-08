@@ -338,7 +338,7 @@ inserted. "
 
 ;; delete single quote where required
 ;;;###autoload
-(defun my/trimn-next-char ()
+(defun my/trim-next-char ()
   (interactive)
   (delete-char 1)
   )
@@ -625,6 +625,16 @@ inserted. "
 (defun my/smart-open-line-above ()
   (interactive)
   (move-beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode)
+  )
+
+;;;###autoload
+(defun my/smart-open-line-below ()
+  (interactive)
+  (move-beginning-of-line nil)
+  (forward-line 1)
   (newline-and-indent)
   (forward-line -1)
   (indent-according-to-mode)
